@@ -123,7 +123,7 @@ export default function Team() {
               {t.team.partners.description}
             </p>
 
-            {/* Partner Logos */}
+            {/* Partner Logos  */}
             <div className="flex flex-wrap justify-center items-center gap-10">
               <a href="https://www.fintra.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
                 <img 
