@@ -14,22 +14,15 @@ export default function Story() {
     <section className="lg:py-15 py-9 bg-gray">
       <div className="container mx-auto">
         <div className="flex lg:flex-row flex-col justify-between items-center gap-12">
-          {/* Left - Image Placeholder */}
+          {/* Left - Image */}
           <div className="lg:w-1/2 w-full order-1 lg:order-0">
             <SlideUp>
-              <div className="bg-gradient-to-br from-accent to-background rounded-[30px] aspect-square max-w-[554px] mx-auto flex items-center justify-center relative overflow-hidden">
-                {/* Decorative circles */}
-                <div className="absolute top-10 left-10 w-20 h-20 bg-primary/10 rounded-full" />
-                <div className="absolute bottom-20 right-10 w-32 h-32 bg-green/10 rounded-full" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-purple/10 rounded-full" />
-                
-                <div className="text-center z-10">
-                  <div className="w-24 h-24 bg-primary/20 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-                    <span className="text-4xl">🤖</span>
-                  </div>
-                  <p className="text-muted-foreground font-semibold">{t.story.screenshot}</p>
-                  <span className="text-foreground text-sm">{t.story.placeholder}</span>
-                </div>
+              <div className="rounded-[30px] aspect-square max-w-[554px] mx-auto overflow-hidden">
+                <img 
+                  src="/images/image_swiss_location.jpg" 
+                  alt="Swiss Innovation" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </SlideUp>
           </div>

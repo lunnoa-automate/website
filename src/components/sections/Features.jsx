@@ -40,20 +40,13 @@ export default function Features() {
             return (
               <SlideUp key={key} delay={index * 0.1}>
                 <div className="bg-gray rounded-[30px] p-8 lg:p-10 group hover:shadow-3xl transition-all duration-500">
-                  {/* Feature Image Placeholder */}
-                  <div className="bg-gradient-to-br from-accent to-background rounded-2.5xl aspect-video mb-8 flex items-center justify-center relative overflow-hidden">
-                    <div 
-                      className="absolute inset-0 opacity-20"
-                      style={{
-                        backgroundImage: `linear-gradient(rgba(46, 77, 254, 0.1) 1px, transparent 1px),
-                                          linear-gradient(90deg, rgba(46, 77, 254, 0.1) 1px, transparent 1px)`,
-                        backgroundSize: '20px 20px'
-                      }}
+                  {/* Feature Image */}
+                  <div className="rounded-2.5xl aspect-video mb-8 overflow-hidden">
+                    <img 
+                      src="/images/automatisierte_workflows.avif" 
+                      alt={item.title}
+                      className="w-full h-full object-cover"
                     />
-                    <div className="text-center z-10">
-                      <Icon size={48} className={`mx-auto mb-2 ${featureColors[index].split(' ')[0]}`} />
-                      <p className="text-muted-foreground font-medium">{t.features.featureScreenshot}</p>
-                    </div>
                   </div>
 
                   {/* Content */}
