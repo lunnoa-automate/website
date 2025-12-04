@@ -124,19 +124,19 @@ export default function Team() {
             </p>
 
             {/* Partner Logos */}
-            <div className="flex flex-wrap justify-center items-center gap-12">
+            <div className="flex flex-wrap justify-center items-center gap-10">
               <a href="https://www.fintra.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
                 <img 
                   src="/images/partner/fintra_logo.png" 
                   alt="Fintra" 
-                  className="h-16 w-auto object-contain"
+                  className="h-8 w-auto object-contain"
                 />
               </a>
               <a href="https://www.elab.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
                 <img 
                   src="/images/partner/elab_logo_red.png" 
                   alt="eLab" 
-                  className="h-16 w-auto object-contain"
+                  className="h-8 w-auto object-contain"
                 />
               </a>
             </div>
