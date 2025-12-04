@@ -123,16 +123,22 @@ export default function Team() {
               {t.team.partners.description}
             </p>
 
-            {/* Partner Logo Placeholders */}
-            <div className="flex flex-wrap justify-center gap-6">
-              {[1, 2, 3, 4].map((i) => (
-                <div 
-                  key={i}
-                  className="w-[160px] h-[70px] bg-accent rounded-2xl flex items-center justify-center border-2 border-dashed border-accent"
-                >
-                  <span className="text-foreground text-sm">{t.team.partners.partnerLogo} {i}</span>
-                </div>
-              ))}
+            {/* Partner Logos */}
+            <div className="flex flex-wrap justify-center items-center gap-12">
+              <a href="https://www.fintra.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                <img 
+                  src="/images/partner/fintra_logo.png" 
+                  alt="Fintra" 
+                  className="h-16 w-auto object-contain"
+                />
+              </a>
+              <a href="https://www.elab.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                <img 
+                  src="/images/partner/elab_logo_red.png" 
+                  alt="eLab" 
+                  className="h-16 w-auto object-contain"
+                />
+              </a>
             </div>
           </div>
         </SlideUp>
