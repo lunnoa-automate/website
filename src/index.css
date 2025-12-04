@@ -11,24 +11,24 @@ html {
     --background: #fff;
     --foreground: #5C6671;
 
-    --primary: #2E4DFE;
-    --primary-foreground: #2E4DFE;
+    --primary: #3b82f6;
+    --primary-foreground: #3b82f6;
 
-    --secondary: #6495ED;
+    --secondary: #60a5fa;
     --secondary-foreground: #fff;
 
-    --muted: #001F3F;
-    --muted-foreground: #001F3F;
+    --muted: #374151;
+    --muted-foreground: #374151;
 
-    --accent: #E2E7FF;
-    --accent-foreground: #001F3F;
+    --accent: #eff6ff;
+    --accent-foreground: #374151;
 
     --green: #32A552;
     --purple: #A22EFE;
     --red: #FE2E2E;
 
-    --background-linear: linear-gradient(180deg, #fff 0%, rgba(226, 231, 255, 0.3) 100%);
-    --gray: rgba(46, 77, 254, 0.05);
+    --background-linear: linear-gradient(180deg, #fff 0%, rgba(239, 246, 255, 0.3) 100%);
+    --gray: rgba(59, 130, 246, 0.05);
 
     --border: #e5e7eb;
   }
@@ -37,17 +37,17 @@ html {
     --background: #191F25;
     --foreground: #717A83;
 
-    --primary: #2E4DFE;
-    --primary-foreground: #2E4DFE;
+    --primary: #3b82f6;
+    --primary-foreground: #3b82f6;
 
-    --secondary: #6495ED;
+    --secondary: #60a5fa;
     --secondary-foreground: #000;
 
-    --muted: #E2E7FF;
+    --muted: #eff6ff;
     --muted-foreground: rgb(202, 212, 225);
 
     --accent: #202932;
-    --accent-foreground: #E2E7FF;
+    --accent-foreground: #eff6ff;
 
     --green: #32A552;
     --purple: #A22EFE;
