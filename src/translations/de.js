@@ -220,11 +220,11 @@ export const de = {
     members: {
       sasa: {
         name: 'Saša Kelebuda',
-        role: 'Founder & Inhaber',
+        role: 'Founder & Developer',
       },
       alessandro: {
         name: 'Alessandro Di Vito',
-        role: 'Managing Consultant, elaboratum',
+        role: 'Partner & Automation Expert',
       },
     },
     partners: {
