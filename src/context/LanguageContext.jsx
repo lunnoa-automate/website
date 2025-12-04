@@ -4,13 +4,12 @@ const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
   const [language, setLanguage] = useState(() => {
-    // Check localStorage or browser language
+    // Check localStorage first
     const saved = localStorage.getItem('language');
     if (saved) return saved;
     
-    // Default to German, but check browser language
-    const browserLang = navigator.language.split('-')[0];
-    return browserLang === 'en' ? 'en' : 'de';
+    // Default to German
+    return 'de';
   });
 
   useEffect(() => {
