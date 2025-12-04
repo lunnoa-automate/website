@@ -43,7 +43,7 @@ export default function Header() {
             <img 
               src="/images/lunnoa_automate_Logo.png" 
               alt="Lunnoa Automate" 
-              className="h-10 w-auto"
+              className="h-14 w-auto"
             />
           </a>
 
