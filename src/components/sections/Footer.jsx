@@ -36,21 +36,6 @@ export default function Footer() {
         <div className="grid xl:grid-cols-[auto_65%] lg:grid-cols-[auto_60%] grid-cols-1 gap-x-7 justify-between">
           {/* Brand Column */}
           <div>
-            <div className="pb-8">
-              {/* Logo */}
-              <a href="#/" className="flex items-center">
-                <img 
-                  src="/images/lunnoa_automate_Logo.png" 
-                  alt="Lunnoa Automate" 
-                  className="h-14 w-auto"
-                />
-              </a>
-            </div>
-            
-            <p className="pb-6 text-foreground max-w-[300px]">
-              {t.footer.description}
-            </p>
-
             {/* Address */}
             <div className="flex items-start gap-3 text-foreground mb-8">
               <MapPin size={20} className="text-primary shrink-0 mt-1" />
