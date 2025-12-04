@@ -66,7 +66,7 @@ export default function Header() {
           {/* Desktop CTA + Language */}
           <div className="hidden xl:flex items-center gap-4">
             <LanguageSelector />
-            <Button size="lg" asChild>
+            <Button size="sm" asChild>
               <a href="https://calendly.com/sasakelebuda-lunnoalabs/45min" target="_blank" rel="noopener noreferrer">{t.nav.freeDemo}</a>
             </Button>
           </div>
