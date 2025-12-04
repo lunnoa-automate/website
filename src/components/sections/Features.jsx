@@ -8,6 +8,12 @@ import { useTranslation } from '../../translations';
 
 const featureIcons = [Bot, Workflow, Users, Database];
 const featureKeys = ['aiAgents', 'workflows', 'workspace', 'knowledgeBase'];
+const featureImages = [
+  '/images/ai_agents.avif',
+  '/images/automatisierte_workflows.avif',
+  '/images/workplace_management.avif',
+  '/images/zentrale_knowledgebase.avif',
+];
 const featureColors = [
   'text-primary bg-[rgba(46,77,254,0.10)]',
   'text-green bg-[#32A5521A]',
@@ -41,9 +47,9 @@ export default function Features() {
               <SlideUp key={key} delay={index * 0.1}>
                 <div className="bg-gray rounded-[30px] p-8 lg:p-10 group hover:shadow-3xl transition-all duration-500">
                   {/* Feature Image */}
-                  <div className="rounded-2.5xl aspect-video mb-8 overflow-hidden">
+                  <div className="rounded-2.5xl aspect-[4/3] mb-8 overflow-hidden">
                     <img 
-                      src="/images/automatisierte_workflows.avif" 
+                      src={featureImages[index]} 
                       alt={item.title}
                       className="w-full h-full object-cover"
                     />
