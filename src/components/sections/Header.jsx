@@ -39,11 +39,12 @@ export default function Header() {
         <div className="border-t border-accent" />
         <div className="flex justify-between items-center py-5">
           {/* Logo */}
-          <a href="#/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-extrabold text-xl">L</span>
-            </div>
-            <span className="font-extrabold text-2xl text-muted-foreground">Lunnoa</span>
+          <a href="#/" className="flex items-center">
+            <img 
+              src="/images/lunnoa_automate_Logo.png" 
+              alt="Lunnoa Automate" 
+              className="h-10 w-auto"
+            />
           </a>
 
           {/* Desktop Navigation */}
