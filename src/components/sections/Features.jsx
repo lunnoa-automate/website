@@ -47,11 +47,11 @@ export default function Features() {
               <SlideUp key={key} delay={index * 0.1}>
                 <div className="bg-gray rounded-[30px] p-8 lg:p-10 group hover:shadow-3xl transition-all duration-500">
                   {/* Feature Image */}
-                  <div className="rounded-2.5xl aspect-square mb-8 overflow-hidden">
+                  <div className="aspect-[4/3] mb-8 flex items-center justify-center">
                     <img 
                       src={featureImages[index]} 
                       alt={item.title}
-                      className="w-full h-full object-cover"
+                      className="max-w-full max-h-full object-contain rounded-2.5xl"
                     />
                   </div>
 
