@@ -19,8 +19,19 @@ $tempDir = "..\website-deploy-temp"
 Remove-Item -Path $tempDir -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 
-# Copy dist contents to temp
+# Copy dist contents to temp (Vite copies public/* to dist/ during build)
 Copy-Item -Path "dist\*" -Destination $tempDir -Recurse -Force
+
+# Also ensure public assets are copied (images, videos, etc.)
+if (Test-Path "public\images") {
+    Copy-Item -Path "public\images" -Destination "$tempDir\images" -Recurse -Force
+}
+if (Test-Path "public\videos") {
+    Copy-Item -Path "public\videos" -Destination "$tempDir\videos" -Recurse -Force
+}
+if (Test-Path "public\lunnoa_automate_Logo.png") {
+    Copy-Item -Path "public\lunnoa_automate_Logo.png" -Destination "$tempDir\" -Force
+}
 
 # Switch to deploy branch
 Write-Host "🔀 Switching to deploy branch..." -ForegroundColor Cyan
