@@ -20,7 +20,7 @@ export default function Footer() {
       { label: t.footer.privacy, href: '#/datenschutz' },
     ],
     contact: [
-      { label: t.footer.requestDemo, href: '#demo' },
+      { label: t.footer.requestDemo, href: 'https://calendly.com/sasakelebuda-lunnoalabs/45min' },
       { label: 'sasakelebuda@lunnoalabs.ch', href: 'mailto:sasakelebuda@lunnoalabs.ch' },
     ],
   };

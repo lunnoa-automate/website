@@ -66,7 +66,7 @@ export default function Header() {
           <div className="hidden xl:flex items-center gap-4">
             <LanguageSelector />
             <Button size="lg" asChild>
-              <a href="#demo">{t.nav.freeDemo}</a>
+              <a href="https://calendly.com/sasakelebuda-lunnoalabs/45min" target="_blank" rel="noopener noreferrer">{t.nav.freeDemo}</a>
             </Button>
           </div>
 
@@ -106,7 +106,7 @@ export default function Header() {
             ))}
             <li className="pt-4">
               <Button size="lg" className="w-full" asChild>
-                <a href="#demo">{t.nav.freeDemo}</a>
+                <a href="https://calendly.com/sasakelebuda-lunnoalabs/45min" target="_blank" rel="noopener noreferrer">{t.nav.freeDemo}</a>
               </Button>
             </li>
           </ul>

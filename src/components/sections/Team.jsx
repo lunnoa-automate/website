@@ -7,7 +7,7 @@ import { useTranslation } from '../../translations';
 
 const teamData = [
   { key: 'sasa', initials: 'SK', image: '/images/team/sasa_kelebuda.jpg' },
-  { key: 'alessandro', initials: 'AD', image: null },
+  { key: 'alessandro', initials: 'AD', image: '/images/team/Alessandro_Di_Vito.jpg' },
 ];
 
 export default function Team() {

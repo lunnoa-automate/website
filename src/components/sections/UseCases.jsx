@@ -81,7 +81,7 @@ export default function UseCases() {
               {t.useCases.cta.text}
             </p>
             <Button size="lg">
-              <a href="#demo" className="flex items-center gap-2">
+              <a href="https://calendly.com/sasakelebuda-lunnoalabs/45min" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                 {t.useCases.cta.button}
                 <ArrowRight size={18} />
               </a>

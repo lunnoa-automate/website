@@ -45,7 +45,7 @@ export default function CTA() {
             {/* Right - CTA Button */}
             <div className="relative flex items-center justify-between">
               <Button size="xl" className="group">
-                <a href="mailto:sasakelebuda@lunnoalabs.ch" className="flex items-center gap-2">
+                <a href="https://calendly.com/sasakelebuda-lunnoalabs/45min" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                   {t.cta.button}
                   <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
                 </a>
