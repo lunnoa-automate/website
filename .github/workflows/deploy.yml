@@ -33,14 +33,15 @@ jobs:
 
       - name: Create .htaccess for SPA routing
         run: |
-          cat > dist/.htaccess << 'EOF'
-          RewriteEngine On
-          RewriteBase /
-          RewriteRule ^index\.html$ - [L]
-          RewriteCond %{REQUEST_FILENAME} !-f
-          RewriteCond %{REQUEST_FILENAME} !-d
-          RewriteRule . /index.html [L]
-          EOF
+          echo 'RewriteEngine On' > dist/.htaccess
+          echo 'RewriteBase /' >> dist/.htaccess
+          echo 'RewriteRule ^index\.html$ - [L]' >> dist/.htaccess
+          echo 'RewriteCond %{REQUEST_FILENAME} !-f' >> dist/.htaccess
+          echo 'RewriteCond %{REQUEST_FILENAME} !-d' >> dist/.htaccess
+          echo 'RewriteRule . /index.html [L]' >> dist/.htaccess
+
+      - name: List dist contents
+        run: ls -la dist/
 
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -49,6 +50,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: ./public_html/
+          server-dir: /public_html/
           dangerous-clean-slate: true
 
