@@ -4,6 +4,7 @@ export const de = {
     benefits: 'Vorteile',
     useCases: 'Use Cases',
     features: 'Features',
+    integrations: 'Integrationen',
     team: 'Team',
     faq: 'FAQ',
     freeDemo: 'Kostenlose Demo',
@@ -312,6 +313,26 @@ export const de = {
     title: 'Datenschutzerklärung',
     date: 'Zuletzt Aktualisiert: 26. Dezember 2024',
     backToHome: 'Zurück zur Startseite',
+  },
+
+  // Integrations Page
+  integrations: {
+    title: 'Alle Integrationen',
+    subtitle: 'Verbinden Sie Lunnoa Automate mit den Tools, die Sie bereits verwenden. Unsere umfangreiche Bibliothek von Integrationen ermöglicht nahtlose Automatisierung über Ihren gesamten Tech-Stack.',
+    backToHome: 'Zurück zur Startseite',
+    searchPlaceholder: 'Integrationen suchen...',
+    noResults: 'Keine Integrationen gefunden',
+    tryDifferent: 'Versuchen Sie einen anderen Suchbegriff oder eine andere Kategorie.',
+    stats: {
+      integrations: 'Integrationen',
+      possibilities: 'Möglichkeiten',
+      codeRequired: 'Code erforderlich',
+    },
+    cta: {
+      title: 'Sie benötigen eine individuelle Integration?',
+      subtitle: 'Finden Sie die gewünschte Integration nicht? Wir entwickeln sie für Sie. Unser Team ist auf die Erstellung massgeschneiderter Konnektoren für jedes System spezialisiert.',
+      button: 'Kontaktieren Sie uns',
+    },
   },
 };
 

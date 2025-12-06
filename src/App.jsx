@@ -11,6 +11,7 @@ import CTA from './components/sections/CTA';
 import Footer from './components/sections/Footer';
 import Impressum from './components/pages/Impressum';
 import Datenschutz from './components/pages/Datenschutz';
+import Integrations from './components/pages/Integrations';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -24,6 +25,9 @@ function App() {
         window.scrollTo(0, 0);
       } else if (hash === '#/datenschutz' || hash === '#/datenschutzerklaerung') {
         setCurrentPage('datenschutz');
+        window.scrollTo(0, 0);
+      } else if (hash === '#/integrations' || hash === '#/integrationen') {
+        setCurrentPage('integrations');
         window.scrollTo(0, 0);
       } else {
         setCurrentPage('home');
@@ -54,6 +58,16 @@ function App() {
       <>
         <Header />
         <Datenschutz />
+        <Footer />
+      </>
+    );
+  }
+
+  if (currentPage === 'integrations') {
+    return (
+      <>
+        <Header />
+        <Integrations />
         <Footer />
       </>
     );

@@ -4,6 +4,7 @@ export const en = {
     benefits: 'Benefits',
     useCases: 'Use Cases',
     features: 'Features',
+    integrations: 'Integrations',
     team: 'Team',
     faq: 'FAQ',
     freeDemo: 'Free Demo',
@@ -312,6 +313,26 @@ export const en = {
     title: 'Privacy Policy',
     date: 'Last Updated: December 26, 2024',
     backToHome: 'Back to Home',
+  },
+
+  // Integrations Page
+  integrations: {
+    title: 'All Integrations',
+    subtitle: 'Connect Lunnoa Automate with the tools you already use. Our extensive library of integrations enables seamless automation across your entire tech stack.',
+    backToHome: 'Back to Home',
+    searchPlaceholder: 'Search integrations...',
+    noResults: 'No integrations found',
+    tryDifferent: 'Try a different search term or category.',
+    stats: {
+      integrations: 'Integrations',
+      possibilities: 'Possibilities',
+      codeRequired: 'Code Required',
+    },
+    cta: {
+      title: 'Need a custom integration?',
+      subtitle: 'Can\'t find the integration you need? We\'ll build it for you. Our team specializes in creating custom connectors for any system.',
+      button: 'Contact Us',
+    },
   },
 };
 

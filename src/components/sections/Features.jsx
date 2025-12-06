@@ -87,7 +87,7 @@ export default function Features() {
               </p>
             </div>
             <Button variant="outline" size="lg" className="group shrink-0">
-              <a href="https://calendly.com/sasakelebuda-lunnoalabs/45min" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              <a href="#/integrations" className="flex items-center gap-2">
                 {t.features.integrations.cta}
                 <ArrowRight className="-rotate-45 group-hover:rotate-0 transition-transform" size={18} />
               </a>

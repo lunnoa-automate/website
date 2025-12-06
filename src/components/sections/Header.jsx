@@ -16,6 +16,7 @@ export default function Header() {
     { label: t.nav.benefits, href: '#vorteile' },
     { label: t.nav.useCases, href: '#use-cases' },
     { label: t.nav.features, href: '#features' },
+    { label: t.nav.integrations, href: '#/integrations' },
     { label: t.nav.team, href: '#team' },
     { label: t.nav.faq, href: '#faq' },
   ];
