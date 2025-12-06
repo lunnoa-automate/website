@@ -45,6 +45,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: /domains/mediumseagreen-hedgehog-423171.hostingersite.com/public_html/
+          server-dir: /domains/lunnoaautomate.ch/public_html/
           dangerous-clean-slate: true
 
