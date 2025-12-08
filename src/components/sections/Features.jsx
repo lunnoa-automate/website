@@ -48,8 +48,8 @@ export default function Features() {
                 <div className="bg-gray rounded-[30px] p-8 lg:p-10 group hover:shadow-3xl transition-all duration-500">
                   {/* Feature Image */}
                   <div className="aspect-[4/3] mb-8 flex items-center justify-center">
-                    <img 
-                      src={featureImages[index]} 
+                    <img
+                      src={featureImages[index]}
                       alt={item.title}
                       className="max-w-full max-h-full object-contain rounded-2.5xl"
                     />
@@ -80,7 +80,7 @@ export default function Features() {
           <div className="mt-16 rounded-[30px] bg-accent p-8 lg:p-12 flex lg:flex-row flex-col justify-between lg:items-center gap-8">
             <div>
               <Title size="4xl">
-                <span className="text-primary-foreground">58+</span> {t.features.integrations.title}
+                <span className="text-primary-foreground">60+</span> {t.features.integrations.title}
               </Title>
               <p className="font-semibold text-foreground mt-2">
                 {t.features.integrations.subtitle} <strong className="text-muted-foreground">{t.features.integrations.noProblem}</strong>

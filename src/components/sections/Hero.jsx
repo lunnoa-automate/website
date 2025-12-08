@@ -10,7 +10,7 @@ export default function Hero() {
   const t = useTranslation(language);
 
   const stats = [
-    { value: '58+', label: t.hero.integrations },
+    { value: '60+', label: t.hero.integrations },
     { value: '100%', label: t.hero.swissMade },
   ];
 
