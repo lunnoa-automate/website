@@ -32,8 +32,14 @@ jobs:
 
       - name: Create .htaccess for SPA routing
         run: |
-          echo 'DirectoryIndex index.html' > dist/.htaccess
-          echo 'ErrorDocument 404 /index.html' >> dist/.htaccess
+          printf '%s\n' \
+            'RewriteEngine On' \
+            'RewriteBase /' \
+            'RewriteRule ^index\.html$ - [L]' \
+            'RewriteCond %{REQUEST_FILENAME} !-f' \
+            'RewriteCond %{REQUEST_FILENAME} !-d' \
+            'RewriteRule . /index.html [L]' \
+            > dist/.htaccess
 
       - name: List dist contents
         run: ls -la dist/
