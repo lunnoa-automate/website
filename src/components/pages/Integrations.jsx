@@ -8,7 +8,7 @@ import { useTranslation } from '../../translations';
 // All available integrations with their details
 const integrations = [
   // AI & LLM
-  { id: 'openai', name: 'OpenAI', category: 'ai', logoUrl: 'https://lecca-io.s3.us-east-2.amazonaws.com/assets/apps/openai.svg', description: { en: 'Powerful AI model provider for generating human-like text and images.', de: 'Leistungsstarker KI-Modellanbieter für menschenähnliche Texte und Bilder.' } },
+  { id: 'openai', name: 'OpenAI Integration', category: 'ai', logoUrl: 'https://lecca-io.s3.us-east-2.amazonaws.com/assets/apps/openai.svg', description: { en: 'Powerful AI model provider for generating human-like text and images.', de: 'Leistungsstarker KI-Modellanbieter für menschenähnliche Texte und Bilder.' } },
   { id: 'anthropic', name: 'Anthropic Claude', category: 'ai', logoUrl: 'https://lecca-io.s3.us-east-2.amazonaws.com/assets/apps/anthropic.svg', description: { en: 'Advanced AI model Claude for human-like text generation.', de: 'Fortschrittliches KI-Modell Claude für menschenähnliche Textgenerierung.' } },
   { id: 'gemini', name: 'Google Gemini', category: 'ai', logoUrl: 'https://lecca-io.s3.us-east-2.amazonaws.com/assets/apps/gemini.svg', description: { en: 'Google\'s powerful AI models for text generation.', de: 'Googles leistungsstarke KI-Modelle für Textgenerierung.' } },
   { id: 'deepseek', name: 'DeepSeek', category: 'ai', logoUrl: 'https://lecca-io.s3.us-east-2.amazonaws.com/assets/apps/deepseek.svg', description: { en: 'Open source Large Language Models.', de: 'Open-Source Large Language Models.' } },
