@@ -67,7 +67,7 @@ export const en = {
     label: 'Our Story',
     title: 'AI Automation for Swiss Companies',
     description1: 'Lunnoa Automate was developed to simplify the complexity of AI implementations and enable companies to unlock the full potential of AI.',
-    description2: 'We understand the challenges of regulated industries like Finance, Legal, and Insurance - and have created a solution that combines compliance with innovation.',
+    description2: 'the challenges of regulated industries like Finance, Legal, and Insurance - and have created a solution that combines compliance with innovation.',
     weUnderstand: 'We understand',
     trustedBy: 'Trusted by',
     leadingCompanies: 'leading companies',

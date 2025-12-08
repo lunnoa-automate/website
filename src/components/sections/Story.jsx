@@ -1,4 +1,4 @@
-import { ArrowRight, Star } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Title } from '../ui/Title';
 import { SectionLabel } from '../ui/SectionLabel';
 import { Button } from '../ui/Button';
@@ -41,30 +41,6 @@ export default function Story() {
                 <p className="font-semibold pt-7.5">
                   <strong>{t.story.weUnderstand}</strong> {t.story.description2}
                 </p>
-              </div>
-
-              {/* Stats Row */}
-              <div className="flex items-center gap-5 pt-8">
-                <div className="flex -space-x-3">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div 
-                      key={i}
-                      className="w-12 h-12 rounded-full bg-accent border-2 border-white flex items-center justify-center text-primary font-bold"
-                    >
-                      {i}
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <div className="flex gap-1 text-yellow-400">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <Star key={i} size={16} fill="currentColor" />
-                    ))}
-                  </div>
-                  <p className="font-semibold text-foreground">
-                    {t.story.trustedBy} <span className="text-primary-foreground">{t.story.leadingCompanies}</span>
-                  </p>
-                </div>
               </div>
 
               <div className="pt-8">
