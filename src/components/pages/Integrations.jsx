@@ -133,11 +133,11 @@ export default function Integrations() {
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
-        
+
         <div className="container mx-auto relative py-20 lg:py-32">
           <SlideUp>
-            <a 
-              href="#/" 
+            <a
+              href="#/"
               className="inline-flex items-center gap-2 text-primary font-semibold mb-8 hover:gap-3 transition-all"
             >
               <ArrowLeft size={18} />
@@ -150,11 +150,11 @@ export default function Integrations() {
             <p className="text-xl text-foreground mt-6 max-w-2xl leading-relaxed">
               {t.integrations.subtitle}
             </p>
-            
+
             {/* Stats */}
             <div className="flex flex-wrap gap-8 mt-10">
               <div className="bg-white/80 dark:bg-accent/80 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-sm">
-                <span className="text-4xl font-extrabold text-primary">{integrations.length}+</span>
+                <span className="text-4xl font-extrabold text-primary">60+</span>
                 <p className="text-sm text-foreground font-medium mt-1">{t.integrations.stats.integrations}</p>
               </div>
               <div className="bg-white/80 dark:bg-accent/80 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-sm">
@@ -185,18 +185,17 @@ export default function Integrations() {
                 className="w-full pl-12 pr-4 py-3 rounded-full bg-gray border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-muted-foreground"
               />
             </div>
-            
+
             {/* Category Pills */}
             <div className="flex flex-wrap gap-2 lg:gap-3">
               {categories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => setActiveCategory(category.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                    activeCategory === category.id
+                  className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${activeCategory === category.id
                       ? 'bg-primary text-white shadow-lg shadow-primary/25'
                       : 'bg-gray text-foreground hover:bg-accent hover:text-muted-foreground'
-                  }`}
+                    }`}
                 >
                   {category.label[language]}
                 </button>
