@@ -12,7 +12,7 @@ export default function Datenschutz() {
     intro1: 'Lunnoa Labs ("we", "us" or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose and protect information when you visit our website or use our AI agent services.',
     intro2: 'We use your data to provide and improve the Service. By using the Service, you agree to the collection and use of information in accordance with this policy.',
     section1: {
-      title: '1. What Data We Collect',
+      title: '1. What Data We Collect ',
       sub1: '1.1 Information You Provide',
       sub1Desc: 'We may collect information that you voluntarily provide to us, including:',
       sub1Items: ['Name and contact information', 'Account credentials', 'Company information', 'Communication preferences'],
