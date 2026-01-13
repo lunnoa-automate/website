@@ -96,7 +96,7 @@ export default function ReleaseNotes() {
 
       {/* Release Notes List */}
       <div className="container mx-auto py-16 lg:py-20">
-        <div className="max-w-4xl">
+        <div className="max-w-4xl mx-auto">
           {loading ? (
             <div className="flex items-center justify-center py-20">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
@@ -190,7 +190,7 @@ export default function ReleaseNotes() {
       {/* CTA Section */}
       <div className="container mx-auto pb-20">
         <SlideUp>
-          <div className="max-w-4xl bg-gradient-to-r from-primary/5 to-primary/10 rounded-2xl p-8 lg:p-12">
+          <div className="max-w-4xl mx-auto bg-gradient-to-r from-primary/5 to-primary/10 rounded-2xl p-8 lg:p-12">
             <h3 className="text-2xl font-bold text-muted-foreground mb-3">
               {t.releaseNotes?.ctaTitle || 'Want to see these features in action?'}
             </h3>
