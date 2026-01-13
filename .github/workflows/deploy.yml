@@ -29,6 +29,7 @@ jobs:
         run: |
           cp -r public/images dist/ 2>/dev/null || true
           cp -r public/videos dist/ 2>/dev/null || true
+          cp -r public/releases dist/ 2>/dev/null || true
 
       - name: Create .htaccess for SPA routing
         run: |

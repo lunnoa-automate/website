@@ -15,6 +15,10 @@ export default function Footer() {
       { label: t.nav.team, href: '#team' },
       { label: t.nav.faq, href: '#faq' },
     ],
+    product: [
+      { label: t.nav.integrations, href: '#/integrations' },
+      { label: t.footer.releaseNotes || 'Release Notes', href: '#/release-notes' },
+    ],
     legal: [
       { label: t.footer.impressum, href: '#/impressum' },
       { label: t.footer.privacy, href: '#/datenschutz' },
@@ -65,12 +69,29 @@ export default function Footer() {
           </div>
 
           {/* Links Columns */}
-          <div className="grid sm:grid-cols-3 grid-cols-2 gap-8 mt-10 lg:mt-0">
+          <div className="grid sm:grid-cols-4 grid-cols-2 gap-8 mt-10 lg:mt-0">
             {/* Navigation */}
             <div>
               <h5 className="font-extrabold text-muted-foreground mb-6">{t.footer.navigation}</h5>
               <ul className="space-y-3">
                 {footerLinks.navigation.map((link) => (
+                  <li key={link.href}>
+                    <a 
+                      href={link.href}
+                      className="text-foreground hover:text-primary-foreground transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Product */}
+            <div>
+              <h5 className="font-extrabold text-muted-foreground mb-6">{t.footer.product || 'Product'}</h5>
+              <ul className="space-y-3">
+                {footerLinks.product.map((link) => (
                   <li key={link.href}>
                     <a 
                       href={link.href}

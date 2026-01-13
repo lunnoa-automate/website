@@ -280,10 +280,12 @@ export const en = {
   footer: {
     description: 'With Lunnoa Automate, empower your teams to work with their own AI agents and optimize their workflow for greater value creation.',
     navigation: 'Navigation',
+    product: 'Product',
     legal: 'Legal',
     contact: 'Contact',
     impressum: 'Imprint',
     privacy: 'Privacy Policy',
+    releaseNotes: 'Release Notes',
     requestDemo: 'Request Demo',
     copyright: 'All rights reserved',
     swissMade: 'Swiss Made',
@@ -333,6 +335,18 @@ export const en = {
       subtitle: 'Can\'t find the integration you need? We\'ll build it for you. Our team specializes in creating custom connectors for any system.',
       button: 'Contact Us',
     },
+  },
+
+  // Release Notes
+  releaseNotes: {
+    title: 'Release Notes',
+    subtitle: 'Stay up to date with the latest features, improvements, and fixes in Lunnoa Automate.',
+    backToHome: 'Back to Home',
+    latest: 'Latest',
+    noReleases: 'No releases available yet.',
+    ctaTitle: 'Want to see these features in action?',
+    ctaSubtitle: 'Book a free demo and discover how Lunnoa Automate can transform your workflows.',
+    ctaButton: 'Book Free Demo',
   },
 };
 

@@ -12,6 +12,7 @@ import Footer from './components/sections/Footer';
 import Impressum from './components/pages/Impressum';
 import Datenschutz from './components/pages/Datenschutz';
 import Integrations from './components/pages/Integrations';
+import ReleaseNotes from './components/pages/ReleaseNotes';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -28,6 +29,9 @@ function App() {
         window.scrollTo(0, 0);
       } else if (hash === '#/integrations' || hash === '#/integrationen') {
         setCurrentPage('integrations');
+        window.scrollTo(0, 0);
+      } else if (hash === '#/release-notes' || hash === '#/releases') {
+        setCurrentPage('release-notes');
         window.scrollTo(0, 0);
       } else {
         setCurrentPage('home');
@@ -68,6 +72,16 @@ function App() {
       <>
         <Header />
         <Integrations />
+        <Footer />
+      </>
+    );
+  }
+
+  if (currentPage === 'release-notes') {
+    return (
+      <>
+        <Header />
+        <ReleaseNotes />
         <Footer />
       </>
     );

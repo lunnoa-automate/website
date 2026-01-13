@@ -280,10 +280,12 @@ export const de = {
   footer: {
     description: 'Mit Lunnoa Automate befähigen Sie Ihre Teams, mit eigenen AI-Agenten zu wirken und ihre Arbeitsweise gezielt für mehr Wertschöpfung zu optimieren.',
     navigation: 'Navigation',
+    product: 'Produkt',
     legal: 'Legal',
     contact: 'Kontakt',
     impressum: 'Impressum',
     privacy: 'Datenschutzerklärung',
+    releaseNotes: 'Versionshinweise',
     requestDemo: 'Demo anfordern',
     copyright: 'All rights reserved',
     swissMade: 'Swiss Made',
@@ -333,6 +335,18 @@ export const de = {
       subtitle: 'Finden Sie die gewünschte Integration nicht? Wir entwickeln sie für Sie. Unser Team ist auf die Erstellung massgeschneiderter Konnektoren für jedes System spezialisiert.',
       button: 'Kontaktieren Sie uns',
     },
+  },
+
+  // Release Notes
+  releaseNotes: {
+    title: 'Versionshinweise',
+    subtitle: 'Bleiben Sie über die neuesten Funktionen, Verbesserungen und Fehlerbehebungen in Lunnoa Automate informiert.',
+    backToHome: 'Zurück zur Startseite',
+    latest: 'Aktuell',
+    noReleases: 'Noch keine Versionen verfügbar.',
+    ctaTitle: 'Möchten Sie diese Funktionen in Aktion sehen?',
+    ctaSubtitle: 'Buchen Sie eine kostenlose Demo und entdecken Sie, wie Lunnoa Automate Ihre Workflows transformieren kann.',
+    ctaButton: 'Kostenlose Demo buchen',
   },
 };
 
