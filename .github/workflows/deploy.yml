@@ -26,28 +26,30 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build project
+      - name: Build Next.js project
         run: pnpm build
 
-      - name: Copy public assets to dist
+      - name: Create .htaccess for static site
         run: |
-          cp -r public/images dist/ 2>/dev/null || true
-          cp -r public/videos dist/ 2>/dev/null || true
-          cp -r public/releases dist/ 2>/dev/null || true
+          cat > out/.htaccess << 'EOF'
+          RewriteEngine On
+          RewriteBase /
+          
+          # Handle trailing slashes
+          RewriteCond %{REQUEST_FILENAME} !-f
+          RewriteCond %{REQUEST_FILENAME} !-d
+          RewriteCond %{REQUEST_URI} !(.*)/$
+          RewriteRule ^(.*)$ %{REQUEST_URI}/ [L,R=301]
+          
+          # Serve index.html for directories
+          DirectoryIndex index.html
+          
+          # Custom 404
+          ErrorDocument 404 /404.html
+          EOF
 
-      - name: Create .htaccess for SPA routing
-        run: |
-          printf '%s\n' \
-            'RewriteEngine On' \
-            'RewriteBase /' \
-            'RewriteRule ^index\.html$ - [L]' \
-            'RewriteCond %{REQUEST_FILENAME} !-f' \
-            'RewriteCond %{REQUEST_FILENAME} !-d' \
-            'RewriteRule . /index.html [L]' \
-            > dist/.htaccess
-
-      - name: List dist contents
-        run: ls -la dist/
+      - name: List output contents
+        run: ls -la out/
 
       - name: Deploy to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -57,8 +59,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           protocol: ftp
-          local-dir: ./dist/
+          local-dir: ./out/
           server-dir: /domains/lunnoaautomate.ch/public_html/
           dangerous-clean-slate: true
           timeout: 60000
-
