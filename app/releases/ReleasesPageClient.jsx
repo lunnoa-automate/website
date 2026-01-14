@@ -1,7 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Calendar, Tag, Sparkles, ArrowRight } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import { ArrowLeft, Calendar, Tag, Sparkles, ChevronDown } from 'lucide-react';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
@@ -9,6 +11,10 @@ import { useTranslation } from '@/translations';
 export default function ReleasesPageClient({ releases }) {
   const { language } = useLanguage();
   const t = useTranslation(language);
+  
+  // Find the highlighted (latest) release to open by default
+  const latestIndex = releases.findIndex(r => r.highlight);
+  const [openIndex, setOpenIndex] = useState(latestIndex >= 0 ? latestIndex : 0);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -17,6 +23,10 @@ export default function ReleasesPageClient({ releases }) {
       month: 'long',
       day: 'numeric'
     });
+  };
+
+  const toggleAccordion = (index) => {
+    setOpenIndex(openIndex === index ? -1 : index);
   };
 
   return (
@@ -47,7 +57,7 @@ export default function ReleasesPageClient({ releases }) {
         </div>
       </div>
 
-      {/* Release Notes List */}
+      {/* Release Notes Accordion */}
       <div className="container mx-auto py-16 lg:py-20">
         <div className="max-w-4xl mx-auto">
           {releases.length === 0 ? (
@@ -57,17 +67,21 @@ export default function ReleasesPageClient({ releases }) {
               </p>
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="space-y-4">
               {releases.map((release, index) => (
                 <SlideUp key={release.version} delay={index * 0.05}>
-                  <Link href={`/releases/${release.version}`} className="block">
-                    <div 
-                      className={`
-                        bg-white rounded-2xl border border-gray-100 overflow-hidden
-                        shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1
-                        ${release.highlight ? 'ring-2 ring-primary/20' : ''}
-                        p-6 lg:p-8 flex items-start justify-between gap-4
-                      `}
+                  <div 
+                    className={`
+                      bg-white rounded-2xl border overflow-hidden
+                      shadow-sm transition-all duration-300
+                      ${release.highlight ? 'border-primary/30' : 'border-gray-100'}
+                      ${openIndex === index ? 'shadow-lg' : 'hover:shadow-md'}
+                    `}
+                  >
+                    {/* Accordion Header */}
+                    <button
+                      onClick={() => toggleAccordion(index)}
+                      className="w-full p-6 lg:p-8 flex items-center justify-between gap-4 text-left hover:bg-gray-50/50 transition-colors"
                     >
                       <div className="flex-1">
                         <div className="flex flex-wrap items-center gap-3 mb-3">
@@ -90,11 +104,45 @@ export default function ReleasesPageClient({ releases }) {
                           {release.title}
                         </h2>
                       </div>
-                      <div className="flex-shrink-0 p-2 rounded-full bg-gray-100 text-gray-500 group-hover:bg-primary group-hover:text-white">
-                        <ArrowRight size={20} />
+                      <div 
+                        className={`
+                          flex-shrink-0 p-2 rounded-full bg-gray-100 text-gray-500
+                          transition-transform duration-300
+                          ${openIndex === index ? 'rotate-180' : ''}
+                        `}
+                      >
+                        <ChevronDown size={20} />
+                      </div>
+                    </button>
+
+                    {/* Accordion Content */}
+                    <div 
+                      className={`
+                        overflow-hidden transition-all duration-300 ease-in-out
+                        ${openIndex === index ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}
+                      `}
+                    >
+                      <div className="px-6 lg:px-8 pb-6 lg:pb-8 border-t border-gray-100">
+                        <article className="pt-6">
+                          <div className="prose prose-lg max-w-none
+                            prose-headings:text-muted-foreground 
+                            prose-h1:hidden
+                            prose-h2:text-xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4 prose-h2:first:mt-0
+                            prose-h3:text-lg prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-3
+                            prose-p:text-foreground prose-p:leading-relaxed
+                            prose-li:text-foreground prose-li:my-1
+                            prose-ul:my-4 prose-ul:list-disc prose-ul:pl-6
+                            prose-strong:text-muted-foreground prose-strong:font-semibold
+                            prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+                          ">
+                            <ReactMarkdown>
+                              {release.content}
+                            </ReactMarkdown>
+                          </div>
+                        </article>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 </SlideUp>
               ))}
             </div>

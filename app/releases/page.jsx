@@ -1,6 +1,4 @@
-import Link from 'next/link';
-import { Calendar, Tag, Sparkles, ArrowRight } from 'lucide-react';
-import { getReleasesList } from '@/lib/releases';
+import { getAllReleasesWithContent } from '@/lib/releases';
 import ReleasesPageClient from './ReleasesPageClient';
 
 export const metadata = {
@@ -9,7 +7,7 @@ export const metadata = {
 };
 
 export default function ReleasesPage() {
-  const releases = getReleasesList();
+  const releases = getAllReleasesWithContent();
 
   return <ReleasesPageClient releases={releases} />;
 }
