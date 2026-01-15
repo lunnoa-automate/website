@@ -160,7 +160,7 @@ html {
 }
 
 .prose ul {
-  @apply list-disc list-inside text-foreground mb-4 space-y-2;
+  @apply list-disc list-outside text-foreground mb-4 space-y-2 pl-6;
 }
 
 .prose strong {

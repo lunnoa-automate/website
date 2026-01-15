@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunnoa Automate - Transform Complexity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #60a5fa;
+            --green: #32A552;
+            --muted: #374151;
+            --foreground: #5C6671;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            background: #f8fafc;
+        }
+        
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Hero overlay */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 15%;
+            left: 8%;
+            max-width: 500px;
+            pointer-events: auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: white;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .hero-title .gradient {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--foreground);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .hero-cta:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Zone labels */
+        .zone-labels {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 80px;
+            z-index: 10;
+        }
+
+        .zone-label {
+            text-align: center;
+            padding: 12px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .zone-label .icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .zone-label .text {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .zone-label.input .text { color: #dc2626; }
+        .zone-label.process .text { color: var(--primary); }
+        .zone-label.output .text { color: var(--green); }
+
+        /* Stats */
+        .stats-bar {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 32px;
+            background: white;
+            padding: 16px 32px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            z-index: 10;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--muted);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--foreground);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                top: 5%;
+                left: 5%;
+                right: 5%;
+            }
+            .zone-labels {
+                gap: 20px;
+                bottom: 120px;
+            }
+            .zone-label {
+                padding: 8px 12px;
+            }
+            .stats-bar {
+                gap: 16px;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    AI Workflow Automation
+                </div>
+                <h1 class="hero-title">
+                    Complexity in.<br>
+                    <span class="gradient">Clarity out.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Lunnoa Automate transforms messy processes into 
+                    organized business outcomes. No coding required.
+                </p>
+                <button class="hero-cta">
+                    See How It Works
+                    <span>→</span>
+                </button>
+            </div>
+
+            <div class="zone-labels">
+                <div class="zone-label input">
+                    <div class="icon">📥</div>
+                    <div class="text">Complex Inputs</div>
+                </div>
+                <div class="zone-label process">
+                    <div class="icon">⚡</div>
+                    <div class="text">Lunnoa Processing</div>
+                </div>
+                <div class="zone-label output">
+                    <div class="icon">✅</div>
+                    <div class="text">Business Outcomes</div>
+                </div>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat">
+                    <div class="stat-value" id="processed">0</div>
+                    <div class="stat-label">Processed</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="efficiency">94%</div>
+                    <div class="stat-label">Efficiency</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="time">2.1s</div>
+                    <div class="stat-label">Avg. Time</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // Scene setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xf1f5f9);
+        scene.fog = new THREE.Fog(0xf1f5f9, 40, 80);
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 18, 35);
+        camera.lookAt(0, 2, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // Low-poly material helper
+        function lowPolyMaterial(color, emissive = null) {
+            return new THREE.MeshStandardMaterial({
+                color,
+                flatShading: true,
+                roughness: 0.8,
+                metalness: 0.1,
+                emissive: emissive || color,
+                emissiveIntensity: emissive ? 0.1 : 0
+            });
+        }
+
+        // Lighting - soft and even
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+        scene.add(ambientLight);
+
+        const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+        sunLight.position.set(15, 30, 20);
+        sunLight.castShadow = true;
+        sunLight.shadow.mapSize.width = 2048;
+        sunLight.shadow.mapSize.height = 2048;
+        sunLight.shadow.camera.near = 1;
+        sunLight.shadow.camera.far = 60;
+        sunLight.shadow.camera.left = -25;
+        sunLight.shadow.camera.right = 25;
+        sunLight.shadow.camera.top = 25;
+        sunLight.shadow.camera.bottom = -25;
+        scene.add(sunLight);
+
+        const fillLight = new THREE.DirectionalLight(0x60a5fa, 0.3);
+        fillLight.position.set(-10, 10, -10);
+        scene.add(fillLight);
+
+        // Ground - simple low-poly plane
+        const groundGeometry = new THREE.PlaneGeometry(100, 100, 8, 8);
+        const groundMaterial = lowPolyMaterial(0xe2e8f0);
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        // Conveyor belt system
+        const beltY = 2;
+        const beltWidth = 2.5;
+        const beltColor = 0x475569;
+        const frameColor = 0x94a3b8;
+
+        function createBelt(startX, length) {
+            const group = new THREE.Group();
+
+            // Belt surface
+            const beltGeometry = new THREE.BoxGeometry(length, 0.3, beltWidth);
+            const beltMaterial = lowPolyMaterial(beltColor);
+            const belt = new THREE.Mesh(beltGeometry, beltMaterial);
+            belt.position.y = beltY;
+            belt.receiveShadow = true;
+            belt.castShadow = true;
+            group.add(belt);
+
+            // Side rails
+            const railGeometry = new THREE.BoxGeometry(length, 0.4, 0.15);
+            const railMaterial = lowPolyMaterial(frameColor);
+            
+            const rail1 = new THREE.Mesh(railGeometry, railMaterial);
+            rail1.position.set(0, beltY + 0.35, beltWidth / 2 + 0.1);
+            rail1.castShadow = true;
+            group.add(rail1);
+
+            const rail2 = rail1.clone();
+            rail2.position.z = -beltWidth / 2 - 0.1;
+            group.add(rail2);
+
+            // Support legs (low-poly cylinders)
+            const legGeometry = new THREE.CylinderGeometry(0.15, 0.2, beltY, 6);
+            const legMaterial = lowPolyMaterial(frameColor);
+            
+            const legPositions = [
+                [-length / 2 + 1, 0],
+                [length / 2 - 1, 0]
+            ];
+
+            legPositions.forEach(([x, z]) => {
+                const leg1 = new THREE.Mesh(legGeometry, legMaterial);
+                leg1.position.set(x, beltY / 2, z + 0.8);
+                leg1.castShadow = true;
+                group.add(leg1);
+
+                const leg2 = leg1.clone();
+                leg2.position.z = z - 0.8;
+                group.add(leg2);
+            });
+
+            group.position.x = startX + length / 2;
+            return group;
+        }
+
+        // Create three belt sections
+        const leftBelt = createBelt(-28, 14);
+        const centerBelt = createBelt(-7, 14);
+        const rightBelt = createBelt(14, 14);
+        
+        scene.add(leftBelt);
+        scene.add(centerBelt);
+        scene.add(rightBelt);
+
+        // Processing Platform (Glass Box) - Low Poly Style
+        const platformGroup = new THREE.Group();
+        
+        // Main frame - wireframe cube
+        const platformSize = { w: 8, h: 6, d: 4 };
+        const frameThickness = 0.15;
+        
+        // Frame edges (12 edges of a cube)
+        const edgeMaterial = new THREE.MeshStandardMaterial({
+            color: 0x3b82f6,
+            flatShading: true,
+            emissive: 0x3b82f6,
+            emissiveIntensity: 0.3,
+            roughness: 0.3,
+            metalness: 0.5
+        });
+
+        // Horizontal edges (4 top, 4 bottom)
+        const hEdgeGeo = new THREE.BoxGeometry(platformSize.w, frameThickness, frameThickness);
+        const dEdgeGeo = new THREE.BoxGeometry(frameThickness, frameThickness, platformSize.d);
+        const vEdgeGeo = new THREE.BoxGeometry(frameThickness, platformSize.h, frameThickness);
+
+        // Bottom edges
+        [[-platformSize.d/2, 0], [platformSize.d/2, 0]].forEach(([z]) => {
+            const edge = new THREE.Mesh(hEdgeGeo, edgeMaterial);
+            edge.position.set(0, 0, z);
+            platformGroup.add(edge);
+        });
+        [[- platformSize.w/2, 0], [platformSize.w/2, 0]].forEach(([x]) => {
+            const edge = new THREE.Mesh(dEdgeGeo, edgeMaterial);
+            edge.position.set(x, 0, 0);
+            platformGroup.add(edge);
+        });
+
+        // Top edges
+        [[-platformSize.d/2, platformSize.h], [platformSize.d/2, platformSize.h]].forEach(([z, y]) => {
+            const edge = new THREE.Mesh(hEdgeGeo, edgeMaterial);
+            edge.position.set(0, y, z);
+            platformGroup.add(edge);
+        });
+        [[-platformSize.w/2, platformSize.h], [platformSize.w/2, platformSize.h]].forEach(([x, y]) => {
+            const edge = new THREE.Mesh(dEdgeGeo, edgeMaterial);
+            edge.position.set(x, y, 0);
+            platformGroup.add(edge);
+        });
+
+        // Vertical edges
+        [
+            [-platformSize.w/2, -platformSize.d/2],
+            [platformSize.w/2, -platformSize.d/2],
+            [-platformSize.w/2, platformSize.d/2],
+            [platformSize.w/2, platformSize.d/2]
+        ].forEach(([x, z]) => {
+            const edge = new THREE.Mesh(vEdgeGeo, edgeMaterial);
+            edge.position.set(x, platformSize.h / 2, z);
+            platformGroup.add(edge);
+        });
+
+        // Glass panels (subtle)
+        const glassMaterial = new THREE.MeshPhysicalMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.1,
+            roughness: 0.05,
+            metalness: 0,
+            side: THREE.DoubleSide
+        });
+
+        // Front and back panels
+        const panelFB = new THREE.Mesh(
+            new THREE.PlaneGeometry(platformSize.w - 0.3, platformSize.h - 0.3),
+            glassMaterial
+        );
+        panelFB.position.set(0, platformSize.h / 2, platformSize.d / 2 - 0.1);
+        platformGroup.add(panelFB);
+
+        const panelBack = panelFB.clone();
+        panelBack.position.z = -platformSize.d / 2 + 0.1;
+        platformGroup.add(panelBack);
+
+        // Side panels
+        const panelSide = new THREE.Mesh(
+            new THREE.PlaneGeometry(platformSize.d - 0.3, platformSize.h - 0.3),
+            glassMaterial
+        );
+        panelSide.rotation.y = Math.PI / 2;
+        panelSide.position.set(platformSize.w / 2 - 0.1, platformSize.h / 2, 0);
+        platformGroup.add(panelSide);
+
+        const panelSide2 = panelSide.clone();
+        panelSide2.position.x = -platformSize.w / 2 + 0.1;
+        platformGroup.add(panelSide2);
+
+        // Center glow orb
+        const orbGeometry = new THREE.IcosahedronGeometry(0.8, 1);
+        const orbMaterial = new THREE.MeshStandardMaterial({
+            color: 0x3b82f6,
+            emissive: 0x3b82f6,
+            emissiveIntensity: 0.8,
+            flatShading: true,
+            transparent: true,
+            opacity: 0.9
+        });
+        const orb = new THREE.Mesh(orbGeometry, orbMaterial);
+        orb.position.y = platformSize.h / 2;
+        platformGroup.add(orb);
+
+        // Orb light
+        const orbLight = new THREE.PointLight(0x3b82f6, 2, 10);
+        orbLight.position.copy(orb.position);
+        platformGroup.add(orbLight);
+
+        platformGroup.position.set(0, beltY + 0.2, 0);
+        scene.add(platformGroup);
+
+        // Input item types (low-poly)
+        const inputTypes = [
+            { color: 0xef4444, icon: '📄', name: 'Documents', geo: () => new THREE.BoxGeometry(1.2, 0.8, 0.8) },
+            { color: 0xf97316, icon: '📊', name: 'Data', geo: () => new THREE.BoxGeometry(0.9, 0.9, 0.9) },
+            { color: 0xa855f7, icon: '🔗', name: 'APIs', geo: () => new THREE.CylinderGeometry(0.4, 0.4, 1, 6) },
+            { color: 0x14b8a6, icon: '⚙️', name: 'Systems', geo: () => new THREE.OctahedronGeometry(0.6, 0) },
+            { color: 0xeab308, icon: '📁', name: 'Files', geo: () => new THREE.BoxGeometry(1, 0.6, 0.7) },
+        ];
+
+        // Output item types (low-poly, cleaner)
+        const outputTypes = [
+            { color: 0x22c55e, icon: '✓', name: 'Report' },
+            { color: 0x22c55e, icon: '✓', name: 'Dashboard' },
+            { color: 0x22c55e, icon: '✓', name: 'Workflow' },
+            { color: 0x22c55e, icon: '✓', name: 'Document' },
+            { color: 0x22c55e, icon: '✓', name: 'Output' },
+        ];
+
+        // Active items
+        const items = [];
+        let itemId = 0;
+        let processedCount = 0;
+
+        // Particle system for processing effect
+        const particleCount = 100;
+        const particleGeometry = new THREE.BufferGeometry();
+        const particlePositions = new Float32Array(particleCount * 3);
+        const particleColors = new Float32Array(particleCount * 3);
+
+        for (let i = 0; i < particleCount; i++) {
+            particlePositions[i * 3] = 0;
+            particlePositions[i * 3 + 1] = 0;
+            particlePositions[i * 3 + 2] = 0;
+            particleColors[i * 3] = 0.23;
+            particleColors[i * 3 + 1] = 0.51;
+            particleColors[i * 3 + 2] = 0.96;
+        }
+
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+        particleGeometry.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
+
+        const particleMaterial = new THREE.PointsMaterial({
+            size: 0.15,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particles = new THREE.Points(particleGeometry, particleMaterial);
+        particles.position.set(0, beltY + platformSize.h / 2 + 0.2, 0);
+        scene.add(particles);
+
+        // Create input item
+        function createInputItem(typeIndex) {
+            const type = inputTypes[typeIndex];
+            const group = new THREE.Group();
+
+            // Main shape
+            const geometry = type.geo();
+            const material = new THREE.MeshStandardMaterial({
+                color: type.color,
+                flatShading: true,
+                roughness: 0.7,
+                metalness: 0.1
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.castShadow = true;
+            group.add(mesh);
+
+            // Slight random rotation for "messy" look
+            mesh.rotation.y = (Math.random() - 0.5) * 0.3;
+            mesh.rotation.z = (Math.random() - 0.5) * 0.1;
+
+            group.userData = {
+                id: itemId++,
+                type: 'input',
+                typeIndex,
+                phase: 'moving', // moving, processing, output
+                x: -28,
+                wobble: Math.random() * Math.PI * 2,
+                mesh,
+                material
+            };
+
+            return group;
+        }
+
+        // Create output item
+        function createOutputItem(typeIndex, color) {
+            const group = new THREE.Group();
+
+            // Clean, uniform box
+            const geometry = new THREE.BoxGeometry(1, 0.6, 0.8);
+            const material = new THREE.MeshStandardMaterial({
+                color: 0x22c55e,
+                flatShading: true,
+                roughness: 0.6,
+                metalness: 0.2,
+                emissive: 0x22c55e,
+                emissiveIntensity: 0.1
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.castShadow = true;
+            group.add(mesh);
+
+            // Checkmark on top (simple triangle)
+            const checkGeometry = new THREE.ConeGeometry(0.2, 0.3, 4);
+            const checkMaterial = new THREE.MeshStandardMaterial({
+                color: 0xffffff,
+                flatShading: true,
+                emissive: 0xffffff,
+                emissiveIntensity: 0.3
+            });
+            const check = new THREE.Mesh(checkGeometry, checkMaterial);
+            check.position.y = 0.5;
+            check.rotation.x = Math.PI;
+            group.add(check);
+
+            group.userData = {
+                type: 'output',
+                x: 0,
+                phase: 'output'
+            };
+
+            return group;
+        }
+
+        // Spawn new input item
+        let lastSpawnTime = 0;
+        const spawnInterval = 2.5; // seconds
+
+        function spawnItem() {
+            const typeIndex = Math.floor(Math.random() * inputTypes.length);
+            const item = createInputItem(typeIndex);
+            item.position.set(-28, beltY + 0.8, (Math.random() - 0.5) * 1.5);
+            scene.add(item);
+            items.push(item);
+        }
+
+        // Processing effect
+        let processingItem = null;
+        let processingProgress = 0;
+
+        function startProcessing(item) {
+            processingItem = item;
+            processingProgress = 0;
+            item.userData.phase = 'processing';
+
+            // Set particle colors to match item
+            const color = new THREE.Color(inputTypes[item.userData.typeIndex].color);
+            for (let i = 0; i < particleCount; i++) {
+                particleColors[i * 3] = color.r;
+                particleColors[i * 3 + 1] = color.g;
+                particleColors[i * 3 + 2] = color.b;
+            }
+            particleGeometry.attributes.color.needsUpdate = true;
+        }
+
+        function updateProcessing(delta) {
+            if (!processingItem) return;
+
+            processingProgress += delta / 2.5; // 2.5 second processing time
+
+            const mesh = processingItem.userData.mesh;
+            const material = processingItem.userData.material;
+
+            if (processingProgress < 0.4) {
+                // Phase 1: Shrink and dissolve
+                const scale = 1 - processingProgress * 2;
+                mesh.scale.setScalar(Math.max(0.1, scale));
+                material.opacity = scale;
+                material.transparent = true;
+
+                // Activate particles
+                particleMaterial.opacity = processingProgress * 2;
+
+                // Particles swirl outward
+                const positions = particleGeometry.attributes.position.array;
+                for (let i = 0; i < particleCount; i++) {
+                    const angle = (i / particleCount) * Math.PI * 2 + processingProgress * 10;
+                    const radius = processingProgress * 3;
+                    const height = (Math.random() - 0.5) * 3;
+                    positions[i * 3] = Math.cos(angle) * radius;
+                    positions[i * 3 + 1] = height;
+                    positions[i * 3 + 2] = Math.sin(angle) * radius;
+                }
+                particleGeometry.attributes.position.needsUpdate = true;
+
+            } else if (processingProgress < 0.6) {
+                // Phase 2: Particles consolidate
+                mesh.visible = false;
+                particleMaterial.opacity = 1 - (processingProgress - 0.4) * 5;
+
+                const positions = particleGeometry.attributes.position.array;
+                const consolidate = (processingProgress - 0.4) / 0.2;
+                for (let i = 0; i < particleCount; i++) {
+                    const currentX = positions[i * 3];
+                    const currentY = positions[i * 3 + 1];
+                    const currentZ = positions[i * 3 + 2];
+                    positions[i * 3] = currentX * (1 - consolidate * 0.1);
+                    positions[i * 3 + 1] = currentY * (1 - consolidate * 0.1);
+                    positions[i * 3 + 2] = currentZ * (1 - consolidate * 0.1);
+                }
+                particleGeometry.attributes.position.needsUpdate = true;
+
+                // Orb pulses
+                orb.scale.setScalar(1 + Math.sin(processingProgress * 20) * 0.2);
+                orbLight.intensity = 2 + Math.sin(processingProgress * 20) * 1;
+
+            } else if (processingProgress < 1) {
+                // Phase 3: Output emerges
+                particleMaterial.opacity = 0;
+                orb.scale.setScalar(1);
+                orbLight.intensity = 2;
+
+                if (!processingItem.userData.outputCreated) {
+                    processingItem.userData.outputCreated = true;
+                    
+                    // Remove input item
+                    scene.remove(processingItem);
+                    const idx = items.indexOf(processingItem);
+                    if (idx > -1) items.splice(idx, 1);
+
+                    // Create output item
+                    const output = createOutputItem(processingItem.userData.typeIndex);
+                    output.position.set(0, beltY + 0.7, 0);
+                    output.scale.setScalar(0);
+                    scene.add(output);
+                    items.push(output);
+                    
+                    processedCount++;
+                    document.getElementById('processed').textContent = processedCount;
+                }
+
+            } else {
+                // Processing complete
+                processingItem = null;
+                processingProgress = 0;
+            }
+        }
+
+        // Camera animation
+        let cameraAngle = 0;
+
+        // Animation loop
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+            const time = clock.getElapsedTime();
+
+            // Spawn items
+            if (time - lastSpawnTime > spawnInterval) {
+                spawnItem();
+                lastSpawnTime = time;
+            }
+
+            // Update items
+            items.forEach((item, index) => {
+                if (item.userData.phase === 'moving') {
+                    // Move along belt
+                    item.userData.x += delta * 4; // belt speed
+                    item.position.x = item.userData.x;
+
+                    // Wobble effect for inputs
+                    if (item.userData.type === 'input') {
+                        item.userData.wobble += delta * 3;
+                        item.position.y = beltY + 0.8 + Math.sin(item.userData.wobble) * 0.05;
+                        item.rotation.y += delta * 0.5;
+                    }
+
+                    // Check if reached processing zone
+                    if (item.userData.type === 'input' && item.userData.x >= -2 && !processingItem) {
+                        startProcessing(item);
+                    }
+
+                    // Check if output should start moving
+                    if (item.userData.type === 'output' && item.scale.x < 1) {
+                        item.scale.x += delta * 2;
+                        item.scale.y += delta * 2;
+                        item.scale.z += delta * 2;
+                        if (item.scale.x >= 1) {
+                            item.scale.setScalar(1);
+                            item.userData.phase = 'moving';
+                            item.userData.x = 0;
+                        }
+                    }
+
+                    // Remove if off screen
+                    if (item.userData.x > 30) {
+                        scene.remove(item);
+                        items.splice(index, 1);
+                    }
+                }
+            });
+
+            // Update processing
+            updateProcessing(delta);
+
+            // Orb rotation
+            orb.rotation.y += delta * 0.5;
+            orb.rotation.x = Math.sin(time * 0.5) * 0.2;
+
+            // Camera gentle movement
+            cameraAngle += delta * 0.1;
+            camera.position.x = Math.sin(cameraAngle) * 3;
+            camera.position.y = 18 + Math.sin(cameraAngle * 0.7) * 1;
+            camera.lookAt(0, 3, 0);
+
+            // Orb ambient pulse
+            if (!processingItem) {
+                orbLight.intensity = 2 + Math.sin(time * 2) * 0.3;
+                orb.scale.setScalar(1 + Math.sin(time * 2) * 0.05);
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Start
+        spawnItem();
+        animate();
+    </script>
+</body>
+</html>
