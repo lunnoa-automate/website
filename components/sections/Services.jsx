@@ -1,26 +1,26 @@
 'use client';
 
-import { Code2, Bot, Settings, Server, Shield, MapPin } from 'lucide-react';
+import { ShieldCheck, FileSearch, Settings2, Database, Users, MapPin } from 'lucide-react';
 import { Title } from '@/components/ui/Title';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
 
-const serviceIcons = [Code2, Bot, Settings, Server, Shield, MapPin];
-const serviceKeys = ['noCode', 'aiAgents', 'customizable', 'selfHosted', 'accessControl', 'swissMade'];
+const serviceIcons = [ShieldCheck, FileSearch, Settings2, Database, Users, MapPin];
+const serviceKeys = ['compliant', 'auditTrails', 'tailored', 'dataSovereignty', 'rbac', 'swissMade'];
 const serviceColors = [
-  'text-primary bg-[rgba(46,77,254,0.10)]',
   'text-green bg-[#32A5521A]',
+  'text-primary bg-[rgba(46,77,254,0.10)]',
   'text-purple bg-[#A22EFE1A]',
-  'text-[#5A5579] bg-[#5A55791A]',
-  'text-[#FF0000] bg-[#FF00001A]',
   'text-[#00A3FF] bg-[#00A3FF1A]',
+  'text-[#FF0000] bg-[#FF00001A]',
+  'text-[#5A5579] bg-[#5A55791A]',
 ];
 
 export default function Services() {
   const { language } = useLanguage();
-  const t = useTranslation(language);
+  const t = useTranslation(language || 'de');
 
   return (
     <section id="vorteile" className="lg:py-[120px] py-16">
@@ -42,6 +42,7 @@ export default function Services() {
               {serviceKeys.map((key, index) => {
                 const Icon = serviceIcons[index];
                 const item = t.services.items[key];
+                if (!item) return null;
                 return (
                   <div 
                     key={key}

@@ -38,7 +38,8 @@ export function LanguageProvider({ children }) {
 export function useLanguage() {
   const context = useContext(LanguageContext);
   if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
+    // During SSR/SSG, return a default context
+    return { language: 'de', setLanguage: () => {}, toggleLanguage: () => {} };
   }
   return context;
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Building2, Landmark, Briefcase, TrendingUp } from 'lucide-react';
 import { Title } from '@/components/ui/Title';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { Button } from '@/components/ui/Button';
@@ -10,12 +10,20 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
 import { cn } from '@/lib/utils';
 
-const categoryKeys = ['finance', 'legal', 'admin', 'insurance', 'marketing', 'industrie'];
+const categoryKeys = ['privateEquity', 'realEstate', 'wealthManagement', 'banking'];
+const categoryIcons = {
+  privateEquity: TrendingUp,
+  realEstate: Building2,
+  wealthManagement: Briefcase,
+  banking: Landmark,
+};
 
 export default function UseCases() {
-  const [activeCategory, setActiveCategory] = useState('finance');
+  const [activeCategory, setActiveCategory] = useState('privateEquity');
   const { language } = useLanguage();
-  const t = useTranslation(language);
+  const t = useTranslation(language || 'de');
+
+  const ActiveIcon = categoryIcons[activeCategory];
 
   return (
     <section id="use-cases" className="lg:py-15 py-9 bg-gray">
@@ -35,45 +43,57 @@ export default function UseCases() {
         {/* Category Tabs */}
         <SlideUp delay={0.1}>
           <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {categoryKeys.map((key) => (
-              <button
-                key={key}
-                onClick={() => setActiveCategory(key)}
-                className={cn(
-                  "px-6 py-3 rounded-full font-semibold transition-all duration-300",
-                  activeCategory === key
-                    ? "bg-primary text-white"
-                    : "bg-background text-muted-foreground hover:bg-accent hover:text-primary-foreground"
-                )}
-              >
-                {t.useCases.categories[key]}
-              </button>
-            ))}
+            {categoryKeys.map((key) => {
+              const Icon = categoryIcons[key];
+              return (
+                <button
+                  key={key}
+                  onClick={() => setActiveCategory(key)}
+                  className={cn(
+                    "px-6 py-3 rounded-full font-semibold transition-all duration-300 flex items-center gap-2",
+                    activeCategory === key
+                      ? "bg-primary text-white"
+                      : "bg-background text-muted-foreground hover:bg-accent hover:text-primary-foreground"
+                  )}
+                >
+                  <Icon size={18} />
+                  {t.useCases.categories[key]}
+                </button>
+              );
+            })}
           </div>
         </SlideUp>
 
         {/* Use Case Cards */}
         <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-6">
-          {t.useCases.items[activeCategory].map((useCase, index) => (
-            <SlideUp key={useCase.title} delay={index * 0.1}>
-              <div className="bg-background rounded-[20px] p-8 hover:shadow-3xl hover:border-primary/20 border border-transparent transition-all duration-300 h-full">
-                <div className="flex items-center justify-between mb-6">
-                  <span className="text-xs font-bold uppercase tracking-wider text-primary">
-                    {t.useCases.categories[activeCategory]}
-                  </span>
-                  <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-primary">
-                    <ArrowRight size={18} />
+          {t.useCases.items[activeCategory]?.map((useCase, index) => {
+            if (!useCase || !useCase.title) return null;
+            return (
+              <SlideUp key={useCase.title} delay={index * 0.1}>
+                <div className="bg-background rounded-[20px] p-8 hover:shadow-3xl hover:border-primary/20 border border-transparent transition-all duration-300 h-full flex flex-col">
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="text-xs font-bold uppercase tracking-wider text-primary">
+                      {t.useCases.categories[activeCategory]}
+                    </span>
+                    <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-primary">
+                      <ActiveIcon size={18} />
+                    </div>
                   </div>
+                  <h4 className="text-xl font-extrabold text-muted-foreground mb-4">
+                    {useCase.title}
+                  </h4>
+                  <p className="text-foreground leading-relaxed flex-grow">
+                    {useCase.description}
+                  </p>
+                  {useCase.impact && (
+                    <div className="mt-4 pt-4 border-t border-border">
+                      <span className="text-sm font-semibold text-green">{useCase.impact}</span>
+                    </div>
+                  )}
                 </div>
-                <h4 className="text-xl font-extrabold text-muted-foreground mb-4">
-                  {useCase.title}
-                </h4>
-                <p className="text-foreground leading-relaxed">
-                  {useCase.description}
-                </p>
-              </div>
-            </SlideUp>
-          ))}
+              </SlideUp>
+            );
+          })}
         </div>
 
         {/* CTA */}

@@ -26,7 +26,7 @@ const featureColors = [
 
 export default function Features() {
   const { language } = useLanguage();
-  const t = useTranslation(language);
+  const t = useTranslation(language || 'de');
 
   return (
     <section id="features" className="lg:py-15 py-9">
@@ -45,7 +45,8 @@ export default function Features() {
         <div className="grid lg:grid-cols-2 gap-8 mt-12">
           {featureKeys.map((key, index) => {
             const Icon = featureIcons[index];
-            const item = t.features.items[key];
+            const item = t.features?.items?.[key];
+            if (!item) return null;
             return (
               <SlideUp key={key} delay={index * 0.1}>
                 <div className="bg-gray rounded-[30px] p-8 lg:p-10 group hover:shadow-3xl transition-all duration-500">
@@ -53,7 +54,7 @@ export default function Features() {
                   <div className="aspect-[4/3] mb-8 flex items-center justify-center">
                     <img
                       src={featureImages[index]}
-                      alt={item.title}
+                      alt={item.title || ''}
                       className="max-w-full max-h-full object-contain rounded-2.5xl"
                     />
                   </div>

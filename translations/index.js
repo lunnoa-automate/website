@@ -7,5 +7,8 @@ export const translations = {
 };
 
 export function useTranslation(language) {
-  return translations[language] || translations.de;
+  if (!language || !translations[language]) {
+    return translations.de || translations.en;
+  }
+  return translations[language];
 }
