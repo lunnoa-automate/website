@@ -225,7 +225,7 @@ export const en = {
       },
       alessandro: {
         name: 'Alessandro Di Vito',
-        role: 'Partner & Automation Expert',
+        role: 'Marketing Automation Consultant',
       },
     },
     partners: {

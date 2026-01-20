@@ -7,92 +7,89 @@ export const de = {
     integrations: 'Integrationen',
     team: 'Team',
     faq: 'FAQ',
-    freeDemo: 'Kostenlose Demo',
+    freeDemo: 'Demo buchen',
   },
 
   // Hero
   hero: {
-    title: 'Ihre AI-Workforce beginnt hier.',
-    subtitle: 'Mit Lunnoa Automate befähigen Sie Ihre Teams, mit eigenen AI-Agenten zu wirken und ihre Arbeitsweise gezielt für mehr Wertschöpfung zu optimieren.',
-    cta: 'Vorteile entdecken',
-    integrations: 'Integrationen',
-    swissMade: 'Swiss Made',
-    platform: 'Plattform',
-    platformDemo: 'Platform Demo Video',
-    placeholder: 'Placeholder für Ihr visuelles Asset',
+    title: 'AI Workflow Automation für Financial Services',
+    subtitle: 'Automatisieren Sie komplexe Workflows mit selbst-gehosteten AI-Agents. Entwickelt für regulierte Branchen.',
+    trustedBy: 'Vertrauen von Private Equity, Real Estate und Banken.',
+    cta: 'Demo buchen',
     badges: {
-      swissMade: 'Swiss Made',
-      gdpr: 'DSGVO konform',
-      cloudAgnostic: 'Cloud-agnostisch',
-      enterprise: 'Enterprise Ready',
+      swissHosted: 'Schweizer Hosting',
+      finmaCompatible: 'FINMA Kompatibel',
+      auditTrail: 'Vollständiger Audit Trail',
+      dataSovereignty: 'Datensouveränität',
     },
   },
 
   // Services/Benefits
   services: {
-    label: 'Vorteile',
-    title: 'Flexibel? Einfach?',
-    titleHighlight: 'Ja.',
-    subtitle: 'Das ist Lunnoa Automate.',
+    label: 'Warum Lunnoa Automate',
+    title: 'Entwickelt für',
+    titleHighlight: 'regulierte Branchen.',
+    subtitle: 'Sicherheit, Compliance und Kontrolle by Design.',
     items: {
-      noCode: {
-        title: 'No Code',
-        description: 'Einfach Nutzung ohne programmieren',
+      compliant: {
+        title: 'Compliance by Design',
+        description: 'Erfüllen Sie regulatorische Anforderungen mit integrierten Compliance-Features für FINMA, DSGVO und Branchenstandards.',
       },
-      aiAgents: {
-        title: 'Eigene AI-Agents',
-        description: 'Erstellen Sie Ihre Spezialisten selbst',
+      auditTrails: {
+        title: 'Vollständige Audit Trails',
+        description: 'Jede AI-Aktion wird protokolliert und ist nachvollziehbar. Vollständige Transparenz für Compliance und Aufsicht.',
       },
-      customizable: {
-        title: 'Individualisierbar',
-        description: 'Anpassbar auf Ihr Unternehmen',
+      tailored: {
+        title: 'Massgeschneidert',
+        description: 'Passen Sie Workflows exakt an Ihre Geschäftsprozesse an - ohne zu programmieren.',
       },
-      selfHosted: {
-        title: 'Self-hosted',
-        description: 'Lokal oder in der Cloud. Lunnoa Automate ist Cloud-agnostisch',
+      dataSovereignty: {
+        title: 'Daten bleiben in der Schweiz',
+        description: 'Self-hosted on-premise oder in Schweizer Rechenzentren. Ihre Daten verlassen nie Ihre Kontrolle.',
       },
-      accessControl: {
-        title: 'Zugriff mit Kontrolle',
-        description: 'Zentrale Benutzerverwaltung',
+      rbac: {
+        title: 'Enterprise Zugriffskontrolle',
+        description: 'Rollenbasierte Zugriffskontrolle für regulierte Branchen. Klare Grenzen, vollständige Übersicht.',
       },
       swissMade: {
         title: 'Swiss Made',
-        description: 'Ansprechpartner in der Schweiz',
+        description: 'Entwickelt in der Schweiz mit tiefgreifender Expertise in Financial Services und regulierten Branchen.',
       },
     },
   },
 
   // Story
   story: {
-    label: 'Unsere Story',
-    title: 'AI-Automatisierung für Schweizer Unternehmen',
-    description1: 'Lunnoa Automate wurde entwickelt, um die Komplexität von AI-Implementierungen zu vereinfachen und Unternehmen zu befähigen, das volle Potenzial von AI zu nutzen.',
-    description2: 'die Herausforderungen von regulierten Branchen wie Finance, Legal und Insurance - und haben eine Lösung geschaffen, die Compliance und Innovation vereint.',
+    label: 'Unsere Expertise',
+    title: 'Entwickelt für regulierte Branchen',
+    description1: 'Lunnoa Automate wurde speziell für Finanzdienstleister entwickelt, die Workflows automatisieren und dabei strenge Compliance- und Datensouveränitätsanforderungen einhalten müssen.',
+    description2: 'FINMA-Anforderungen, Datenresidenz-Vorschriften und die operationelle Komplexität von Financial Services Workflows.',
     weUnderstand: 'Wir verstehen',
-    trustedBy: 'Vertrauen von',
-    leadingCompanies: 'führenden Unternehmen',
+    painPoints: {
+      documents: 'Manuelle Dokumentenverarbeitung bremst Sie aus',
+      compliance: 'Wachsende Compliance-Last für Ihre Teams',
+      operations: 'Operative Ineffizienzen in verschiedenen Abteilungen',
+    },
     learnMore: 'Mehr erfahren',
-    screenshot: 'Platform Screenshot',
-    placeholder: 'Placeholder',
   },
 
   // Features
   features: {
-    label: 'Features',
+    label: 'Plattform Features',
     title: 'Alles, was Sie brauchen.',
-    titleHighlight: 'In einem Tool.',
+    titleHighlight: 'In einer Plattform.',
     items: {
       aiAgents: {
         title: 'AI-Agents',
-        description: 'Erstellen Sie spezialisierte AI-Agents in wenigen Minuten. Definieren Sie Rollen, Ziele und Tools individuell. Verbinden Sie diese mit internen Systemen.',
+        description: 'Erstellen Sie spezialisierte AI-Agents in wenigen Minuten. Definieren Sie Rollen, Ziele und Tools individuell. Verbinden Sie diese mit internen Systemen - mit vollständigem Audit Trail.',
       },
       workflows: {
         title: 'Automatisierte Workflows',
-        description: 'Automatisieren Sie repetitive Aufgaben und entlasten Sie Ihr Team. Erstellen Sie Workflows ohne zu Programmieren. Integrieren Sie Ihre AI-Agents.',
+        description: 'Automatisieren Sie repetitive Aufgaben und entlasten Sie Ihr Team. Erstellen Sie Workflows ohne zu programmieren. Integrieren Sie Ihre AI-Agents nahtlos.',
       },
       workspace: {
         title: 'Workspace Management',
-        description: 'Behalten Sie die Kontrolle über Nutzer, Daten und Prozesse. Ordnen Sie AI-Agents und Workflows gezielt Workspaces zu. Klare Datenzugriffsgrenzen sichern die Struktur.',
+        description: 'Behalten Sie die Kontrolle über Nutzer, Daten und Prozesse. Ordnen Sie AI-Agents und Workflows gezielt Workspaces zu. Klare Datenzugriffsgrenzen sichern Compliance.',
       },
       knowledgeBase: {
         title: 'Zentrale Knowledge Base',
@@ -105,110 +102,91 @@ export const de = {
       noProblem: 'Kein Problem.',
       cta: 'Integrationen entdecken',
     },
-    featureScreenshot: 'Feature Screenshot',
   },
 
   // Use Cases
   useCases: {
     label: 'Use Cases',
-    title: 'Ihre Prozesse.',
-    titleHighlight: 'AI-unterstützt.',
-    subtitle: 'Entdecken Sie Beispiele, wie Sie Ihre Abläufe mit AI unterstützen können.',
+    title: 'Financial Services',
+    titleHighlight: 'Workflows.',
+    subtitle: 'Entdecken Sie, wie führende Finanzinstitute ihre Prozesse mit AI-Agents automatisieren.',
     categories: {
-      finance: 'Finance',
-      legal: 'Legal',
-      admin: 'Admin',
-      insurance: 'Insurance',
-      marketing: 'Marketing',
-      industrie: 'Industrie',
+      privateEquity: 'Private Equity',
+      realEstate: 'Real Estate',
+      wealthManagement: 'Wealth Management',
+      banking: 'Banking',
     },
     cta: {
-      text: 'Jetzt eigenen Use Case testen.',
-      button: 'Kostenlose Demo anfordern',
+      text: 'Erfahren Sie, wie Lunnoa Automate Ihre Workflows transformieren kann.',
+      button: 'Demo buchen',
     },
     items: {
-      finance: [
-        {
-          title: 'KYC Reassessment',
-          description: 'Einsatz von AI-Agents zur automatisierten Neubewertung von Kundenprofilen, um die Einhaltung regulatorischer Anforderungen sicherzustellen und manuelle Prüfprozesse zu entlasten.',
-        },
-        {
-          title: 'Meeting Vorbereitung',
-          description: 'Automatisierte Zusammenstellung relevanter Kunden-, Portfolio- oder Marktdaten durch AI-Agents zur effizienten Vorbereitung von Investment- oder Kundengesprächen - inklusive Dossier-Erstellung und Handlungsempfehlungen.',
-        },
+      privateEquity: [
         {
           title: 'Capital Call Verbuchung',
-          description: 'Automatisierte Erkennung, Extraktion und Verbuchung von Capital Calls aus E-Mails und PDF-Dokumenten zur Reduktion manueller Eingaben und Minimierung von Buchungsfehlern.',
+          description: 'Automatisierte Erkennung, Extraktion und Verbuchung von Capital Calls aus E-Mails und PDF-Dokumenten. Reduzieren Sie manuelle Eingaben und minimieren Sie Buchungsfehler.',
+          impact: 'Bis zu 80% Zeitersparnis',
+        },
+        {
+          title: 'Fund Reporting Automation',
+          description: 'AI-Agents erstellen automatisch Portfoliodaten, Performance-Metriken und Marktkommentare für investorenreife Berichte.',
+          impact: 'Berichte in Minuten, nicht Tagen',
+        },
+        {
+          title: 'Due Diligence Automation',
+          description: 'Optimieren Sie die Dokumentenprüfung und Datenextraktion bei Akquisitionen. AI-Agents analysieren Verträge, Finanzdaten und Compliance-Dokumente.',
+          impact: 'Schnellere Deal-Ausführung',
         },
       ],
-      legal: [
+      realEstate: [
         {
-          title: 'Vertragsanalyse',
-          description: 'AI-gestützte Analyse von Verträgen zur automatischen Identifikation von Risiken, Klauseln und Unstimmigkeiten für schnellere Due Diligence.',
+          title: 'Mietvertrags-Abstraktion',
+          description: 'Extrahieren Sie automatisch Schlüsselbegriffe, Termine und Verpflichtungen aus Mietverträgen. Erstellen Sie eine durchsuchbare Datenbank aller Mietinformationen.',
+          impact: 'Hunderte Verträge in Stunden',
         },
         {
-          title: 'Compliance Monitoring',
-          description: 'Kontinuierliche Überwachung regulatorischer Änderungen und automatische Benachrichtigung bei relevanten Updates für Ihr Unternehmen.',
+          title: 'Immobilien-Dokumentenverarbeitung',
+          description: 'Automatisieren Sie die Klassifizierung, Extraktion und Ablage von Immobiliendokumenten. Von Kaufverträgen bis zu Wartungsprotokollen.',
+          impact: 'Manuelle Ablage eliminieren',
         },
         {
-          title: 'Dokumenten-Klassifikation',
-          description: 'Automatisierte Sortierung und Kategorisierung von Rechtsdokumenten zur effizienteren Archivierung und schnelleren Auffindbarkeit.',
-        },
-      ],
-      admin: [
-        {
-          title: 'E-Mail Triage',
-          description: 'Intelligente Vorsortierung und Priorisierung eingehender E-Mails mit automatischer Weiterleitung an zuständige Abteilungen.',
-        },
-        {
-          title: 'Terminkoordination',
-          description: 'AI-gestützte Planung und Koordination von Meetings unter Berücksichtigung aller Teilnehmerverfügbarkeiten.',
-        },
-        {
-          title: 'Reisekostenabrechnung',
-          description: 'Automatisierte Erfassung und Kategorisierung von Belegen für eine effiziente Spesenabrechnung.',
+          title: 'Bewertungsberichte',
+          description: 'AI-Agents erstellen umfassende Bewertungsberichte aus Marktdaten, vergleichbaren Verkäufen und Immobilienmetriken.',
+          impact: 'Konsistente, präzise Berichte',
         },
       ],
-      insurance: [
+      wealthManagement: [
         {
-          title: 'Schadensmeldung',
-          description: 'Automatisierte Erfassung und Erstbewertung von Schadensmeldungen zur Beschleunigung der Bearbeitungszeit.',
+          title: 'KYC Reassessment',
+          description: 'AI-Agents bewerten Kundenprofile automatisch neu, um die Einhaltung regulatorischer Anforderungen sicherzustellen. Reduzieren Sie manuelle Prüfprozesse.',
+          impact: 'Kontinuierliche Compliance',
         },
         {
-          title: 'Policen-Analyse',
-          description: 'AI-gestützte Analyse von Versicherungspolicen zur Identifikation von Deckungslücken und Optimierungspotentialen.',
+          title: 'Meeting-Vorbereitung',
+          description: 'Automatisierte Zusammenstellung relevanter Kundendaten, Portfolio-Performance und Markteinblicke. Generieren Sie Meeting-Dossiers mit Empfehlungen.',
+          impact: 'Immer optimal vorbereitet',
         },
         {
-          title: 'Risikobewertung',
-          description: 'Automatisierte Bewertung von Risikofaktoren für schnellere und konsistentere Underwriting-Entscheidungen.',
-        },
-      ],
-      marketing: [
-        {
-          title: 'Content-Erstellung',
-          description: 'AI-unterstützte Generierung von Marketing-Inhalten, angepasst an Ihre Corporate Identity und Zielgruppen.',
-        },
-        {
-          title: 'Kampagnen-Analyse',
-          description: 'Automatisierte Auswertung von Marketing-Kampagnen mit KI-gestützten Optimierungsempfehlungen.',
-        },
-        {
-          title: 'Lead Scoring',
-          description: 'Intelligente Bewertung und Priorisierung von Leads basierend auf Verhaltensmustern und Engagement.',
+          title: 'Regulatorisches Reporting',
+          description: 'Automatisieren Sie die Erstellung und Einreichung von regulatorischen Berichten. AI-Agents sichern Genauigkeit und Vollständigkeit.',
+          impact: 'Fehlerfreie Einreichungen',
         },
       ],
-      industrie: [
+      banking: [
         {
-          title: 'Qualitätskontrolle',
-          description: 'AI-gestützte Überprüfung von Produktionsdaten zur frühzeitigen Erkennung von Qualitätsabweichungen.',
+          title: 'Transaktionsüberwachung',
+          description: 'AI-Agents analysieren Transaktionsmuster und markieren Anomalien zur Prüfung. Verbessern Sie Ihre AML- und Betrugserkennungsfähigkeiten.',
+          impact: 'Weniger False Positives',
         },
         {
-          title: 'Lieferkettenoptimierung',
-          description: 'Automatisierte Analyse und Optimierung von Lieferketten für bessere Effizienz und Kostenkontrolle.',
+          title: 'Kunden-Onboarding',
+          description: 'Optimieren Sie den Onboarding-Prozess mit automatisierter Dokumentensammlung, Verifizierung und Compliance-Prüfungen.',
+          impact: 'Schnellere Kontoeröffnung',
         },
         {
-          title: 'Wartungsplanung',
-          description: 'Predictive Maintenance durch AI-Analyse von Maschinendaten zur Vermeidung ungeplanter Ausfälle.',
+          title: 'Kreditrisikobewertung',
+          description: 'AI-Agents analysieren Jahresabschlüsse, Marktdaten und interne Metriken zur Unterstützung von Kreditentscheidungen.',
+          impact: 'Konsistente Risikobewertung',
         },
       ],
     },
@@ -225,7 +203,7 @@ export const de = {
       },
       alessandro: {
         name: 'Alessandro Di Vito',
-        role: 'Partner & Automation Expert',
+        role: 'Marketing Automation Consultant',
       },
     },
     partners: {
@@ -246,39 +224,39 @@ export const de = {
     items: [
       {
         question: 'Wo befinden sich unsere Daten?',
-        answer: 'Ihre Daten bleiben dort, wo Sie es wünschen. Lunnoa Automate kann on-premise, in Ihrer Private Cloud oder bei einem Cloud-Provider Ihrer Wahl betrieben werden. Sie behalten jederzeit die volle Kontrolle über Ihre Daten und deren Standort.',
+        answer: 'Ihre Daten bleiben dort, wo Sie es wünschen. Lunnoa Automate kann on-premise, in Ihrer Private Cloud oder in Schweizer Rechenzentren betrieben werden. Sie behalten jederzeit die volle Kontrolle über Ihre Daten und deren Standort.',
       },
       {
-        question: 'Wer entwickelt die Workflows und AI-Agents?',
-        answer: 'Sie selbst! Unsere No-Code Plattform ermöglicht es Ihren Fachabteilungen, eigenständig Workflows und AI-Agents zu erstellen. Für komplexere Anforderungen steht unser Expertenteam und Partnernetzwerk zur Verfügung.',
+        question: 'Wie erfüllen Sie FINMA-Anforderungen?',
+        answer: 'Lunnoa Automate wurde mit Blick auf Schweizer Finanzregulierung entwickelt. Vollständige Audit Trails, Datensouveränität und Compliance-First-Architektur stellen sicher, dass Sie FINMA-Anforderungen erfüllen und gleichzeitig AI-Automatisierung nutzen können.',
       },
       {
-        question: 'Werden die Workflows an unser Unternehmen angepasst?',
-        answer: 'Absolut. Lunnoa Automate ist vollständig individualisierbar. Von der Integration bestehender Systeme bis hin zu massgeschneiderten Workflows – wir passen die Lösung an Ihre spezifischen Geschäftsprozesse an.',
+        question: 'Können wir das in unserem eigenen Schweizer Rechenzentrum betreiben?',
+        answer: 'Absolut. Lunnoa Automate ist vollständig self-hosted. Betreiben Sie es on-premise, in Ihrer Private Cloud oder bei einem Schweizer Hosting-Anbieter. Ihre Infrastruktur, Ihre Kontrolle.',
       },
       {
         question: 'Welche LLM-Modelle werden verwendet?',
-        answer: 'Lunnoa Automate ist LLM-agnostisch. Sie können verschiedene Modelle wie GPT-4, Claude, oder auch lokale Open-Source Modelle verwenden. Die Wahl hängt von Ihren Anforderungen an Datenschutz, Performance und Budget ab.',
+        answer: 'Lunnoa Automate ist LLM-agnostisch. Sie können verschiedene Modelle wie GPT-4, Claude oder lokale Open-Source Modelle verwenden. Die Wahl hängt von Ihren Anforderungen an Datenschutz, Performance und Budget ab.',
       },
       {
         question: 'Kann ich nachverfolgen was meine AI-Agents erledigt haben?',
-        answer: 'Ja, vollständige Transparenz ist gewährleistet. Jede Aktion Ihrer AI-Agents wird protokolliert und ist im Detail nachvollziehbar. So behalten Sie stets die Übersicht und erfüllen Compliance-Anforderungen.',
+        answer: 'Ja, vollständige Transparenz ist gewährleistet. Jede Aktion Ihrer AI-Agents wird protokolliert und ist im Detail nachvollziehbar. So behalten Sie stets die Übersicht und erfüllen regulatorische Anforderungen.',
       },
     ],
   },
 
   // CTA
   cta: {
-    title: 'Demo?',
-    titleHighlight: 'Gerne.',
-    subtitle: 'Wir zeigen Ihnen ganz persönlich und unverbindlich, was Ihre Möglichkeiten sind.',
-    button: 'Meeting vereinbaren',
-    benefits: ['Unverbindlich', 'Persönlich', 'Auf Deutsch'],
+    title: 'Bereit zu',
+    titleHighlight: 'automatisieren?',
+    subtitle: 'Erfahren Sie, wie Lunnoa Automate Ihre Financial Services Workflows transformieren kann. Persönliche Demo, unverbindlich.',
+    button: 'Demo buchen',
+    benefits: ['Unverbindlich', 'Persönlich', '30 Minuten'],
   },
 
   // Footer
   footer: {
-    description: 'Mit Lunnoa Automate befähigen Sie Ihre Teams, mit eigenen AI-Agenten zu wirken und ihre Arbeitsweise gezielt für mehr Wertschöpfung zu optimieren.',
+    description: 'AI Workflow Automation für Financial Services. Self-hosted AI-Agents für Private Equity, Real Estate, Wealth Management und Banking.',
     navigation: 'Navigation',
     product: 'Produkt',
     legal: 'Legal',
