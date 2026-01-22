@@ -2,12 +2,19 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'motion/react';
 import RevealAnimation from '../animation/RevealAnimation';
 import { HeroWorkflowDemo } from './workflow-demo';
 
 const ArrowIcon = () => (
   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
   </svg>
 );
 
@@ -49,14 +56,20 @@ const Hero = () => {
                 <div className="pt-4 flex justify-center lg:justify-start">
                   <Link
                     href="/contact-us"
-                    className={`inline-flex items-center gap-2.5 px-7 py-4 rounded-full font-bold text-base transition-all duration-500 ${
-                      workflowComplete
-                        ? 'bg-gradient-to-r from-[#6f00ff] to-[#9945ff] text-white shadow-[0_0_0_4px_rgba(111,0,255,0.2),0_12px_32px_-6px_rgba(111,0,255,0.5)] hover:scale-105 hover:shadow-[0_0_0_5px_rgba(111,0,255,0.25),0_16px_40px_-6px_rgba(111,0,255,0.6)] active:scale-95'
-                        : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
-                    }`}
+                    className="relative inline-flex items-center gap-2.5 px-7 py-4 rounded-full font-bold text-base transition-all duration-500 bg-gradient-to-r from-[#6f00ff] to-[#9945ff] text-white shadow-[0_0_0_4px_rgba(111,0,255,0.2),0_12px_32px_-6px_rgba(111,0,255,0.5)] hover:scale-105 hover:shadow-[0_0_0_5px_rgba(111,0,255,0.25),0_16px_40px_-6px_rgba(111,0,255,0.6)] active:scale-95"
                   >
                     <span>Start Automating</span>
                     <ArrowIcon />
+                    {/* Checkmark badge - appears after workflow completes */}
+                    {workflowComplete && (
+                      <motion.span
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white bg-gradient-to-br from-emerald-500 to-emerald-400 shadow-lg"
+                      >
+                        <CheckIcon />
+                      </motion.span>
+                    )}
                   </Link>
                 </div>
               </RevealAnimation>

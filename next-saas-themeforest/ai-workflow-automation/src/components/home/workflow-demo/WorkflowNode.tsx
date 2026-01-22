@@ -114,6 +114,229 @@ function WorkflowNodeComponent({ data }: { data: WorkflowNodeData }) {
   );
 }
 
+// Decision Node - uses Top input handle and Left/Right output handles
+function DecisionNodeComponent({ data }: { data: WorkflowNodeData }) {
+  const { label, icon, status } = data;
+
+  const getBorderClass = () => {
+    switch (status) {
+      case 'running':
+        return 'border-[#6f00ff] shadow-[0_0_0_4px_rgba(111,0,255,0.15),0_8px_20px_-4px_rgba(111,0,255,0.35)]';
+      case 'complete':
+        return 'border-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.12),0_6px_16px_-4px_rgba(16,185,129,0.25)]';
+      default:
+        return 'border-gray-200 dark:border-gray-700 shadow-sm';
+    }
+  };
+
+  return (
+    <div className="workflow-rf-node">
+      {/* Input handle - TOP (invisible) */}
+      <Handle
+        type="target"
+        position={Position.Top}
+        className="!opacity-0 !w-0 !h-0"
+      />
+
+      {/* Node content */}
+      <motion.div
+        className={`relative flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 border-2 transition-all duration-300 ${getBorderClass()}`}
+        animate={status === 'running' ? { scale: [1, 1.03, 1] } : {}}
+        transition={{ repeat: Infinity, duration: 1.5 }}
+      >
+        <Image
+          src={icon}
+          alt={label}
+          width={32}
+          height={32}
+          className="object-contain rounded"
+          unoptimized
+        />
+
+        {/* Status badge */}
+        {status !== 'pending' && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className={`absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800 ${
+              status === 'running'
+                ? 'bg-gradient-to-br from-[#6f00ff] to-[#9945ff]'
+                : 'bg-gradient-to-br from-emerald-500 to-emerald-400'
+            }`}
+          >
+            {status === 'running' ? <SpinnerIcon /> : <CheckIcon />}
+          </motion.div>
+        )}
+      </motion.div>
+
+      {/* Label */}
+      <div className="mt-2 text-center max-w-[90px]">
+        <p className="text-xs font-semibold text-gray-900 dark:text-gray-100 leading-tight truncate">
+          {label}
+        </p>
+      </div>
+
+      {/* Output handles - LEFT and RIGHT (invisible) */}
+      <Handle
+        type="source"
+        position={Position.Left}
+        id="left"
+        className="!opacity-0 !w-0 !h-0"
+      />
+      <Handle
+        type="source"
+        position={Position.Right}
+        id="right"
+        className="!opacity-0 !w-0 !h-0"
+      />
+    </div>
+  );
+}
+
+// Top-Right Flow Node - uses Top input handle and Right output handle for horizontal connections
+function TopRightFlowNodeComponent({ data }: { data: WorkflowNodeData }) {
+  const { label, icon, status } = data;
+
+  const getBorderClass = () => {
+    switch (status) {
+      case 'running':
+        return 'border-[#6f00ff] shadow-[0_0_0_4px_rgba(111,0,255,0.15),0_8px_20px_-4px_rgba(111,0,255,0.35)]';
+      case 'complete':
+        return 'border-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.12),0_6px_16px_-4px_rgba(16,185,129,0.25)]';
+      default:
+        return 'border-gray-200 dark:border-gray-700 shadow-sm';
+    }
+  };
+
+  return (
+    <div className="workflow-rf-node">
+      {/* Input handle - TOP (invisible) */}
+      <Handle
+        type="target"
+        position={Position.Top}
+        className="!opacity-0 !w-0 !h-0"
+      />
+
+      {/* Node content */}
+      <motion.div
+        className={`relative flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 border-2 transition-all duration-300 ${getBorderClass()}`}
+        animate={status === 'running' ? { scale: [1, 1.03, 1] } : {}}
+        transition={{ repeat: Infinity, duration: 1.5 }}
+      >
+        <Image
+          src={icon}
+          alt={label}
+          width={32}
+          height={32}
+          className="object-contain rounded"
+          unoptimized
+        />
+
+        {/* Status badge */}
+        {status !== 'pending' && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className={`absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800 ${
+              status === 'running'
+                ? 'bg-gradient-to-br from-[#6f00ff] to-[#9945ff]'
+                : 'bg-gradient-to-br from-emerald-500 to-emerald-400'
+            }`}
+          >
+            {status === 'running' ? <SpinnerIcon /> : <CheckIcon />}
+          </motion.div>
+        )}
+      </motion.div>
+
+      {/* Label */}
+      <div className="mt-2 text-center max-w-[90px]">
+        <p className="text-xs font-semibold text-gray-900 dark:text-gray-100 leading-tight truncate">
+          {label}
+        </p>
+      </div>
+
+      {/* Output handle - RIGHT (invisible) */}
+      <Handle
+        type="source"
+        position={Position.Right}
+        className="!opacity-0 !w-0 !h-0"
+      />
+    </div>
+  );
+}
+
+// Multi-Input Flow Node - uses Top and Left input handles for converging connections
+function MultiInputFlowNodeComponent({ data }: { data: WorkflowNodeData }) {
+  const { label, icon, status } = data;
+
+  const getBorderClass = () => {
+    switch (status) {
+      case 'running':
+        return 'border-[#6f00ff] shadow-[0_0_0_4px_rgba(111,0,255,0.15),0_8px_20px_-4px_rgba(111,0,255,0.35)]';
+      case 'complete':
+        return 'border-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.12),0_6px_16px_-4px_rgba(16,185,129,0.25)]';
+      default:
+        return 'border-gray-200 dark:border-gray-700 shadow-sm';
+    }
+  };
+
+  return (
+    <div className="workflow-rf-node">
+      {/* Input handles - TOP and LEFT (invisible) */}
+      <Handle
+        type="target"
+        position={Position.Top}
+        id="top"
+        className="!opacity-0 !w-0 !h-0"
+      />
+      <Handle
+        type="target"
+        position={Position.Left}
+        id="left"
+        className="!opacity-0 !w-0 !h-0"
+      />
+
+      {/* Node content */}
+      <motion.div
+        className={`relative flex items-center justify-center w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 border-2 transition-all duration-300 ${getBorderClass()}`}
+        animate={status === 'running' ? { scale: [1, 1.03, 1] } : {}}
+        transition={{ repeat: Infinity, duration: 1.5 }}
+      >
+        <Image
+          src={icon}
+          alt={label}
+          width={32}
+          height={32}
+          className="object-contain rounded"
+          unoptimized
+        />
+
+        {/* Status badge */}
+        {status !== 'pending' && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className={`absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800 ${
+              status === 'running'
+                ? 'bg-gradient-to-br from-[#6f00ff] to-[#9945ff]'
+                : 'bg-gradient-to-br from-emerald-500 to-emerald-400'
+            }`}
+          >
+            {status === 'running' ? <SpinnerIcon /> : <CheckIcon />}
+          </motion.div>
+        )}
+      </motion.div>
+
+      {/* Label */}
+      <div className="mt-2 text-center max-w-[90px]">
+        <p className="text-xs font-semibold text-gray-900 dark:text-gray-100 leading-tight truncate">
+          {label}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // Vertical Flow Node - uses Top/Bottom handles for vertical connections
 function VerticalFlowNodeComponent({ data }: { data: WorkflowNodeData }) {
   const { label, icon, status } = data;
@@ -260,5 +483,8 @@ function CTANodeComponent({ data }: { data: CTANodeData }) {
 }
 
 export const WorkflowNode = memo(WorkflowNodeComponent);
+export const DecisionNode = memo(DecisionNodeComponent);
+export const TopRightFlowNode = memo(TopRightFlowNodeComponent);
+export const MultiInputFlowNode = memo(MultiInputFlowNodeComponent);
 export const VerticalFlowNode = memo(VerticalFlowNodeComponent);
 export const CTANode = memo(CTANodeComponent);

@@ -1,45 +1,79 @@
 'use client';
 
-import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-interface ApiDemoItem {
+interface UseCase {
   id: number;
   title: string;
-  url: string;
-  image: string;
-  newRelease: boolean;
-  tags: string;
+  description: string;
+  category: string;
+  iconUrl: string;
 }
 
-export default function DemoShowcase({ activeDemoId }: Readonly<{ activeDemoId: number }>) {
+const BASE_ICON_URL = 'https://lunnoa-assets-global.s3.eu-central-1.amazonaws.com/assets/apps';
+
+const useCasesData: UseCase[] = [
+  // Private Equity
+  { id: 1, title: 'Capital Call Processing', description: 'Automate capital call notices, collection, and investor communication workflows', category: 'Private Equity', iconUrl: `${BASE_ICON_URL}/dealcloud.png` },
+  { id: 2, title: 'Fund Reporting Automation', description: 'Generate and distribute periodic fund reports to LPs with regulatory compliance', category: 'Private Equity', iconUrl: `${BASE_ICON_URL}/google-sheets.svg` },
+  { id: 3, title: 'Due Diligence Automation', description: 'Extract and analyze deal documents, financial statements, and legal contracts', category: 'Private Equity', iconUrl: `${BASE_ICON_URL}/pdf.svg` },
+  { id: 4, title: 'Portfolio Company Monitoring', description: 'Track portfolio company KPIs and generate automated alerts for deviations', category: 'Private Equity', iconUrl: `${BASE_ICON_URL}/dealcloud.png` },
+  { id: 5, title: 'Investor Onboarding', description: 'Automate KYC/AML checks and subscription document processing for new LPs', category: 'Private Equity', iconUrl: `${BASE_ICON_URL}/hubspot.svg` },
+  { id: 6, title: 'Distribution Processing', description: 'Calculate and process distributions to investors with audit trail compliance', category: 'Private Equity', iconUrl: `${BASE_ICON_URL}/google-sheets.svg` },
+  { id: 7, title: 'Deal Pipeline Management', description: 'Track deal flow, automate document collection, and generate deal memos', category: 'Private Equity', iconUrl: `${BASE_ICON_URL}/dealcloud.png` },
+  { id: 8, title: 'Valuation Workflows', description: 'Automate portfolio company valuations and reporting to investors', category: 'Private Equity', iconUrl: `${BASE_ICON_URL}/google-sheets.svg` },
+  { id: 9, title: 'LP Communication', description: 'Automate investor updates, meeting scheduling, and document distribution', category: 'Private Equity', iconUrl: `${BASE_ICON_URL}/gmail.svg` },
+  { id: 10, title: 'Compliance Reporting', description: 'Generate regulatory reports and maintain audit trails for FINMA compliance', category: 'Private Equity', iconUrl: `${BASE_ICON_URL}/pdf.svg` },
+  
+  // Real Estate
+  { id: 11, title: 'Lease Abstraction', description: 'Extract key terms from lease documents and populate property management systems', category: 'Real Estate', iconUrl: `${BASE_ICON_URL}/pdf.svg` },
+  { id: 12, title: 'Property Document Processing', description: 'Process property acquisition documents, titles, and due diligence materials', category: 'Real Estate', iconUrl: `${BASE_ICON_URL}/pdf.svg` },
+  { id: 13, title: 'Asset Valuation', description: 'Automate property valuations using market data and financial models', category: 'Real Estate', iconUrl: `${BASE_ICON_URL}/google-sheets.svg` },
+  { id: 14, title: 'Rent Roll Analysis', description: 'Extract and analyze rent roll data from property management systems', category: 'Real Estate', iconUrl: `${BASE_ICON_URL}/google-sheets.svg` },
+  { id: 15, title: 'Tenant Onboarding', description: 'Automate tenant screening, lease execution, and move-in workflows', category: 'Real Estate', iconUrl: `${BASE_ICON_URL}/hubspot.svg` },
+  { id: 16, title: 'Property Financial Reporting', description: 'Generate property-level financial reports and NOI calculations', category: 'Real Estate', iconUrl: `${BASE_ICON_URL}/google-sheets.svg` },
+  { id: 17, title: 'Maintenance Request Routing', description: 'Route maintenance requests to appropriate vendors and track completion', category: 'Real Estate', iconUrl: `${BASE_ICON_URL}/slack.svg` },
+  { id: 18, title: 'Lease Renewal Management', description: 'Track lease expirations and automate renewal offer generation', category: 'Real Estate', iconUrl: `${BASE_ICON_URL}/google-calendar.svg` },
+  { id: 19, title: 'Property Tax Management', description: 'Track property tax assessments and automate payment workflows', category: 'Real Estate', iconUrl: `${BASE_ICON_URL}/google-sheets.svg` },
+  { id: 20, title: 'Investment Committee Prep', description: 'Compile property investment packages and financial analysis for review', category: 'Real Estate', iconUrl: `${BASE_ICON_URL}/dealcloud.png` },
+  
+  // Wealth Management
+  { id: 21, title: 'KYC Reassessment', description: 'Automate periodic KYC reviews and risk assessment updates for clients', category: 'Wealth Management', iconUrl: `${BASE_ICON_URL}/hubspot.svg` },
+  { id: 22, title: 'Client Meeting Preparation', description: 'Generate client meeting briefs with portfolio performance and recommendations', category: 'Wealth Management', iconUrl: `${BASE_ICON_URL}/google-calendar.svg` },
+  { id: 23, title: 'Regulatory Reporting', description: 'Generate FINMA-compliant reports for client portfolios and transactions', category: 'Wealth Management', iconUrl: `${BASE_ICON_URL}/pdf.svg` },
+  { id: 24, title: 'Portfolio Rebalancing', description: 'Monitor portfolios and trigger rebalancing workflows based on investment policy', category: 'Wealth Management', iconUrl: `${BASE_ICON_URL}/google-sheets.svg` },
+  { id: 25, title: 'Client Onboarding', description: 'Automate account opening, document collection, and compliance checks', category: 'Wealth Management', iconUrl: `${BASE_ICON_URL}/hubspot.svg` },
+  { id: 26, title: 'Performance Reporting', description: 'Generate personalized performance reports for clients with explanations', category: 'Wealth Management', iconUrl: `${BASE_ICON_URL}/google-sheets.svg` },
+  { id: 27, title: 'Risk Assessment', description: 'Automate client risk profiling and suitability assessments', category: 'Wealth Management', iconUrl: `${BASE_ICON_URL}/hubspot.svg` },
+  { id: 28, title: 'Document Management', description: 'Organize and retrieve client documents with version control and audit trails', category: 'Wealth Management', iconUrl: `${BASE_ICON_URL}/google-drive.svg` },
+  { id: 29, title: 'Compliance Monitoring', description: 'Monitor transactions for suspicious activity and regulatory violations', category: 'Wealth Management', iconUrl: `${BASE_ICON_URL}/hubspot.svg` },
+  { id: 30, title: 'Client Communication', description: 'Automate client updates, market commentary, and investment insights', category: 'Wealth Management', iconUrl: `${BASE_ICON_URL}/gmail.svg` },
+  
+  // Banking
+  { id: 31, title: 'Transaction Monitoring', description: 'Monitor transactions for AML compliance and suspicious activity patterns', category: 'Banking', iconUrl: `${BASE_ICON_URL}/hubspot.svg` },
+  { id: 32, title: 'Client Onboarding', description: 'Automate KYC/AML checks, document verification, and account opening workflows', category: 'Banking', iconUrl: `${BASE_ICON_URL}/hubspot.svg` },
+  { id: 33, title: 'Credit Risk Assessment', description: 'Automate credit application analysis and risk scoring using AI models', category: 'Banking', iconUrl: `${BASE_ICON_URL}/google-sheets.svg` },
+  { id: 34, title: 'Loan Processing', description: 'Streamline loan origination, underwriting, and approval workflows', category: 'Banking', iconUrl: `${BASE_ICON_URL}/hubspot.svg` },
+  { id: 35, title: 'Regulatory Reporting', description: 'Generate FINMA regulatory reports with full audit trail compliance', category: 'Banking', iconUrl: `${BASE_ICON_URL}/pdf.svg` },
+  { id: 36, title: 'Account Reconciliation', description: 'Automate account reconciliation and exception handling', category: 'Banking', iconUrl: `${BASE_ICON_URL}/google-sheets.svg` },
+  { id: 37, title: 'Fraud Detection', description: 'Detect fraudulent transactions using pattern recognition and AI models', category: 'Banking', iconUrl: `${BASE_ICON_URL}/hubspot.svg` },
+  { id: 38, title: 'Document Processing', description: 'Extract data from bank statements, invoices, and financial documents', category: 'Banking', iconUrl: `${BASE_ICON_URL}/pdf.svg` },
+  { id: 39, title: 'Customer Due Diligence', description: 'Automate CDD reviews and enhanced due diligence for high-risk clients', category: 'Banking', iconUrl: `${BASE_ICON_URL}/hubspot.svg` },
+  { id: 40, title: 'Compliance Alerts', description: 'Monitor regulatory changes and alert compliance teams to required actions', category: 'Banking', iconUrl: `${BASE_ICON_URL}/slack.svg` },
+  
+  // Cross-Industry Financial Services
+  { id: 41, title: 'Document Extraction', description: 'Extract structured data from PDFs, emails, and scanned documents', category: 'Financial Services', iconUrl: `${BASE_ICON_URL}/pdf.svg` },
+  { id: 42, title: 'Audit Trail Management', description: 'Maintain comprehensive audit trails for all automated processes', category: 'Financial Services', iconUrl: `${BASE_ICON_URL}/google-drive.svg` },
+  { id: 43, title: 'Regulatory Compliance', description: 'Ensure all workflows meet FINMA and other regulatory requirements', category: 'Financial Services', iconUrl: `${BASE_ICON_URL}/hubspot.svg` },
+  { id: 44, title: 'Data Integration', description: 'Integrate with core banking systems, CRMs, and portfolio management platforms', category: 'Financial Services', iconUrl: `${BASE_ICON_URL}/dealcloud.png` },
+  { id: 45, title: 'Report Generation', description: 'Generate standardized financial reports with automated distribution', category: 'Financial Services', iconUrl: `${BASE_ICON_URL}/google-sheets.svg` },
+  { id: 46, title: 'Workflow Orchestration', description: 'Coordinate complex multi-step processes across systems and teams', category: 'Financial Services', iconUrl: `${BASE_ICON_URL}/slack.svg` },
+];
+
+export default function DemoShowcase({ activeDemoId }: Readonly<{ activeDemoId?: number }>) {
   const [isOpen, setIsOpen] = useState(false);
-  const [demoShowcaseList, setDemoShowcaseList] = useState<ApiDemoItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchDemoList = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch('https://nextsaas-api.vercel.app/api/nextjs-demo');
-        if (!response.ok) {
-          throw new Error('Failed to fetch demo list');
-        }
-        const data: ApiDemoItem[] = await response.json();
-
-        setDemoShowcaseList(data);
-        setError(null);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
-        // Error is handled via setError state
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchDemoList();
-  }, []);
+  const [useCases] = useState<UseCase[]>(useCasesData);
 
   useEffect(() => {
     if (globalThis.window !== undefined) {
@@ -66,12 +100,19 @@ export default function DemoShowcase({ activeDemoId }: Readonly<{ activeDemoId: 
     setIsOpen(false);
   };
 
-  const getCardClassName = (href: string, id: number) => {
+  const getCardClassName = (id: number) => {
     const isActive = id === activeDemoId;
-    return `demo-card block border cursor-pointer transition-all duration-300 ease-in-out max-w-[500px] mx-auto rounded-[36px] p-2 ${
+    return `use-case-card block border cursor-pointer transition-all duration-300 ease-in-out max-w-[500px] mx-auto rounded-[36px] p-2 ${
       isActive ? 'border-primary-500 border-2' : 'border-stroke-3 group hover:border-primary-400'
     }`;
   };
+
+  const categories = Array.from(new Set(useCases.map(uc => uc.category)));
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+
+  const filteredUseCases = selectedCategory === 'All' 
+    ? useCases 
+    : useCases.filter(uc => uc.category === selectedCategory);
 
   return (
     <>
@@ -110,7 +151,7 @@ export default function DemoShowcase({ activeDemoId }: Readonly<{ activeDemoId: 
         </span>
         <span>
           {' '}
-          {demoShowcaseList.length > 0 ? `${demoShowcaseList.length}+ Pre built demos` : '38+ Pre built demos'}
+          {useCases.length}+ Prebuilt Use Cases
         </span>
       </button>
 
@@ -148,45 +189,73 @@ export default function DemoShowcase({ activeDemoId }: Readonly<{ activeDemoId: 
             overscrollBehavior: 'contain',
           }}>
           <div className="mx-auto max-w-[1560px] min-[1880px]:!px-0 md:px-4">
-            <div className="mb-12 text-center">
-              <h2 className="text-secondary text-center font-normal">
-                {demoShowcaseList.length > 0
-                  ? `${demoShowcaseList.length}+ Pre-built websites`
-                  : '38+ Pre-built websites'}
+            <div className="mb-8 text-center">
+              <h2 className="text-secondary text-center text-heading-3 font-normal mb-4">
+                {useCases.length}+ Prebuilt Use Cases
               </h2>
+              <p className="text-secondary/60 text-center max-w-2xl mx-auto">
+                Discover ready-to-use automation workflows for your business
+              </p>
+            </div>
+
+            {/* Category Filter */}
+            <div className="mb-8 flex flex-wrap justify-center gap-3">
+              <button
+                onClick={() => setSelectedCategory('All')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  selectedCategory === 'All'
+                    ? 'bg-primary-500 text-white'
+                    : 'bg-white dark:bg-background-7 text-secondary border border-stroke-3 hover:border-primary-400'
+                }`}>
+                All
+              </button>
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                    selectedCategory === category
+                      ? 'bg-primary-500 text-white'
+                      : 'bg-white dark:bg-background-7 text-secondary border border-stroke-3 hover:border-primary-400'
+                  }`}>
+                  {category}
+                </button>
+              ))}
             </div>
 
             <div className="grid grid-cols-12 gap-y-5 sm:gap-3 xl:gap-6">
-              {isLoading ? (
-                <div className="col-span-12 py-12 text-center">
-                  <p className="text-secondary">Loading demos...</p>
-                </div>
-              ) : error ? (
-                <div className="col-span-12 py-12 text-center">
-                  <p className="text-secondary">Error loading demos: {error}</p>
-                </div>
-              ) : (
-                demoShowcaseList.map((item) => (
-                  <div key={item.id} className="col-span-12 md:col-span-6 xl:col-span-4">
-                    <Link href={item.url} target="_blank" className={getCardClassName(item.url, item.id)}>
-                      <div className="rounded-[28px] bg-white p-2 shadow-[0_1px_4px_0_rgba(16,24,40,0.10)] transition-all duration-400 ease-in-out group-hover:shadow-[0_8px_6px_0_rgba(16,24,40,0.16)]">
-                        <figure className="max-h-[351px] overflow-hidden rounded-[20px]">
-                          <img src={item.image} alt="Demo Showcase" className="h-full w-full object-cover" />
-                        </figure>
-
-                        <h2 className="text-secondary flex items-center justify-center gap-2 py-4 text-center text-lg leading-[150%] font-medium">
-                          {item.title}{' '}
-                          {item.newRelease && (
-                            <span className="text-secondary bg-ns-green text-tagline-2 rounded-[35px] px-5 py-[5px]">
-                              New
+              {filteredUseCases.map((useCase) => (
+                <div key={useCase.id} className="col-span-12 md:col-span-6 xl:col-span-4">
+                  <div className={getCardClassName(useCase.id)}>
+                    <div className="rounded-[28px] bg-white dark:bg-background-7 p-6 shadow-[0_1px_4px_0_rgba(16,24,40,0.10)] transition-all duration-400 ease-in-out group-hover:shadow-[0_8px_6px_0_rgba(16,24,40,0.16)]">
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-12 h-12 relative">
+                          <Image
+                            src={useCase.iconUrl}
+                            alt={useCase.title}
+                            fill
+                            className="object-contain"
+                            sizes="48px"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <div className="mb-2">
+                            <span className="text-tagline-2 text-primary-500 dark:text-primary-400 text-xs font-medium">
+                              {useCase.category}
                             </span>
-                          )}
-                        </h2>
+                          </div>
+                          <h3 className="text-secondary dark:text-accent text-heading-6 font-medium mb-2">
+                            {useCase.title}
+                          </h3>
+                          <p className="text-secondary/60 dark:text-accent/60 text-sm leading-relaxed">
+                            {useCase.description}
+                          </p>
+                        </div>
                       </div>
-                    </Link>
+                    </div>
                   </div>
-                ))
-              )}
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -1,23 +1,35 @@
 import { getReleasesList } from '@/lib/releases';
 
+/**
+ * Sitemap configuration for Lunnoa Automate website
+ * Automatically generates sitemap.xml for SEO
+ * 
+ * @returns {Array} Array of sitemap entries
+ */
 export default function sitemap() {
   const baseUrl = 'https://lunnoaautomate.ch';
   
   // Get all releases for dynamic routes
-  const releases = getReleasesList();
-  const releaseUrls = releases.map((release) => ({
-    url: `${baseUrl}/releases/${release.version}`,
-    lastModified: new Date(release.date),
-    changeFrequency: 'monthly',
-    priority: 0.7,
-  }));
+  let releaseUrls = [];
+  try {
+    const releases = getReleasesList();
+    releaseUrls = releases.map((release) => ({
+      url: `${baseUrl}/releases/${release.version}`,
+      lastModified: new Date(release.date),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    }));
+  } catch (error) {
+    console.error('Error loading releases for sitemap:', error);
+  }
 
-  return [
+  // Static pages
+  const staticPages = [
     {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: 1,
+      priority: 1.0,
     },
     {
       url: `${baseUrl}/integrations`,
@@ -31,7 +43,6 @@ export default function sitemap() {
       changeFrequency: 'weekly',
       priority: 0.8,
     },
-    ...releaseUrls,
     {
       url: `${baseUrl}/impressum`,
       lastModified: new Date(),
@@ -45,4 +56,6 @@ export default function sitemap() {
       priority: 0.3,
     },
   ];
+
+  return [...staticPages, ...releaseUrls];
 }

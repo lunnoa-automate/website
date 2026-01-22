@@ -1,10 +1,8 @@
 'use client';
 
-import Link from 'next/link';
-import { ArrowRight, Shield, Database, FileCheck } from 'lucide-react';
+import { Shield, Database, FileCheck } from 'lucide-react';
 import { Title } from '@/components/ui/Title';
 import { SectionLabel } from '@/components/ui/SectionLabel';
-import { Button } from '@/components/ui/Button';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
@@ -64,15 +62,6 @@ export default function Story() {
                     ))}
                   </div>
                 )}
-              </div>
-
-              <div className="pt-8">
-                <Button variant="outline" size="lg" className="group">
-                  <Link href="/#features" className="flex items-center gap-2">
-                    {t.story.learnMore}
-                    <ArrowRight className="-rotate-45 group-hover:rotate-0 transition-transform" size={18} />
-                  </Link>
-                </Button>
               </div>
             </SlideUp>
           </div>

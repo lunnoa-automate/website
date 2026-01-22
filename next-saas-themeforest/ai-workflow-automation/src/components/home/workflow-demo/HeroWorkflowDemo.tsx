@@ -11,13 +11,16 @@ import {
   type NodeTypes,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { WorkflowNode, VerticalFlowNode, CTANode, type WorkflowNodeData, type CTANodeData, type WorkflowNodeStatus } from './WorkflowNode';
+import { WorkflowNode, DecisionNode, TopRightFlowNode, MultiInputFlowNode, VerticalFlowNode, CTANode, type WorkflowNodeData, type CTANodeData, type WorkflowNodeStatus } from './WorkflowNode';
 
 const S3_BASE = 'https://lunnoa-assets-global.s3.eu-central-1.amazonaws.com/assets';
 
 // Node types registration
 const nodeTypes: NodeTypes = {
   workflowNode: WorkflowNode,
+  decisionNode: DecisionNode,
+  topRightFlowNode: TopRightFlowNode,
+  multiInputFlowNode: MultiInputFlowNode,
   verticalFlowNode: VerticalFlowNode,
   ctaNode: CTANode,
 };
@@ -69,7 +72,7 @@ const initialNodes: Node<WorkflowNodeData | CTANodeData>[] = [
   // Row 1 - Decision node (centered, shifted right for visual flow)
   {
     id: 'decision',
-    type: 'verticalFlowNode',
+    type: 'decisionNode',
     position: { x: HORIZONTAL_GAP * 2.5, y: VERTICAL_GAP },
     data: {
       label: 'Decision',
@@ -101,7 +104,7 @@ const initialNodes: Node<WorkflowNodeData | CTANodeData>[] = [
   // Row 3 - Convergence (Guidepoint and Compliance merge)
   {
     id: 'guidepoint',
-    type: 'verticalFlowNode',
+    type: 'topRightFlowNode',
     position: { x: HORIZONTAL_GAP * 1.5, y: VERTICAL_GAP * 3 },
     data: {
       label: 'Guidepoint',
@@ -111,7 +114,7 @@ const initialNodes: Node<WorkflowNodeData | CTANodeData>[] = [
   },
   {
     id: 'compliance',
-    type: 'verticalFlowNode',
+    type: 'multiInputFlowNode',
     position: { x: HORIZONTAL_GAP * 3.5, y: VERTICAL_GAP * 3.5 },
     data: {
       label: 'KYC Agent',
@@ -153,6 +156,7 @@ const initialEdges: Edge[] = [
   {
     id: 'e-decision-slack',
     source: 'decision',
+    sourceHandle: 'left',
     target: 'slack',
     type: 'smoothstep',
     animated: false,
@@ -161,6 +165,7 @@ const initialEdges: Edge[] = [
   {
     id: 'e-decision-excel',
     source: 'decision',
+    sourceHandle: 'right',
     target: 'excel',
     type: 'smoothstep',
     animated: false,
@@ -175,20 +180,22 @@ const initialEdges: Edge[] = [
     animated: false,
     style: { stroke: '#374151', strokeWidth: 2 },
   },
-  // Guidepoint → Compliance (horizontal right)
+  // Guidepoint → Compliance (horizontal left)
   {
     id: 'e-guidepoint-compliance',
     source: 'guidepoint',
     target: 'compliance',
+    targetHandle: 'left',
     type: 'smoothstep',
     animated: false,
     style: { stroke: '#374151', strokeWidth: 2 },
   },
-  // Right branch: Excel → Compliance (diagonal down-left to merge)
+  // Right branch: Excel → Compliance (from top)
   {
     id: 'e-excel-compliance',
     source: 'excel',
     target: 'compliance',
+    targetHandle: 'top',
     type: 'smoothstep',
     animated: false,
     style: { stroke: '#374151', strokeWidth: 2 },
@@ -206,6 +213,7 @@ export const HeroWorkflowDemo = ({ onComplete }: HeroWorkflowDemoProps) => {
   const timerRef = useRef<NodeJS.Timeout[]>([]);
   const hasStartedRef = useRef(false);
   const onCompleteCalledRef = useRef(false);
+  const NODE_DURATION = 1000; // 1 second per node
 
   // Update node status
   const updateNodeStatus = useCallback((nodeId: string, status: WorkflowNodeStatus) => {
@@ -234,99 +242,235 @@ export const HeroWorkflowDemo = ({ onComplete }: HeroWorkflowDemoProps) => {
     );
   }, [setEdges]);
 
-  // Run the demo animation - zigzag flow (~2 seconds longer for smoother pacing)
-  const runDemo = useCallback(() => {
-    let delay = 1000;
+  // Reset all nodes and edges to initial state
+  const resetAllNodes = useCallback(() => {
+    setNodes((nds) =>
+      nds.map((node) => ({
+        ...node,
+        data: { ...node.data, status: 'pending' as WorkflowNodeStatus },
+      }))
+    );
+    setEdges((eds) =>
+      eds.map((edge) => ({
+        ...edge,
+        animated: false,
+        style: {
+          stroke: '#374151',
+          strokeWidth: 2,
+        },
+      }))
+    );
+  }, [setNodes, setEdges]);
 
-    // Row 1: Trigger → DealCloud → Deal Agent → Decision
-    const row1 = [
-      { node: 'trigger', edge: null, duration: 600 },
-      { node: 'dealcloud', edge: 'e-trigger-dealcloud', duration: 800 },
-      { node: 'deal-agent', edge: 'e-dealcloud-agent', duration: 1000 },
-      { node: 'decision', edge: 'e-agent-decision', duration: 600 },
-    ];
+  // First run: Slack path
+  const runFirstPath = useCallback(() => {
+    let delay = 0;
 
-    row1.forEach(({ node, edge, duration }) => {
-      const startTimer = setTimeout(() => {
-        updateNodeStatus(node, 'running');
-        if (edge) updateEdgeStyle(edge, true, false);
-      }, delay);
-      timerRef.current.push(startTimer);
+    // Trigger
+    const triggerStart = setTimeout(() => {
+      updateNodeStatus('trigger', 'running');
+    }, delay);
+    timerRef.current.push(triggerStart);
+    delay += NODE_DURATION;
+    const triggerComplete = setTimeout(() => {
+      updateNodeStatus('trigger', 'complete');
+    }, delay);
+    timerRef.current.push(triggerComplete);
+    delay += 100; // Small gap between nodes
 
-      delay += duration;
+    // DealCloud
+    const dealcloudStart = setTimeout(() => {
+      updateEdgeStyle('e-trigger-dealcloud', true, false);
+      updateNodeStatus('dealcloud', 'running');
+    }, delay);
+    timerRef.current.push(dealcloudStart);
+    delay += NODE_DURATION;
+    const dealcloudComplete = setTimeout(() => {
+      updateEdgeStyle('e-trigger-dealcloud', false, true);
+      updateNodeStatus('dealcloud', 'complete');
+    }, delay);
+    timerRef.current.push(dealcloudComplete);
+    delay += 100;
 
-      const completeTimer = setTimeout(() => {
-        updateNodeStatus(node, 'complete');
-        if (edge) updateEdgeStyle(edge, false, true);
-      }, delay);
-      timerRef.current.push(completeTimer);
+    // Deal Agent
+    const agentStart = setTimeout(() => {
+      updateEdgeStyle('e-dealcloud-agent', true, false);
+      updateNodeStatus('deal-agent', 'running');
+    }, delay);
+    timerRef.current.push(agentStart);
+    delay += NODE_DURATION;
+    const agentComplete = setTimeout(() => {
+      updateEdgeStyle('e-dealcloud-agent', false, true);
+      updateNodeStatus('deal-agent', 'complete');
+    }, delay);
+    timerRef.current.push(agentComplete);
+    delay += 100;
 
-      delay += 150;
-    });
-
-    // Row 2: Decision branches to Slack and Excel
-    const branchDelay = delay;
+    // Decision
+    const decisionStart = setTimeout(() => {
+      updateEdgeStyle('e-agent-decision', true, false);
+      updateNodeStatus('decision', 'running');
+    }, delay);
+    timerRef.current.push(decisionStart);
+    delay += NODE_DURATION;
+    const decisionComplete = setTimeout(() => {
+      updateEdgeStyle('e-agent-decision', false, true);
+      updateNodeStatus('decision', 'complete');
+    }, delay);
+    timerRef.current.push(decisionComplete);
+    delay += 100;
 
     // Slack branch
-    setTimeout(() => {
+    const slackStart = setTimeout(() => {
       updateEdgeStyle('e-decision-slack', true, false);
       updateNodeStatus('slack', 'running');
-    }, branchDelay);
-    timerRef.current.push(setTimeout(() => {}, branchDelay));
-
-    setTimeout(() => {
+    }, delay);
+    timerRef.current.push(slackStart);
+    delay += NODE_DURATION;
+    const slackComplete = setTimeout(() => {
       updateEdgeStyle('e-decision-slack', false, true);
       updateNodeStatus('slack', 'complete');
-    }, branchDelay + 700);
-    timerRef.current.push(setTimeout(() => {}, branchDelay + 700));
+    }, delay);
+    timerRef.current.push(slackComplete);
+    delay += 100;
 
-    // Excel branch (slight delay)
-    setTimeout(() => {
-      updateEdgeStyle('e-decision-excel', true, false);
-      updateNodeStatus('excel', 'running');
-    }, branchDelay + 200);
-    timerRef.current.push(setTimeout(() => {}, branchDelay + 200));
-
-    setTimeout(() => {
-      updateEdgeStyle('e-decision-excel', false, true);
-      updateNodeStatus('excel', 'complete');
-    }, branchDelay + 200 + 600);
-    timerRef.current.push(setTimeout(() => {}, branchDelay + 800));
-
-    delay = branchDelay + 950;
-
-    // Row 3: Guidepoint → Compliance
-    // Slack connects to Guidepoint
-    setTimeout(() => {
+    // Guidepoint
+    const guidepointStart = setTimeout(() => {
       updateEdgeStyle('e-slack-guidepoint', true, false);
       updateNodeStatus('guidepoint', 'running');
     }, delay);
-    timerRef.current.push(setTimeout(() => {}, delay));
-
-    setTimeout(() => {
+    timerRef.current.push(guidepointStart);
+    delay += NODE_DURATION;
+    const guidepointComplete = setTimeout(() => {
       updateEdgeStyle('e-slack-guidepoint', false, true);
       updateNodeStatus('guidepoint', 'complete');
-    }, delay + 700);
-    timerRef.current.push(setTimeout(() => {}, delay + 700));
+    }, delay);
+    timerRef.current.push(guidepointComplete);
+    delay += 100;
 
-    delay += 850;
-
-    // Compliance (receives from both Guidepoint and Excel)
-    setTimeout(() => {
+    // Compliance
+    const complianceStart = setTimeout(() => {
       updateEdgeStyle('e-guidepoint-compliance', true, false);
+      updateNodeStatus('compliance', 'running');
+    }, delay);
+    timerRef.current.push(complianceStart);
+    delay += NODE_DURATION;
+    const complianceComplete = setTimeout(() => {
+      updateEdgeStyle('e-guidepoint-compliance', false, true);
+      updateNodeStatus('compliance', 'complete');
+    }, delay);
+    timerRef.current.push(complianceComplete);
+  }, [updateNodeStatus, updateEdgeStyle]);
+
+  // Second run: Excel path
+  const runSecondPath = useCallback(() => {
+    let delay = 0;
+
+    // Trigger
+    const triggerStart = setTimeout(() => {
+      updateNodeStatus('trigger', 'running');
+    }, delay);
+    timerRef.current.push(triggerStart);
+    delay += NODE_DURATION;
+    const triggerComplete = setTimeout(() => {
+      updateNodeStatus('trigger', 'complete');
+    }, delay);
+    timerRef.current.push(triggerComplete);
+    delay += 100;
+
+    // DealCloud
+    const dealcloudStart = setTimeout(() => {
+      updateEdgeStyle('e-trigger-dealcloud', true, false);
+      updateNodeStatus('dealcloud', 'running');
+    }, delay);
+    timerRef.current.push(dealcloudStart);
+    delay += NODE_DURATION;
+    const dealcloudComplete = setTimeout(() => {
+      updateEdgeStyle('e-trigger-dealcloud', false, true);
+      updateNodeStatus('dealcloud', 'complete');
+    }, delay);
+    timerRef.current.push(dealcloudComplete);
+    delay += 100;
+
+    // Deal Agent
+    const agentStart = setTimeout(() => {
+      updateEdgeStyle('e-dealcloud-agent', true, false);
+      updateNodeStatus('deal-agent', 'running');
+    }, delay);
+    timerRef.current.push(agentStart);
+    delay += NODE_DURATION;
+    const agentComplete = setTimeout(() => {
+      updateEdgeStyle('e-dealcloud-agent', false, true);
+      updateNodeStatus('deal-agent', 'complete');
+    }, delay);
+    timerRef.current.push(agentComplete);
+    delay += 100;
+
+    // Decision
+    const decisionStart = setTimeout(() => {
+      updateEdgeStyle('e-agent-decision', true, false);
+      updateNodeStatus('decision', 'running');
+    }, delay);
+    timerRef.current.push(decisionStart);
+    delay += NODE_DURATION;
+    const decisionComplete = setTimeout(() => {
+      updateEdgeStyle('e-agent-decision', false, true);
+      updateNodeStatus('decision', 'complete');
+    }, delay);
+    timerRef.current.push(decisionComplete);
+    delay += 100;
+
+    // Excel branch
+    const excelStart = setTimeout(() => {
+      updateEdgeStyle('e-decision-excel', true, false);
+      updateNodeStatus('excel', 'running');
+    }, delay);
+    timerRef.current.push(excelStart);
+    delay += NODE_DURATION;
+    const excelComplete = setTimeout(() => {
+      updateEdgeStyle('e-decision-excel', false, true);
+      updateNodeStatus('excel', 'complete');
+    }, delay);
+    timerRef.current.push(excelComplete);
+    delay += 100;
+
+    // Compliance
+    const complianceStart = setTimeout(() => {
       updateEdgeStyle('e-excel-compliance', true, false);
       updateNodeStatus('compliance', 'running');
     }, delay);
-    timerRef.current.push(setTimeout(() => {}, delay));
-
-    setTimeout(() => {
-      updateEdgeStyle('e-guidepoint-compliance', false, true);
+    timerRef.current.push(complianceStart);
+    delay += NODE_DURATION;
+    const complianceComplete = setTimeout(() => {
       updateEdgeStyle('e-excel-compliance', false, true);
       updateNodeStatus('compliance', 'complete');
       setIsComplete(true);
-    }, delay + 800);
-    timerRef.current.push(setTimeout(() => {}, delay + 800));
+    }, delay);
+    timerRef.current.push(complianceComplete);
   }, [updateNodeStatus, updateEdgeStyle]);
+
+  // Run both paths sequentially
+  const runDemo = useCallback(() => {
+    // Calculate first path duration: 7 nodes * 1000ms + 6 gaps * 100ms = 7600ms
+    const firstPathDuration = 7 * NODE_DURATION + 6 * 100;
+    const resetDelay = firstPathDuration + 500; // 500ms pause before reset
+
+    // Reset after first path completes
+    const resetTimer = setTimeout(() => {
+      resetAllNodes();
+    }, resetDelay);
+    timerRef.current.push(resetTimer);
+
+    // Start second path after reset
+    const secondPathStart = resetDelay + 100; // Small delay after reset
+    const secondPathTimer = setTimeout(() => {
+      runSecondPath();
+    }, secondPathStart);
+    timerRef.current.push(secondPathTimer);
+
+    // Start first path immediately
+    runFirstPath();
+  }, [runFirstPath, runSecondPath, resetAllNodes]);
 
   // Auto-start animation on mount
   useEffect(() => {

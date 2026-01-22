@@ -47,7 +47,7 @@ const Navbar = () => {
                 </span>
               </Link>
             </div>
-            <nav className="hidden items-center xl:flex">
+            <nav className="hidden items-center lg:flex">
               <ul className="flex items-center">
                 <li
                   className="nav-item relative cursor-pointer py-2.5"
@@ -149,7 +149,7 @@ const Navbar = () => {
                 </li>
               </ul>
             </nav>
-            <div className="hidden items-center justify-center xl:flex">
+            <div className="hidden items-center justify-center lg:flex">
               <a
                 href="/signup"
                 className="btn btn-md hover:btn-white dark:hover:btn-white-dark btn-white-dark dark:btn-white">
