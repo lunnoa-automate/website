@@ -1,4 +1,4 @@
-﻿import faqImg from '@public/images/ns-img-52.png';
+import faqImg from '@public/images/ns-img-52.png';
 import faqImgDark from '@public/images/ns-img-dark-31.png';
 import Image from 'next/image';
 import RevealAnimation from '../animation/RevealAnimation';
@@ -11,19 +11,30 @@ const Faq = () => {
       aria-label="Frequently Asked Questions">
       <div className="main-container">
         <div className="flex flex-col items-center justify-between gap-8 lg:flex-row lg:gap-0">
+          {/* faq content */}
           <div className="space-y-14 text-center lg:text-left">
+            {/* faq heading  */}
             <div className="space-y-5">
               <RevealAnimation delay={0.1}>
-                <span className="badge badge-green uppercase">FAQ</span>
+                <span className="badge badge-green uppercase">Frequently Asked Questions</span>
               </RevealAnimation>
+
               <RevealAnimation delay={0.2}>
                 <h2 className="mx-auto lg:mx-0 lg:max-w-[439px]" id="faq-heading">
-                  Common inquiries from clients
+                  Your Questions, Our Answers.
                 </h2>
               </RevealAnimation>
+              <RevealAnimation delay={0.25}>
+                <p className="text-tagline-2 text-secondary/60 dark:text-accent/60">
+                  Find answers to the most common questions about Lunnoa Automate.
+                </p>
+              </RevealAnimation>
             </div>
+            {/* faq accordion  */}
+
             <FaqAccordion />
           </div>
+          {/* faq image */}
           <RevealAnimation delay={0.5}>
             <figure className="relative w-full max-w-[684px] overflow-hidden lg:max-w-[500px] xl:max-w-[684px]">
               <Image
