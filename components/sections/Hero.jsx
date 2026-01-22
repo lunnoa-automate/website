@@ -1,6 +1,8 @@
 'use client';
 
+import { ArrowRight } from 'lucide-react';
 import { Title } from '@/components/ui/Title';
+import { Button } from '@/components/ui/Button';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
@@ -8,11 +10,6 @@ import { useTranslation } from '@/translations';
 export default function Hero() {
   const { language } = useLanguage();
   const t = useTranslation(language);
-
-  const stats = [
-    { value: '60+', label: t.hero.integrations },
-    { value: '100%', label: t.hero.swissMade },
-  ];
 
   return (
     <section className="pt-20 relative">
@@ -33,25 +30,28 @@ export default function Hero() {
           {/* Right Content */}
           <div>
             <SlideUp delay={0.1}>
-              <p className="font-semibold text-foreground">
+              <p className="font-semibold text-foreground text-lg">
                 {t.hero.subtitle}
               </p>
               
-              {/* Stats */}
-              <div className="flex sm:flex-row flex-col sm:items-center gap-8 sm:divide-x divide-accent pt-7.5">
-                {stats.map((stat, index) => (
-                  <div 
-                    key={stat.label} 
-                    className={`flex items-center gap-2 ${index > 0 ? 'sm:pl-8' : ''}`}
+              {/* Trusted by line */}
+              <p className="text-muted-foreground font-bold mt-4">
+                {t.hero.trustedBy}
+              </p>
+
+              {/* CTA Button */}
+              <div className="mt-8">
+                <Button size="lg" className="group">
+                  <a 
+                    href="https://calendly.com/sasakelebuda-lunnoalabs/45min" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center gap-2"
                   >
-                    <span className="font-extrabold text-muted-foreground text-5xl lg:text-5.5xl">
-                      {stat.value}
-                    </span>
-                    <p className="font-bold text-muted-foreground max-w-[170px]">
-                      {stat.label}
-                    </p>
-                  </div>
-                ))}
+                    {t.hero.cta}
+                    <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
+                  </a>
+                </Button>
               </div>
             </SlideUp>
           </div>
@@ -78,7 +78,7 @@ export default function Hero() {
           </div>
         </SlideUp>
 
-        {/* Partners/Trust Badges */}
+        {/* Trust Badges */}
         <SlideUp delay={0.3}>
           <div className="shadow-[0px_4px_40px_0px_rgba(44,54,109,0.25)] max-w-[1005px] mx-auto lg:-mt-14 -mt-6 z-[1] relative bg-white rounded-2.5xl p-8">
             <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-16">

@@ -1,0 +1,14 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- For dark backgrounds: Soft Pink bg, Deep Purple L, Light Lavender cane -->
+  <circle cx="256" cy="256" r="240" fill="#FFF1F1"/>
+  <g transform="translate(136, 128)">
+    <!-- L vertical bar -->
+    <rect x="0" y="0" width="56" height="232" rx="12" fill="#3B0270"/>
+    
+    <!-- L horizontal bar with smile spanning full width -->
+    <path d="M0 220 Q0 208 12 208 L228 208 Q240 208 240 220 L240 260 Q240 272 228 272 Q120 288 12 272 Q0 272 0 260 Z" fill="#3B0270"/>
+    
+    <!-- Cane -->
+    <rect x="184" y="0" width="56" height="196" rx="12" fill="#E9B3FB"/>
+  </g>
+</svg>

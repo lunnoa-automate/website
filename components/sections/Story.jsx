@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Shield, Database, FileCheck } from 'lucide-react';
 import { Title } from '@/components/ui/Title';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { Button } from '@/components/ui/Button';
@@ -12,6 +12,12 @@ import { useTranslation } from '@/translations';
 export default function Story() {
   const { language } = useLanguage();
   const t = useTranslation(language);
+
+  const painPoints = [
+    { icon: FileCheck, text: t.story.painPoints?.documents },
+    { icon: Shield, text: t.story.painPoints?.compliance },
+    { icon: Database, text: t.story.painPoints?.operations },
+  ].filter(item => item.text);
 
   return (
     <section className="lg:py-15 py-9 bg-gray">
@@ -44,6 +50,20 @@ export default function Story() {
                 <p className="font-semibold pt-7.5">
                   <strong>{t.story.weUnderstand}</strong> {t.story.description2}
                 </p>
+
+                {/* Pain Points */}
+                {painPoints.length > 0 && (
+                  <div className="mt-8 space-y-4">
+                    {painPoints.map((item, index) => (
+                      <div key={index} className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                          <item.icon size={20} />
+                        </div>
+                        <span className="text-foreground font-medium">{item.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="pt-8">

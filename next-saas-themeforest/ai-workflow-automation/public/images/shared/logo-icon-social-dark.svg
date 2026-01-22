@@ -1,0 +1,13 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Social media profile picture - Dark icon on Deep Purple background -->
+  
+  <!-- Full background -->
+  <rect width="512" height="512" fill="#3B0270"/>
+  
+  <!-- Lu icon centered -->
+  <g transform="translate(136, 128)">
+    <rect x="0" y="0" width="56" height="232" rx="12" fill="#FFF1F1"/>
+    <path d="M0 220 Q0 208 12 208 L228 208 Q240 208 240 220 L240 260 Q240 272 228 272 Q120 288 12 272 Q0 272 0 260 Z" fill="#FFF1F1"/>
+    <rect x="184" y="0" width="56" height="196" rx="12" fill="#E9B3FB"/>
+  </g>
+</svg>

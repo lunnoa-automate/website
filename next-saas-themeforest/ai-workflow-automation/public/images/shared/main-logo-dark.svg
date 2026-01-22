@@ -1,0 +1,18 @@
+<svg width="700" height="160" viewBox="0 0 700 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Full logo for DARK backgrounds: Soft Pink + Violet (Quicksand) -->
+  
+  <!-- Circle icon (light version) -->
+  <g transform="translate(0, 0) scale(0.3125)">
+    <circle cx="256" cy="256" r="240" fill="#FFF1F1"/>
+    <g transform="translate(136, 128)">
+      <rect x="0" y="0" width="56" height="232" rx="12" fill="#3B0270"/>
+      <path d="M0 220 Q0 208 12 208 L228 208 Q240 208 240 220 L240 260 Q240 272 228 272 Q120 288 12 272 Q0 272 0 260 Z" fill="#3B0270"/>
+      <rect x="184" y="0" width="56" height="196" rx="12" fill="#E9B3FB"/>
+    </g>
+  </g>
+  
+  <!-- Text: Quicksand - Soft Pink + Violet -->
+  <text x="180" y="98" font-family="Quicksand, sans-serif" font-size="52" font-weight="700">
+    <tspan fill="#FFF1F1">Lunnoa</tspan><tspan fill="#A78BFA">Automate</tspan>
+  </text>
+</svg>

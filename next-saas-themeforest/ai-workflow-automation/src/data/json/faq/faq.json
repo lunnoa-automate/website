@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "question": "Where is our data stored?",
+    "answer": "Your data stays where you want it. Lunnoa Automate can be operated on-premise, in your private cloud, or in Swiss data centers. You maintain full control over your data and its location at all times."
+  },
+  {
+    "id": 2,
+    "question": "How do you handle FINMA requirements?",
+    "answer": "Lunnoa Automate is designed with Swiss financial regulations in mind. Full audit trails, data sovereignty, and compliance-first architecture ensure you meet FINMA requirements while leveraging AI automation."
+  },
+  {
+    "id": 3,
+    "question": "Can we run this in our own Swiss data center?",
+    "answer": "Absolutely. Lunnoa Automate is fully self-hosted. Deploy on-premise, in your private cloud, or with any Swiss hosting provider. Your infrastructure, your control."
+  },
+  {
+    "id": 4,
+    "question": "Which LLM models are used?",
+    "answer": "Lunnoa Automate is LLM-agnostic. You can use various models like GPT-4, Claude, or local open-source models. The choice depends on your requirements for data privacy, performance, and budget."
+  },
+  {
+    "id": 5,
+    "question": "Can I track what my AI agents have done?",
+    "answer": "Yes, full transparency is guaranteed. Every action of your AI agents is logged and traceable in detail. This ensures complete oversight and compliance with regulatory requirements."
+  }
+]
