@@ -1,11 +1,18 @@
 {
   "releases": [
     {
+      "version": "1.9.0",
+      "date": "2026-01-24",
+      "title": "DealCloud CRM Integration",
+      "file": "v1.9.0.md",
+      "highlight": true
+    },
+    {
       "version": "1.8.0",
       "date": "2026-01-19",
       "title": "Image Tools & Enhanced Team Experience",
       "file": "v1.8.0.md",
-      "highlight": true
+      "highlight": false
     },
     {
       "version": "1.7.0",
