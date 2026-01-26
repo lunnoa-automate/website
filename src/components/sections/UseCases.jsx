@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Title } from '../ui/Title';
 import { SectionLabel } from '../ui/SectionLabel';
@@ -7,6 +7,8 @@ import { SlideUp } from '../animations/SlideUp';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTranslation } from '../../translations';
 import { cn } from '../../lib/utils';
+import { useTracking, useIntersectionTracking } from '../../hooks/useTracking';
+import { EVENTS, CTA_LOCATIONS, SECTION_IDS } from '../../lib/tracking-events';
 
 const categoryKeys = ['finance', 'legal', 'admin', 'insurance', 'marketing', 'industrie'];
 
@@ -14,9 +16,30 @@ export default function UseCases() {
   const [activeCategory, setActiveCategory] = useState('finance');
   const { language } = useLanguage();
   const t = useTranslation(language);
+  const { trackCtaClick, trackCalendlyClick, trackUseCaseInteraction } = useTracking();
+  
+  // Section visibility tracking
+  const sectionRef = useRef(null);
+  useIntersectionTracking(sectionRef, {
+    sectionName: SECTION_IDS.USE_CASES,
+    threshold: 0.3,
+    trackOnce: true,
+  });
+
+  // Handle category selection
+  const handleCategorySelect = (category) => {
+    trackUseCaseInteraction(EVENTS.USE_CASE_CATEGORY_SELECT, category);
+    setActiveCategory(category);
+  };
+
+  // Handle CTA click
+  const handleCtaClick = () => {
+    trackCtaClick(CTA_LOCATIONS.USE_CASES_SECTION);
+    trackCalendlyClick(CTA_LOCATIONS.USE_CASES_SECTION);
+  };
 
   return (
-    <section id="use-cases" className="lg:py-15 py-9 bg-gray">
+    <section id="use-cases" className="lg:py-15 py-9 bg-gray" ref={sectionRef}>
       <div className="container mx-auto">
         <SlideUp>
           <div className="flex flex-col items-center">
@@ -36,7 +59,7 @@ export default function UseCases() {
             {categoryKeys.map((key) => (
               <button
                 key={key}
-                onClick={() => setActiveCategory(key)}
+                onClick={() => handleCategorySelect(key)}
                 className={cn(
                   "px-6 py-3 rounded-full font-semibold transition-all duration-300",
                   activeCategory === key
@@ -81,7 +104,13 @@ export default function UseCases() {
               {t.useCases.cta.text}
             </p>
             <Button size="lg">
-              <a href="https://calendly.com/sasakelebuda-lunnoalabs/45min" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              <a 
+                href="https://calendly.com/sasakelebuda-lunnoalabs/45min" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="flex items-center gap-2"
+                onClick={handleCtaClick}
+              >
                 {t.useCases.cta.button}
                 <ArrowRight size={18} />
               </a>

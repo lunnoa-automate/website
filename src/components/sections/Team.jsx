@@ -1,9 +1,12 @@
+import { useRef } from 'react';
 import { Linkedin, Mail } from 'lucide-react';
 import { Title } from '../ui/Title';
 import { SectionLabel } from '../ui/SectionLabel';
 import { SlideUp } from '../animations/SlideUp';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTranslation } from '../../translations';
+import { useTracking, useIntersectionTracking } from '../../hooks/useTracking';
+import { EVENTS, SECTION_IDS, PARTNER_NAMES } from '../../lib/tracking-events';
 
 const teamData = [
   { key: 'sasa', initials: 'SK', image: '/images/team/sasa_kelebuda.jpg' },
@@ -13,9 +16,40 @@ const teamData = [
 export default function Team() {
   const { language } = useLanguage();
   const t = useTranslation(language);
+  const { trackEvent, trackSocialClick } = useTracking();
+  
+  // Section visibility tracking
+  const sectionRef = useRef(null);
+  useIntersectionTracking(sectionRef, {
+    sectionName: SECTION_IDS.TEAM,
+    threshold: 0.3,
+    trackOnce: true,
+  });
+
+  // Partner section visibility tracking
+  const partnerRef = useRef(null);
+  useIntersectionTracking(partnerRef, {
+    eventName: EVENTS.PARTNER_INTEREST,
+    threshold: 0.5,
+    trackOnce: true,
+  });
+
+  // Handle partner link click
+  const handlePartnerClick = (partnerName) => {
+    trackEvent(EVENTS.PARTNER_INTEREST, { partner_name: partnerName });
+  };
+
+  // Handle team social link click
+  const handleTeamSocialClick = (platform, memberName) => {
+    trackSocialClick(platform);
+    trackEvent('team_social_click', { 
+      platform, 
+      team_member: memberName 
+    });
+  };
 
   return (
-    <section id="team" className="lg:py-15 py-9">
+    <section id="team" className="lg:py-15 py-9" ref={sectionRef}>
       <div className="container mx-auto">
         <SlideUp>
           <div className="flex flex-col items-center">
@@ -107,7 +141,7 @@ export default function Team() {
 
         {/* Partner Section */}
         <SlideUp delay={0.3}>
-          <div className="mt-20 text-center">
+          <div className="mt-20 text-center" ref={partnerRef}>
             <Title size="4xl" className="mb-8">
               {t.team.partners.title} <span className="text-primary-foreground">{t.team.partners.titleHighlight}</span>
             </Title>
@@ -125,14 +159,26 @@ export default function Team() {
 
             {/* Partner Logos  */}
             <div className="flex flex-wrap justify-center items-center gap-10">
-              <a href="https://www.fintra.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+              <a 
+                href="https://www.fintra.ch" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:opacity-80 transition-opacity"
+                onClick={() => handlePartnerClick(PARTNER_NAMES.FINTRA)}
+              >
                 <img 
                   src="/images/partner/fintra_logo.png" 
                   alt="Fintra" 
                   className="h-8 w-auto object-contain"
                 />
               </a>
-              <a href="https://www.elab.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+              <a 
+                href="https://www.elaboratum.ch" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:opacity-80 transition-opacity"
+                onClick={() => handlePartnerClick(PARTNER_NAMES.ELAB)}
+              >
                 <img 
                   src="/images/partner/elab_logo_red.png" 
                   alt="eLab" 

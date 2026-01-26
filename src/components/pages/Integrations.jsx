@@ -1,9 +1,12 @@
 import { ArrowLeft, Search, ExternalLink } from 'lucide-react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { SlideUp } from '../animations/SlideUp';
 import { FadeIn } from '../animations/FadeIn';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTranslation } from '../../translations';
+import { useTracking } from '../../hooks/useTracking';
+import { EVENTS, CTA_LOCATIONS } from '../../lib/tracking-events';
+import { debounce } from '../../lib/tracking';
 
 // All available integrations with their details
 const integrations = [
@@ -114,6 +117,18 @@ export default function Integrations() {
   const t = useTranslation(language);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
+  const { trackIntegrationEvent, trackCtaClick, trackCalendlyClick, trackEvent } = useTracking();
+  const hasTrackedPageView = useRef(false);
+
+  // Track page view on mount
+  useEffect(() => {
+    if (!hasTrackedPageView.current) {
+      hasTrackedPageView.current = true;
+      trackIntegrationEvent(EVENTS.INTEGRATIONS_PAGE_VIEW, {
+        entry_source: document.referrer ? 'referral' : 'direct',
+      });
+    }
+  }, [trackIntegrationEvent]);
 
   const filteredIntegrations = useMemo(() => {
     return integrations.filter((integration) => {
@@ -123,6 +138,77 @@ export default function Integrations() {
       return matchesSearch && matchesCategory;
     });
   }, [searchQuery, activeCategory, language]);
+
+  // Debounced search tracking
+  const trackSearch = useCallback(
+    debounce((query, resultsCount) => {
+      if (query.trim()) {
+        trackIntegrationEvent(EVENTS.INTEGRATION_SEARCH, {
+          search_query: query,
+          results_count: resultsCount,
+        });
+      }
+    }, 500),
+    [trackIntegrationEvent]
+  );
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    
+    // Calculate results count for tracking
+    const resultsCount = integrations.filter((integration) => {
+      const matchesSearch = integration.name.toLowerCase().includes(query.toLowerCase()) ||
+        integration.description[language].toLowerCase().includes(query.toLowerCase());
+      const matchesCategory = activeCategory === 'all' || integration.category === activeCategory;
+      return matchesSearch && matchesCategory;
+    }).length;
+    
+    trackSearch(query, resultsCount);
+  };
+
+  // Handle category filter
+  const handleCategoryFilter = (categoryId) => {
+    setActiveCategory(categoryId);
+    
+    // Calculate results count for tracking
+    const resultsCount = integrations.filter((integration) => {
+      const matchesSearch = integration.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        integration.description[language].toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory = categoryId === 'all' || integration.category === categoryId;
+      return matchesSearch && matchesCategory;
+    }).length;
+    
+    trackIntegrationEvent(EVENTS.INTEGRATION_CATEGORY_FILTER, {
+      category: categoryId,
+      results_count: resultsCount,
+    });
+  };
+
+  // Handle integration card hover
+  const handleCardHover = (integration, index) => {
+    trackIntegrationEvent(EVENTS.INTEGRATION_CARD_HOVER, {
+      integration_name: integration.name,
+      integration_category: integration.category,
+      card_position: index,
+    });
+  };
+
+  // Handle integration card click
+  const handleCardClick = (integration, index) => {
+    trackIntegrationEvent(EVENTS.INTEGRATION_CARD_CLICK, {
+      integration_name: integration.name,
+      integration_category: integration.category,
+      card_position: index,
+    });
+  };
+
+  // Handle CTA click
+  const handleCtaClick = () => {
+    trackCtaClick(CTA_LOCATIONS.INTEGRATIONS);
+    trackCalendlyClick(CTA_LOCATIONS.INTEGRATIONS);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -181,7 +267,7 @@ export default function Integrations() {
                 type="text"
                 placeholder={t.integrations.searchPlaceholder}
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearchChange}
                 className="w-full pl-12 pr-4 py-3 rounded-full bg-gray border border-border focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-muted-foreground"
               />
             </div>
@@ -191,7 +277,7 @@ export default function Integrations() {
               {categories.map((category) => (
                 <button
                   key={category.id}
-                  onClick={() => setActiveCategory(category.id)}
+                  onClick={() => handleCategoryFilter(category.id)}
                   className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${activeCategory === category.id
                       ? 'bg-primary text-white shadow-lg shadow-primary/25'
                       : 'bg-gray text-foreground hover:bg-accent hover:text-muted-foreground'
@@ -210,7 +296,11 @@ export default function Integrations() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredIntegrations.map((integration, index) => (
             <FadeIn key={integration.id} delay={index * 0.02}>
-              <div className="group bg-gray rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-primary/10">
+              <div 
+                className="group bg-gray rounded-2xl p-6 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 border border-transparent hover:border-primary/10 cursor-pointer"
+                onMouseEnter={() => handleCardHover(integration, index)}
+                onClick={() => handleCardClick(integration, index)}
+              >
                 <div className="flex items-start gap-4">
                   <div className="w-14 h-14 rounded-xl bg-white shadow-sm flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
                     <img
@@ -266,6 +356,7 @@ export default function Integrations() {
               href="https://calendly.com/sasakelebuda-lunnoalabs/45min"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={handleCtaClick}
               className="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all hover:-translate-y-0.5"
             >
               {t.integrations.cta.button}

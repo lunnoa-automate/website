@@ -56,7 +56,7 @@ const Hero = () => {
                 <div className="pt-4 flex justify-center lg:justify-start">
                   <Link
                     href="/contact-us"
-                    className="relative inline-flex items-center gap-2.5 px-7 py-4 rounded-full font-bold text-base transition-all duration-500 bg-gradient-to-r from-[#6f00ff] to-[#9945ff] text-white shadow-[0_0_0_4px_rgba(111,0,255,0.2),0_12px_32px_-6px_rgba(111,0,255,0.5)] hover:scale-105 hover:shadow-[0_0_0_5px_rgba(111,0,255,0.25),0_16px_40px_-6px_rgba(111,0,255,0.6)] active:scale-95"
+                    className="relative inline-flex items-center gap-2.5 px-7 py-4 rounded-full font-bold text-base transition-all duration-500 bg-gradient-to-r from-[#3b82f6] to-[#60a5fa] text-white shadow-[0_0_0_4px_rgba(59,130,246,0.2),0_12px_32px_-6px_rgba(59,130,246,0.5)] hover:scale-105 hover:shadow-[0_0_0_5px_rgba(59,130,246,0.25),0_16px_40px_-6px_rgba(59,130,246,0.6)] active:scale-95"
                   >
                     <span>Start Automating</span>
                     <ArrowIcon />

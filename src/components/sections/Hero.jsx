@@ -1,13 +1,30 @@
+import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Title } from '../ui/Title';
 import { Button } from '../ui/Button';
 import { SlideUp } from '../animations/SlideUp';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTranslation } from '../../translations';
+import { useVideoTracking, useIntersectionTracking } from '../../hooks/useTracking';
 
 export default function Hero() {
   const { language } = useLanguage();
   const t = useTranslation(language);
+  
+  // Video tracking
+  const videoRef = useRef(null);
+  useVideoTracking(videoRef, { 
+    milestones: [25, 50, 75, 100], 
+    enabled: true 
+  });
+  
+  // Badge section visibility tracking
+  const badgesRef = useRef(null);
+  useIntersectionTracking(badgesRef, {
+    sectionName: 'swiss_badges',
+    threshold: 0.5,
+    trackOnce: true,
+  });
 
   const stats = [
     { value: '60+', label: t.hero.integrations },
@@ -65,6 +82,7 @@ export default function Hero() {
               style={{ aspectRatio: '16/7.5' }}
             >
               <video 
+                ref={videoRef}
                 className="w-full h-full object-cover object-center scale-[1.05]"
                 autoPlay 
                 muted 
@@ -80,7 +98,10 @@ export default function Hero() {
 
         {/* Partners/Trust Badges */}
         <SlideUp delay={0.3}>
-          <div className="shadow-[0px_4px_40px_0px_rgba(44,54,109,0.25)] max-w-[1005px] mx-auto lg:-mt-14 -mt-6 z-[1] relative bg-white rounded-2.5xl p-8">
+          <div 
+            ref={badgesRef}
+            className="shadow-[0px_4px_40px_0px_rgba(44,54,109,0.25)] max-w-[1005px] mx-auto lg:-mt-14 -mt-6 z-[1] relative bg-white rounded-2.5xl p-8"
+          >
             <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-16">
               {Object.values(t.hero.badges).map((badge) => (
                 <div key={badge} className="flex items-center gap-2 text-muted-foreground">

@@ -1,28 +1,44 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { pushLanguageSwitch } from '../lib/tracking';
 
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
   const [language, setLanguage] = useState(() => {
     // Check localStorage first
-    const saved = localStorage.getItem('language');
-    if (saved) return saved;
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('language');
+      if (saved) return saved;
+    }
     
-    // Default to German
-    return 'de';
+    // Default to English
+    return 'en';
   });
 
   useEffect(() => {
-    localStorage.setItem('language', language);
-    document.documentElement.lang = language;
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('language', language);
+      document.documentElement.lang = language;
+    }
   }, [language]);
 
-  const toggleLanguage = () => {
-    setLanguage(prev => prev === 'de' ? 'en' : 'de');
-  };
+  // Track language changes
+  const setLanguageWithTracking = useCallback((newLanguage) => {
+    const prevLanguage = language;
+    if (prevLanguage !== newLanguage) {
+      pushLanguageSwitch(prevLanguage, newLanguage);
+    }
+    setLanguage(newLanguage);
+  }, [language]);
+
+  const toggleLanguage = useCallback(() => {
+    const newLanguage = language === 'de' ? 'en' : 'de';
+    pushLanguageSwitch(language, newLanguage);
+    setLanguage(newLanguage);
+  }, [language]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage }}>
+    <LanguageContext.Provider value={{ language, setLanguage: setLanguageWithTracking, toggleLanguage }}>
       {children}
     </LanguageContext.Provider>
   );

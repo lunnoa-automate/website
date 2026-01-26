@@ -233,7 +233,7 @@ export const HeroWorkflowDemo = ({ onComplete }: HeroWorkflowDemoProps) => {
               ...edge,
               animated: active,
               style: {
-                stroke: complete ? '#10b981' : active ? '#6f00ff' : '#374151',
+                stroke: complete ? '#10b981' : active ? '#3b82f6' : '#374151',
                 strokeWidth: active ? 2.5 : 2,
               },
             }

@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Title } from '../ui/Title';
 import { SectionLabel } from '../ui/SectionLabel';
@@ -5,13 +6,23 @@ import { Button } from '../ui/Button';
 import { SlideUp } from '../animations/SlideUp';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTranslation } from '../../translations';
+import { useIntersectionTracking } from '../../hooks/useTracking';
+import { SECTION_IDS } from '../../lib/tracking-events';
 
 export default function Story() {
   const { language } = useLanguage();
   const t = useTranslation(language);
+  
+  // Section visibility tracking
+  const sectionRef = useRef(null);
+  useIntersectionTracking(sectionRef, {
+    sectionName: SECTION_IDS.STORY,
+    threshold: 0.3,
+    trackOnce: true,
+  });
 
   return (
-    <section className="lg:py-15 py-9 bg-gray">
+    <section className="lg:py-15 py-9 bg-gray" ref={sectionRef}>
       <div className="container mx-auto">
         <div className="flex lg:flex-row flex-col justify-between items-center gap-12">
           {/* Left - Image */}

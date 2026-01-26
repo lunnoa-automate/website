@@ -1,16 +1,34 @@
+import { useRef } from 'react';
 import { ArrowRight, Calendar, Check } from 'lucide-react';
 import { Title } from '../ui/Title';
 import { Button } from '../ui/Button';
 import { SlideUp } from '../animations/SlideUp';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTranslation } from '../../translations';
+import { useTracking, useIntersectionTracking } from '../../hooks/useTracking';
+import { CTA_LOCATIONS, SECTION_IDS } from '../../lib/tracking-events';
 
 export default function CTA() {
   const { language } = useLanguage();
   const t = useTranslation(language);
+  const { trackCtaClick, trackCalendlyClick } = useTracking();
+  
+  // Section visibility tracking
+  const sectionRef = useRef(null);
+  useIntersectionTracking(sectionRef, {
+    sectionName: SECTION_IDS.CTA,
+    threshold: 0.5,
+    trackOnce: true,
+  });
+
+  // Handle CTA click
+  const handleCtaClick = () => {
+    trackCtaClick(CTA_LOCATIONS.MAIN_CTA);
+    trackCalendlyClick(CTA_LOCATIONS.MAIN_CTA);
+  };
 
   return (
-    <section id="demo" className="lg:py-15 py-9">
+    <section id="demo" className="lg:py-15 py-9" ref={sectionRef}>
       <SlideUp>
         <div className="container mx-auto">
           <div className="rounded-[30px] bg-accent lg:px-12.5 px-7.5 lg:pt-14 pt-7.5 lg:pb-16 pb-7.5 flex lg:flex-row flex-col justify-between lg:items-center gap-8">
@@ -45,7 +63,13 @@ export default function CTA() {
             {/* Right - CTA Button */}
             <div className="relative flex items-center justify-between">
               <Button size="xl" className="group">
-                <a href="https://calendly.com/sasakelebuda-lunnoalabs/45min" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                <a 
+                  href="https://calendly.com/sasakelebuda-lunnoalabs/45min" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center gap-2"
+                  onClick={handleCtaClick}
+                >
                   {t.cta.button}
                   <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
                 </a>

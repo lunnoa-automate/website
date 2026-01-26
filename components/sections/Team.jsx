@@ -124,7 +124,7 @@ export default function Team() {
                   className="h-8 w-auto object-contain"
                 />
               </a>
-              <a href="https://www.elab.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+              <a href="https://www.elaboratum.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
                 <img 
                   src="/images/partner/elab_logo_red.png" 
                   alt="eLab" 

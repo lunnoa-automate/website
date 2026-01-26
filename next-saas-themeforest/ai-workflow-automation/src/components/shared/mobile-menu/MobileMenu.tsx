@@ -2,8 +2,8 @@
 'use client';
 import { useMobileMenuContext } from '@/context/MobileMenuContext';
 import { cn } from '@/utils/cn';
-import logoDark from '@public/images/shared/logo-dark.svg';
-import logoIcon from '@public/images/shared/logo.svg';
+import logoDark from '@public/images/shared/logo-dark.png';
+import logoIcon from '@public/images/shared/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import MenuCloseButton from './MenuCloseButton';
@@ -33,9 +33,9 @@ const MobileMenu = ({ menuData }: { menuData: MobileMenuGroup[] }) => {
         <div className="flex items-center justify-between">
           <Link href="/">
             <span className="sr-only">Home</span>
-            <figure className="max-w-[44px]">
-              <Image src={logoIcon} alt="Lunnoa Automate" className="block w-full dark:hidden" />
-              <Image src={logoDark} alt="Lunnoa Automate" className="hidden w-full dark:block" />
+            <figure className="max-w-[120px]">
+              <Image src={logoIcon} alt="Lunnoa Automate" className="block h-8 w-auto dark:hidden" />
+              <Image src={logoDark} alt="Lunnoa Automate" className="hidden h-8 w-auto dark:block" />
             </figure>
           </Link>
           {/* close btn  */}

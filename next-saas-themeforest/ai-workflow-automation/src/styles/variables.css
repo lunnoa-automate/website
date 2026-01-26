@@ -5,60 +5,61 @@ All the varaiables are added here
   /* =============== FONTS =============== */
   --font-inter-tight: 'Inter Tight', sans-serif;
   /* =============== COLORS =============== */
-  /* Lunnoa Automate Brand Colors */
-  --color-primary-50: #fff1f1; /* Soft Pink */
-  --color-primary-100: #f4e8ff;
-  --color-primary-200: #e9b3fb; /* Light Lavender */
-  --color-primary-300: #d4a0f0;
-  --color-primary-400: #b885e6;
-  --color-primary-500: #7c3aed; /* Muted Purple */
-  --color-primary-600: #6f00ff; /* Electric Violet */
-  --color-primary-700: #5a00cc;
-  --color-primary-800: #3b0270; /* Deep Purple */
-  --color-secondary: #1a1a1c; /* Original grey for text */
-  --color-accent: #fcfcfc; /* Original accent color */
-  --color-split-text: #1a1a1c; /* Original grey for text */
-  --color-background-1: #fff1f1; /* Soft Pink */
+  /* Lunnoa Automate Brand Colors - Blue Palette */
+  --color-primary-50: #eff6ff; /* Lightest Blue */
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe; /* Light Blue */
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa; /* Secondary Blue */
+  --color-primary-500: #3b82f6; /* Primary Blue */
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af; /* Deep Blue */
+  --color-secondary: #5C6671; /* Foreground text grey */
+  --color-accent: #eff6ff; /* Accent blue tint */
+  --color-split-text: #374151; /* Muted grey for text */
+  --color-background-1: #eff6ff; /* Light blue tint */
   --color-background-2: #fff; /* White */
   --color-background-3: #f9fafb;
   --color-background-4: #f4f5f8;
-  --color-background-5: #13171e;
-  --color-background-6: #0f1217;
-  --color-background-7: #181d26;
-  --color-background-8: #070b10;
-  --color-background-9: #1f252f;
+  --color-background-5: #191F25; /* Dark background */
+  --color-background-6: #191F25; /* Dark background */
+  --color-background-7: #202932; /* Dark accent */
+  --color-background-8: #191F25; /* Dark background */
+  --color-background-9: #202932; /* Dark accent */
   --color-background-10: #ebebeb;
   --color-background-11: #b5b5b9;
   --color-background-12: #eaeceb;
-  --color-stroke-1: #dfe4eb;
+  --color-stroke-1: #e5e7eb; /* Border light */
   --color-stroke-2: #e3e7ed;
   --color-stroke-3: #d7dde5;
   --color-stroke-4: #eceff4;
-  --color-stroke-5: #1b232f;
-  --color-stroke-6: #202731;
+  --color-stroke-5: #374151; /* Border dark */
+  --color-stroke-6: #374151;
   --color-stroke-7: #2a333e;
   --color-stroke-8: #303b49;
   --color-stroke-9: var(--color-background-8);
+  /* Lunnoa Automate Accent Colors */
   --color-ns-yellow: #f9eb57;
-  --color-ns-green: #c6f56f;
-  --color-ns-red: #ffb9a2;
-  --color-ns-cyan: #83e7ee;
+  --color-ns-green: #7ed957; /* Success Green */
+  --color-ns-red: #FE2E2E; /* Error Red */
+  --color-ns-cyan: #00D9FF; /* Vibrant Cyan */
   --color-ns-green-light: #e8fbc6;
   --color-ns-cyan-light: #cdf5f8;
   --color-ns-yellow-light: #fdf7bc;
 
-  --color-gradient-1: linear-gradient(135deg, #3b0270 0%, #6f00ff 100%); /* Brand gradient: Deep Purple to Electric Violet */
-  --color-gradient-2: linear-gradient(135deg, #e9b3fb 0%, #fff1f1 100%); /* Light Lavender to Soft Pink */
-  --color-gradient-3: linear-gradient(135deg, #6f00ff 0%, #e9b3fb 100%); /* Electric Violet to Light Lavender */
-  --color-gradient-4: linear-gradient(135deg, #3b0270 0%, #6f00ff 100%); /* Brand gradient */
+  --color-gradient-1: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); /* Brand gradient: Deep Blue to Primary Blue */
+  --color-gradient-2: linear-gradient(135deg, #bfdbfe 0%, #eff6ff 100%); /* Light Blue to Lightest Blue */
+  --color-gradient-3: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); /* Primary Blue to Secondary Blue */
+  --color-gradient-4: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); /* Brand gradient */
   --color-gradient-5: linear-gradient(165deg, rgba(255, 255, 255, 0.5) 0.51%, rgba(255, 255, 255, 0) 64.43%);
-  --color-gradient-6: linear-gradient(#83e7ee 0%, #c6f56f 100%);
-  --color-gradient-7: linear-gradient(#ffffff 0%, #83e7ee 100%);
-  --color-gradient-8: linear-gradient(156deg, #ffffff 32.92%, #a585ff 91%);
-  --color-gradient-9: linear-gradient(156deg, #dfb0ff 32.92%, #fdbedc 91%);
-  --color-gradient-10: linear-gradient(135deg, #83e7ee 0%, #c6f56f 100%);
+  --color-gradient-6: linear-gradient(#00D9FF 0%, #7ed957 100%); /* Cyan to Green */
+  --color-gradient-7: linear-gradient(#ffffff 0%, #00D9FF 100%); /* White to Cyan */
+  --color-gradient-8: linear-gradient(156deg, #ffffff 32.92%, #60a5fa 91%); /* White to Secondary Blue */
+  --color-gradient-9: linear-gradient(156deg, #bfdbfe 32.92%, #93c5fd 91%); /* Light blues */
+  --color-gradient-10: linear-gradient(135deg, #00D9FF 0%, #7ed957 100%); /* Cyan to Green */
   --color-gradient-11: linear-gradient(179deg, rgba(255, 255, 255, 0) 0.68%, #fff 79.47%);
-  --color-gradient-12: radial-gradient(73.01% 80.77% at 19.23% 47.79%, #83e7ee 0%, rgba(134, 79, 254, 0) 100%);
+  --color-gradient-12: radial-gradient(73.01% 80.77% at 19.23% 47.79%, #00D9FF 0%, rgba(59, 130, 246, 0) 100%); /* Cyan radial */
 
   /* =============== TYPOGRAPHY =============== */
   --text-heading-1: 4.25rem;
@@ -109,11 +110,17 @@ All the varaiables are added here
 }
 
 .dark {
-  --color-split-text: #fcfcfc; /* Original light color for dark mode text */
-  /* Update dark mode backgrounds to match design system */
-  --color-background-5: #191f25; /* Dark background */
-  --color-background-6: #191f25; /* Dark background */
+  /* Lunnoa Automate Dark Mode Colors */
+  --color-split-text: #eff6ff; /* Light text for dark mode */
+  --color-secondary: #717A83; /* Dark mode foreground */
+  --color-accent: #202932; /* Dark mode accent */
+  /* Dark mode backgrounds from design system */
+  --color-background-5: #191F25; /* Dark background */
+  --color-background-6: #191F25; /* Dark background */
   --color-background-7: #202932; /* Dark accent */
-  --color-background-8: #191f25; /* Dark background */
+  --color-background-8: #191F25; /* Dark background */
   --color-background-9: #202932; /* Dark accent */
+  /* Dark mode stroke/borders */
+  --color-stroke-5: #374151;
+  --color-stroke-6: #374151;
 }

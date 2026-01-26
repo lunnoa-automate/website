@@ -2,8 +2,8 @@ import RevealAnimation from '@/components/animation/RevealAnimation';
 import { footerLinks } from '@/data/footer-data';
 import { cn } from '@/utils/cn';
 import bgGradientImg from '@public/images/ns-img-524.png';
-import DarkLogo from '@public/images/shared/logo-dark.svg';
-import LightLogo from '@public/images/shared/logo.svg';
+import DarkLogo from '@public/images/shared/logo-dark.png';
+import LightLogo from '@public/images/shared/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import ThemeToggle from '../ThemeToggle';
@@ -27,8 +27,8 @@ const Footer = () => {
             <RevealAnimation delay={0.3}>
               <div className="xl:max-w-[306px]">
                 <figure className="max-w-[120px]">
-                  <Image src={DarkLogo} className="dark:hidden w-full" alt="Lunnoa Automate" />
-                  <Image src={LightLogo} className="hidden w-full dark:block" alt="Lunnoa Automate" />
+                  <Image src={DarkLogo} className="dark:hidden h-8 w-auto" alt="Lunnoa Automate" />
+                  <Image src={LightLogo} className="hidden h-8 w-auto dark:block" alt="Lunnoa Automate" />
                 </figure>
                 <p className="text-secondary dark:text-accent mt-4 mb-7">
                   Build smarter experiences with flexible tools to grow alongside your business.

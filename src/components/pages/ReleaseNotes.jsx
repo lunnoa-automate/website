@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowLeft, Calendar, Tag, Sparkles, ChevronDown, ChevronUp } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { SlideUp } from '../animations/SlideUp';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTranslation } from '../../translations';
+import { useTracking } from '../../hooks/useTracking';
+import { EVENTS, CTA_LOCATIONS } from '../../lib/tracking-events';
 
 export default function ReleaseNotes() {
   const { language } = useLanguage();
@@ -12,6 +14,18 @@ export default function ReleaseNotes() {
   const [releaseContents, setReleaseContents] = useState({});
   const [expandedRelease, setExpandedRelease] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { trackEvent, trackCtaClick, trackCalendlyClick } = useTracking();
+  const hasTrackedPageView = useRef(false);
+
+  // Track page view on mount
+  useEffect(() => {
+    if (!hasTrackedPageView.current) {
+      hasTrackedPageView.current = true;
+      trackEvent(EVENTS.RELEASE_NOTES_PAGE_VIEW, {
+        entry_source: document.referrer ? 'referral' : 'direct',
+      });
+    }
+  }, [trackEvent]);
 
   useEffect(() => {
     // Fetch the releases manifest
@@ -54,7 +68,20 @@ export default function ReleaseNotes() {
     } else {
       setExpandedRelease(release.version);
       fetchReleaseContent(release);
+      
+      // Track version click
+      trackEvent(EVENTS.RELEASE_VERSION_CLICK, {
+        version_number: release.version,
+        release_title: release.title,
+        release_date: release.date,
+      });
     }
+  };
+
+  // Handle CTA click
+  const handleCtaClick = () => {
+    trackCtaClick('release-notes');
+    trackCalendlyClick('release-notes');
   };
 
   const formatDate = (dateString) => {
@@ -201,6 +228,7 @@ export default function ReleaseNotes() {
               href="https://calendly.com/lunnoalabs-sasakelebuda/discovery-call-lunnoa" 
               target="_blank"
               rel="noopener noreferrer"
+              onClick={handleCtaClick}
               className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary/90 transition-colors"
             >
               {t.releaseNotes?.ctaButton || 'Book Free Demo'}

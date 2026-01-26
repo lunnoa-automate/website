@@ -49,7 +49,7 @@ function WorkflowNodeComponent({ data }: { data: WorkflowNodeData }) {
   const getBorderClass = () => {
     switch (status) {
       case 'running':
-        return 'border-[#6f00ff] shadow-[0_0_0_4px_rgba(111,0,255,0.15),0_8px_20px_-4px_rgba(111,0,255,0.35)]';
+        return 'border-[#3b82f6] shadow-[0_0_0_4px_rgba(59,130,246,0.15),0_8px_20px_-4px_rgba(59,130,246,0.35)]';
       case 'complete':
         return 'border-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.12),0_6px_16px_-4px_rgba(16,185,129,0.25)]';
       default:
@@ -88,7 +88,7 @@ function WorkflowNodeComponent({ data }: { data: WorkflowNodeData }) {
             animate={{ scale: 1 }}
             className={`absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800 ${
               status === 'running'
-                ? 'bg-gradient-to-br from-[#6f00ff] to-[#9945ff]'
+                ? 'bg-gradient-to-br from-[#3b82f6] to-[#60a5fa]'
                 : 'bg-gradient-to-br from-emerald-500 to-emerald-400'
             }`}
           >
@@ -121,7 +121,7 @@ function DecisionNodeComponent({ data }: { data: WorkflowNodeData }) {
   const getBorderClass = () => {
     switch (status) {
       case 'running':
-        return 'border-[#6f00ff] shadow-[0_0_0_4px_rgba(111,0,255,0.15),0_8px_20px_-4px_rgba(111,0,255,0.35)]';
+        return 'border-[#3b82f6] shadow-[0_0_0_4px_rgba(59,130,246,0.15),0_8px_20px_-4px_rgba(59,130,246,0.35)]';
       case 'complete':
         return 'border-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.12),0_6px_16px_-4px_rgba(16,185,129,0.25)]';
       default:
@@ -160,7 +160,7 @@ function DecisionNodeComponent({ data }: { data: WorkflowNodeData }) {
             animate={{ scale: 1 }}
             className={`absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800 ${
               status === 'running'
-                ? 'bg-gradient-to-br from-[#6f00ff] to-[#9945ff]'
+                ? 'bg-gradient-to-br from-[#3b82f6] to-[#60a5fa]'
                 : 'bg-gradient-to-br from-emerald-500 to-emerald-400'
             }`}
           >
@@ -200,7 +200,7 @@ function TopRightFlowNodeComponent({ data }: { data: WorkflowNodeData }) {
   const getBorderClass = () => {
     switch (status) {
       case 'running':
-        return 'border-[#6f00ff] shadow-[0_0_0_4px_rgba(111,0,255,0.15),0_8px_20px_-4px_rgba(111,0,255,0.35)]';
+        return 'border-[#3b82f6] shadow-[0_0_0_4px_rgba(59,130,246,0.15),0_8px_20px_-4px_rgba(59,130,246,0.35)]';
       case 'complete':
         return 'border-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.12),0_6px_16px_-4px_rgba(16,185,129,0.25)]';
       default:
@@ -239,7 +239,7 @@ function TopRightFlowNodeComponent({ data }: { data: WorkflowNodeData }) {
             animate={{ scale: 1 }}
             className={`absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800 ${
               status === 'running'
-                ? 'bg-gradient-to-br from-[#6f00ff] to-[#9945ff]'
+                ? 'bg-gradient-to-br from-[#3b82f6] to-[#60a5fa]'
                 : 'bg-gradient-to-br from-emerald-500 to-emerald-400'
             }`}
           >
@@ -272,7 +272,7 @@ function MultiInputFlowNodeComponent({ data }: { data: WorkflowNodeData }) {
   const getBorderClass = () => {
     switch (status) {
       case 'running':
-        return 'border-[#6f00ff] shadow-[0_0_0_4px_rgba(111,0,255,0.15),0_8px_20px_-4px_rgba(111,0,255,0.35)]';
+        return 'border-[#3b82f6] shadow-[0_0_0_4px_rgba(59,130,246,0.15),0_8px_20px_-4px_rgba(59,130,246,0.35)]';
       case 'complete':
         return 'border-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.12),0_6px_16px_-4px_rgba(16,185,129,0.25)]';
       default:
@@ -318,7 +318,7 @@ function MultiInputFlowNodeComponent({ data }: { data: WorkflowNodeData }) {
             animate={{ scale: 1 }}
             className={`absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800 ${
               status === 'running'
-                ? 'bg-gradient-to-br from-[#6f00ff] to-[#9945ff]'
+                ? 'bg-gradient-to-br from-[#3b82f6] to-[#60a5fa]'
                 : 'bg-gradient-to-br from-emerald-500 to-emerald-400'
             }`}
           >
@@ -344,7 +344,7 @@ function VerticalFlowNodeComponent({ data }: { data: WorkflowNodeData }) {
   const getBorderClass = () => {
     switch (status) {
       case 'running':
-        return 'border-[#6f00ff] shadow-[0_0_0_4px_rgba(111,0,255,0.15),0_8px_20px_-4px_rgba(111,0,255,0.35)]';
+        return 'border-[#3b82f6] shadow-[0_0_0_4px_rgba(59,130,246,0.15),0_8px_20px_-4px_rgba(59,130,246,0.35)]';
       case 'complete':
         return 'border-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.12),0_6px_16px_-4px_rgba(16,185,129,0.25)]';
       default:
@@ -383,7 +383,7 @@ function VerticalFlowNodeComponent({ data }: { data: WorkflowNodeData }) {
             animate={{ scale: 1 }}
             className={`absolute -bottom-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800 ${
               status === 'running'
-                ? 'bg-gradient-to-br from-[#6f00ff] to-[#9945ff]'
+                ? 'bg-gradient-to-br from-[#3b82f6] to-[#60a5fa]'
                 : 'bg-gradient-to-br from-emerald-500 to-emerald-400'
             }`}
           >
@@ -436,9 +436,9 @@ function CTANodeComponent({ data }: { data: CTANodeData }) {
         <motion.div
           className={`relative flex items-center justify-center gap-2 px-6 py-3.5 rounded-full transition-all duration-300 ${
             status === 'complete'
-              ? 'bg-gradient-to-r from-[#6f00ff] to-[#9945ff] shadow-[0_0_0_4px_rgba(111,0,255,0.2),0_12px_32px_-6px_rgba(111,0,255,0.5)]'
+              ? 'bg-gradient-to-r from-[#3b82f6] to-[#60a5fa] shadow-[0_0_0_4px_rgba(59,130,246,0.2),0_12px_32px_-6px_rgba(59,130,246,0.5)]'
               : status === 'running'
-              ? 'bg-gradient-to-r from-[#6f00ff]/80 to-[#9945ff]/80 shadow-[0_0_0_3px_rgba(111,0,255,0.15),0_8px_20px_-4px_rgba(111,0,255,0.35)]'
+              ? 'bg-gradient-to-r from-[#3b82f6]/80 to-[#60a5fa]/80 shadow-[0_0_0_3px_rgba(59,130,246,0.15),0_8px_20px_-4px_rgba(59,130,246,0.35)]'
               : 'bg-gray-200 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600'
           }`}
           animate={
@@ -452,7 +452,7 @@ function CTANodeComponent({ data }: { data: CTANodeData }) {
             repeat: status !== 'pending' ? Infinity : 0,
             duration: status === 'complete' ? 1.5 : 1.8,
           }}
-          whileHover={isClickable ? { scale: 1.05, boxShadow: '0 0 0 5px rgba(111,0,255,0.25), 0 16px 40px -6px rgba(111,0,255,0.6)' } : {}}
+          whileHover={isClickable ? { scale: 1.05, boxShadow: '0 0 0 5px rgba(59,130,246,0.25), 0 16px 40px -6px rgba(59,130,246,0.6)' } : {}}
           whileTap={isClickable ? { scale: 0.97 } : {}}
         >
           {/* Button text */}
@@ -470,7 +470,7 @@ function CTANodeComponent({ data }: { data: CTANodeData }) {
           {/* Pulse effect when complete */}
           {status === 'complete' && (
             <motion.div
-              className="absolute inset-0 rounded-full bg-[#6f00ff]"
+              className="absolute inset-0 rounded-full bg-[#3b82f6]"
               initial={{ opacity: 0.4, scale: 1 }}
               animate={{ opacity: 0, scale: 1.4 }}
               transition={{ repeat: Infinity, duration: 1.8 }}

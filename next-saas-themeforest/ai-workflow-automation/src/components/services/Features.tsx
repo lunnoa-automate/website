@@ -86,7 +86,7 @@ const Features = () => {
                       management
                     </h5>
                     <div className="mb-7 flex items-center gap-4">
-                      <figure className="relative inline-block size-14 overflow-hidden rounded-full bg-linear-[135deg,#ffffff_0%,#a585ff_100%] ring-4 ring-white">
+                      <figure className="relative inline-block size-14 overflow-hidden rounded-full bg-linear-[135deg,#ffffff_0%,#60a5fa_100%] ring-4 ring-white">
                         <Image src={avatar7} alt="avatar" className="max-w-full" />
                         <Image src={authorAvatarBg} alt="avatar" className="absolute top-0 left-0 -z-10" />
                       </figure>
@@ -137,8 +137,8 @@ const Features = () => {
                             x2="2.31009e-06"
                             y2="87.9976"
                             gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#864FFE" />
-                            <stop offset={1} stopColor="#864FFE" stopOpacity="0.28" />
+                            <stop stopColor="#3b82f6" />
+                            <stop offset={1} stopColor="#3b82f6" stopOpacity="0.28" />
                           </linearGradient>
                           <linearGradient
                             id="paint1_linear_3092_23898"
@@ -147,8 +147,8 @@ const Features = () => {
                             x2={20}
                             y2="87.9982"
                             gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#864FFE" />
-                            <stop offset={1} stopColor="#864FFE" stopOpacity="0.28" />
+                            <stop stopColor="#3b82f6" />
+                            <stop offset={1} stopColor="#3b82f6" stopOpacity="0.28" />
                           </linearGradient>
                           <linearGradient
                             id="paint2_linear_3092_23898"
@@ -157,12 +157,12 @@ const Features = () => {
                             x2={40}
                             y2="87.9987"
                             gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#864FFE" />
-                            <stop offset={1} stopColor="#864FFE" stopOpacity="0.28" />
+                            <stop stopColor="#3b82f6" />
+                            <stop offset={1} stopColor="#3b82f6" stopOpacity="0.28" />
                           </linearGradient>
                         </defs>
                       </svg>
-                      <figure className="absolute top-1/2 left-1/2 inline-block size-14 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-linear-[135deg,#ffffff_0%,#a585ff_100%] ring-4 ring-white">
+                      <figure className="absolute top-1/2 left-1/2 inline-block size-14 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full bg-linear-[135deg,#ffffff_0%,#60a5fa_100%] ring-4 ring-white">
                         <Image src={avatar2} alt="avatar" className="max-w-full" />
                       </figure>
                     </div>

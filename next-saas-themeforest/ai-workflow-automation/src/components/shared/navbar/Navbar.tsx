@@ -4,8 +4,8 @@ import { MobileMenuProvider } from '@/context/MobileMenuContext';
 import { mobileMenuData } from '@/data/navbar-data';
 import { useNavbarScroll } from '@/hooks/useScrollHeader';
 import { cn } from '@/utils/cn';
-import logoDark from '@public/images/shared/logo-dark.svg';
-import logo from '@public/images/shared/logo.svg';
+import logoDark from '@public/images/shared/logo-dark.png';
+import logo from '@public/images/shared/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -33,18 +33,14 @@ const Navbar = () => {
           isScrolled && 'top-2',
         )}>
         <RevealAnimation direction="up" offset={100} delay={0.1} instant>
-          <div className="dark:bg-background-7 flex items-center justify-between rounded-full bg-white/60 px-2.5 py-2.5 backdrop-blur-[25px] xl:py-0">
+          <div className="dark:bg-background-7 flex items-center justify-between rounded-full bg-white/60 px-2.5 py-3 backdrop-blur-[25px] xl:py-2">
             <div>
               <Link href="/" className="flex items-center gap-3">
                 <span className="sr-only">Home</span>
                 <figure className="flex-shrink-0">
-                  <Image src={logoDark} alt="Lunnoa Automate" className="block w-12 h-12 dark:hidden" priority />
-                  <Image src={logo} alt="Lunnoa Automate" className="hidden w-12 h-12 dark:block" priority />
+                  <Image src={logoDark} alt="Lunnoa Automate" className="block h-12 w-auto dark:hidden" priority />
+                  <Image src={logo} alt="Lunnoa Automate" className="hidden h-12 w-auto dark:block" priority />
                 </figure>
-                <span className="hidden lg:block text-heading-5 font-normal whitespace-nowrap">
-                  <span className="text-secondary dark:text-accent">Lunnoa</span>
-                  <span className="text-[#7C3AED] dark:text-[#A78BFA]">Automate</span>
-                </span>
               </Link>
             </div>
             <nav className="hidden items-center lg:flex">

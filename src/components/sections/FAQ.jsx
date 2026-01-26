@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Title } from '../ui/Title';
 import { SectionLabel } from '../ui/SectionLabel';
@@ -6,18 +6,68 @@ import { SlideUp } from '../animations/SlideUp';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTranslation } from '../../translations';
 import { cn } from '../../lib/utils';
+import { useTracking, useIntersectionTracking } from '../../hooks/useTracking';
+import { EVENTS, SECTION_IDS, COMPLIANCE_TOPICS } from '../../lib/tracking-events';
+
+// Keywords for compliance tracking
+const COMPLIANCE_KEYWORDS = {
+  [COMPLIANCE_TOPICS.GDPR]: ['gdpr', 'dsgvo', 'datenschutz', 'privacy', 'data protection'],
+  [COMPLIANCE_TOPICS.SWISS_DATA]: ['swiss', 'schweiz', 'switzerland', 'schweizer'],
+  [COMPLIANCE_TOPICS.FINMA]: ['finma', 'compliance', 'regulated', 'reguliert'],
+  [COMPLIANCE_TOPICS.SELF_HOSTED]: ['self-hosted', 'on-premise', 'cloud', 'data stored', 'daten gespeichert'],
+};
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
   const { language } = useLanguage();
   const t = useTranslation(language);
+  const { trackFaqInteraction, trackEvent } = useTracking();
+  
+  // Section visibility tracking
+  const sectionRef = useRef(null);
+  useIntersectionTracking(sectionRef, {
+    sectionName: SECTION_IDS.FAQ,
+    threshold: 0.3,
+    trackOnce: true,
+  });
+
+  // Check if question relates to compliance topics
+  const checkComplianceTopic = (questionText) => {
+    const lowerText = questionText.toLowerCase();
+    for (const [topic, keywords] of Object.entries(COMPLIANCE_KEYWORDS)) {
+      if (keywords.some(keyword => lowerText.includes(keyword))) {
+        return topic;
+      }
+    }
+    return null;
+  };
 
   const toggleFaq = (index) => {
-    setOpenIndex(openIndex === index ? -1 : index);
+    const isOpening = openIndex !== index;
+    const faq = t.faq.items[index];
+    
+    if (isOpening) {
+      // Track FAQ expansion
+      trackFaqInteraction(EVENTS.FAQ_EXPAND, faq.question, index);
+      
+      // Check for compliance interest
+      const complianceTopic = checkComplianceTopic(faq.question);
+      if (complianceTopic) {
+        trackEvent(EVENTS.COMPLIANCE_INTEREST, { 
+          compliance_topic: complianceTopic,
+          question_index: index 
+        });
+      }
+    } else {
+      // Track FAQ collapse
+      trackFaqInteraction(EVENTS.FAQ_COLLAPSE, faq.question, index);
+    }
+    
+    setOpenIndex(isOpening ? index : -1);
   };
 
   return (
-    <section id="faq" className="lg:py-15 py-9 bg-gray">
+    <section id="faq" className="lg:py-15 py-9 bg-gray" ref={sectionRef}>
       <div className="container mx-auto">
         <SlideUp>
           <div className="flex flex-col items-center">

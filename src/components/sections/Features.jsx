@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Bot, Workflow, Users, Database, ArrowRight } from 'lucide-react';
 import { Title } from '../ui/Title';
 import { SectionLabel } from '../ui/SectionLabel';
@@ -5,6 +6,8 @@ import { Button } from '../ui/Button';
 import { SlideUp } from '../animations/SlideUp';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTranslation } from '../../translations';
+import { useTracking, useIntersectionTracking } from '../../hooks/useTracking';
+import { EVENTS, SECTION_IDS, FEATURE_NAMES } from '../../lib/tracking-events';
 
 const featureIcons = [Bot, Workflow, Users, Database];
 const featureKeys = ['aiAgents', 'workflows', 'workspace', 'knowledgeBase'];
@@ -21,12 +24,39 @@ const featureColors = [
   'text-[#00A3FF] bg-[#00A3FF1A]',
 ];
 
+// Map feature keys to tracking names
+const featureTrackingNames = {
+  aiAgents: FEATURE_NAMES.AI_AGENTS,
+  workflows: FEATURE_NAMES.WORKFLOWS,
+  workspace: FEATURE_NAMES.WORKSPACE,
+  knowledgeBase: FEATURE_NAMES.KNOWLEDGE_BASE,
+};
+
 export default function Features() {
   const { language } = useLanguage();
   const t = useTranslation(language);
+  const { trackFeatureInteraction, trackNavClick } = useTracking();
+  
+  // Section visibility tracking
+  const sectionRef = useRef(null);
+  useIntersectionTracking(sectionRef, {
+    sectionName: SECTION_IDS.FEATURES,
+    threshold: 0.3,
+    trackOnce: true,
+  });
+
+  // Handle feature card hover
+  const handleFeatureHover = (featureKey, index) => {
+    trackFeatureInteraction(EVENTS.FEATURE_CARD_HOVER, featureTrackingNames[featureKey], index);
+  };
+
+  // Handle integrations banner click
+  const handleIntegrationsBannerClick = () => {
+    trackNavClick('integrations', { source: 'features_banner' });
+  };
 
   return (
-    <section id="features" className="lg:py-15 py-9">
+    <section id="features" className="lg:py-15 py-9" ref={sectionRef}>
       <div className="container mx-auto">
         <SlideUp>
           <div className="flex flex-col items-center">
@@ -45,7 +75,10 @@ export default function Features() {
             const item = t.features.items[key];
             return (
               <SlideUp key={key} delay={index * 0.1}>
-                <div className="bg-gray rounded-[30px] p-8 lg:p-10 group hover:shadow-3xl transition-all duration-500">
+                <div 
+                  className="bg-gray rounded-[30px] p-8 lg:p-10 group hover:shadow-3xl transition-all duration-500"
+                  onMouseEnter={() => handleFeatureHover(key, index)}
+                >
                   {/* Feature Image */}
                   <div className="aspect-[4/3] mb-8 flex items-center justify-center">
                     <img
@@ -87,7 +120,11 @@ export default function Features() {
               </p>
             </div>
             <Button variant="outline" size="lg" className="group shrink-0">
-              <a href="#/integrations" className="flex items-center gap-2">
+              <a 
+                href="#/integrations" 
+                className="flex items-center gap-2"
+                onClick={handleIntegrationsBannerClick}
+              >
                 {t.features.integrations.cta}
                 <ArrowRight className="-rotate-45 group-hover:rotate-0 transition-transform" size={18} />
               </a>

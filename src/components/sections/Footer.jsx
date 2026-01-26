@@ -1,38 +1,56 @@
 import { MapPin, Linkedin, Mail } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useTranslation } from '../../translations';
+import { useTracking } from '../../hooks/useTracking';
+import { FOOTER_LINK_CATEGORIES, CTA_LOCATIONS } from '../../lib/tracking-events';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { language } = useLanguage();
   const t = useTranslation(language);
+  const { trackFooterLinkClick, trackSocialClick, trackCtaClick, trackCalendlyClick } = useTracking();
 
   const footerLinks = {
     navigation: [
-      { label: t.nav.benefits, href: '#vorteile' },
-      { label: t.nav.useCases, href: '#use-cases' },
-      { label: t.nav.features, href: '#features' },
-      { label: t.nav.team, href: '#team' },
-      { label: t.nav.faq, href: '#faq' },
+      { label: t.nav.benefits, href: '#vorteile', category: FOOTER_LINK_CATEGORIES.NAVIGATION },
+      { label: t.nav.useCases, href: '#use-cases', category: FOOTER_LINK_CATEGORIES.NAVIGATION },
+      { label: t.nav.features, href: '#features', category: FOOTER_LINK_CATEGORIES.NAVIGATION },
+      { label: t.nav.team, href: '#team', category: FOOTER_LINK_CATEGORIES.NAVIGATION },
+      { label: t.nav.faq, href: '#faq', category: FOOTER_LINK_CATEGORIES.NAVIGATION },
     ],
     product: [
-      { label: t.nav.integrations, href: '#/integrations' },
-      { label: t.footer.releaseNotes || 'Release Notes', href: '#/release-notes' },
+      { label: t.nav.integrations, href: '#/integrations', category: FOOTER_LINK_CATEGORIES.PRODUCT },
+      { label: t.footer.releaseNotes || 'Release Notes', href: '#/release-notes', category: FOOTER_LINK_CATEGORIES.PRODUCT },
     ],
     legal: [
-      { label: t.footer.impressum, href: '#/impressum' },
-      { label: t.footer.privacy, href: '#/datenschutz' },
+      { label: t.footer.impressum, href: '#/impressum', category: FOOTER_LINK_CATEGORIES.LEGAL },
+      { label: t.footer.privacy, href: '#/datenschutz', category: FOOTER_LINK_CATEGORIES.LEGAL },
     ],
     contact: [
-      { label: t.footer.requestDemo, href: 'https://calendly.com/sasakelebuda-lunnoalabs/45min' },
-      { label: 'sasakelebuda@lunnoalabs.ch', href: 'mailto:sasakelebuda@lunnoalabs.ch' },
+      { label: t.footer.requestDemo, href: 'https://calendly.com/sasakelebuda-lunnoalabs/45min', category: FOOTER_LINK_CATEGORIES.CONTACT, isDemo: true },
+      { label: 'sasakelebuda@lunnoalabs.ch', href: 'mailto:sasakelebuda@lunnoalabs.ch', category: FOOTER_LINK_CATEGORIES.CONTACT },
     ],
   };
 
   const socialLinks = [
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:sasakelebuda@lunnoalabs.ch', label: 'Email' },
+    { icon: Linkedin, href: '#', label: 'LinkedIn', platform: 'linkedin' },
+    { icon: Mail, href: 'mailto:sasakelebuda@lunnoalabs.ch', label: 'Email', platform: 'email' },
   ];
+
+  // Handle footer link click
+  const handleLinkClick = (link) => {
+    if (link.isDemo) {
+      trackCtaClick(CTA_LOCATIONS.FOOTER);
+      trackCalendlyClick(CTA_LOCATIONS.FOOTER);
+    } else {
+      trackFooterLinkClick(link.category, link.label, link.href);
+    }
+  };
+
+  // Handle social link click
+  const handleSocialClick = (social) => {
+    trackSocialClick(social.platform);
+  };
 
   return (
     <footer className="bg-accent rounded-tr-[30px] rounded-tl-[30px] pt-[77px]">
@@ -59,6 +77,7 @@ export default function Footer() {
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
+                    onClick={() => handleSocialClick(social)}
                     className="w-10 h-10 rounded-full bg-muted/10 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-white transition-all"
                   >
                     <Icon size={18} />
@@ -78,6 +97,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <a 
                       href={link.href}
+                      onClick={() => handleLinkClick(link)}
                       className="text-foreground hover:text-primary-foreground transition-colors"
                     >
                       {link.label}
@@ -95,6 +115,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <a 
                       href={link.href}
+                      onClick={() => handleLinkClick(link)}
                       className="text-foreground hover:text-primary-foreground transition-colors"
                     >
                       {link.label}
@@ -112,6 +133,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <a 
                       href={link.href}
+                      onClick={() => handleLinkClick(link)}
                       className="text-foreground hover:text-primary-foreground transition-colors"
                     >
                       {link.label}
@@ -129,7 +151,9 @@ export default function Footer() {
                   <li key={link.href}>
                     <a 
                       href={link.href}
+                      onClick={() => handleLinkClick(link)}
                       className="text-foreground hover:text-primary-foreground transition-colors"
+                      {...(link.isDemo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     >
                       {link.label}
                     </a>
