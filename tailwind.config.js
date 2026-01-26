@@ -80,12 +80,27 @@ export default {
         "float": {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" }
-        }
+        },
+        "fadeIn": {
+          from: { opacity: "0" },
+          to: { opacity: "1" }
+        },
+        "slideInFromBottom": {
+          from: { transform: "translateY(100%)", opacity: "0" },
+          to: { transform: "translateY(0)", opacity: "1" }
+        },
+        "slideInFromTop": {
+          from: { transform: "translateY(-20px)", opacity: "0" },
+          to: { transform: "translateY(0)", opacity: "1" }
+        },
       },
       animation: {
         "slideDown": "slideDown 0.35s ease-out",
         "fadeInUp": "fadeInUp 0.8s ease forwards",
-        "float": "float 3s ease-in-out infinite"
+        "float": "float 3s ease-in-out infinite",
+        "fadeIn": "fadeIn 0.3s ease-out",
+        "slideInFromBottom": "slideInFromBottom 0.5s ease-out",
+        "slideInFromTop": "slideInFromTop 0.3s ease-out",
       },
     },
   },

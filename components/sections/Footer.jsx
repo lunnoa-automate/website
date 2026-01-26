@@ -6,6 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
 import { useTracking } from '@/hooks/useTracking';
 import { CTA_LOCATIONS } from '@/lib/tracking-events';
+import ConsentButton from '@/components/consent/ConsentButton';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -144,6 +145,9 @@ export default function Footer() {
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <ConsentButton variant="text" />
+                </li>
               </ul>
             </div>
 

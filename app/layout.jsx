@@ -3,6 +3,7 @@ import Script from 'next/script';
 import { LanguageProvider } from '@/context/LanguageContext';
 import Header from '@/components/sections/Header';
 import Footer from '@/components/sections/Footer';
+import ConsentBanner from '@/components/consent/ConsentBanner';
 import './globals.css';
 
 const inter = Inter({ 
@@ -36,39 +37,33 @@ export default function RootLayout({ children }) {
   return (
     <html lang="de" className={inter.variable}>
       <body className="font-inter antialiased">
-        {/* Iubenda Cookie Consent */}
-        <Script id="iubenda-config" strategy="beforeInteractive">
+        {/* Initialize GTM Consent Mode (before GTM loads) */}
+        <Script id="consent-mode-init" strategy="beforeInteractive">
           {`
-            var _iub = _iub || [];
-            _iub.csConfiguration = {"siteId":4398079,"cookiePolicyId":30166399,"lang":"en","storage":{"useSiteId":true}};
-          `}
-        </Script>
-        <Script
-          src="https://cs.iubenda.com/autoblocking/4398079.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          src="//cdn.iubenda.com/cs/gpp/stub.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          src="//cdn.iubenda.com/cs/iubenda_cs.js"
-          strategy="afterInteractive"
-          charSet="UTF-8"
-        />
-        
-        {/* Google Tag Manager */}
-        <Script id="google-tag-manager" strategy="afterInteractive">
-          {`
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-TNG2GTXC');
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            
+            // Set default consent to denied (EU/Swiss compliance)
+            gtag('consent', 'default', {
+              'analytics_storage': 'denied',
+              'ad_storage': 'denied',
+              'ad_user_data': 'denied',
+              'ad_personalization': 'denied',
+              'wait_for_update': 500
+            });
           `}
         </Script>
         
-        {/* Google Tag Manager (noscript) */}
+        {/* Google Tag Manager - Only loads after consent via consent-manager.js */}
+        <Script id="google-tag-manager-init" strategy="afterInteractive">
+          {`
+            // GTM will be loaded dynamically by consent-manager.js after user consent
+            // This ensures no tracking happens before consent is given
+            console.log('GTM initialization ready - waiting for consent');
+          `}
+        </Script>
+        
+        {/* Google Tag Manager (noscript) - Respects consent mode */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-TNG2GTXC"
@@ -79,6 +74,7 @@ export default function RootLayout({ children }) {
         </noscript>
         
         <LanguageProvider>
+          <ConsentBanner />
           <Header />
           {children}
           <Footer />

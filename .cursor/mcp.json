@@ -7,6 +7,14 @@
         "mcp-remote",
         "https://gtm-mcp.stape.ai/mcp"
       ]
-    }
+    },
+    "ga4-mcp-server": {
+      "command": "npx",
+       "args": [
+         "-y",
+         "mcp-remote@0.1.30",
+         "https://mcp-ga.stape.ai/mcp"
+       ]
+     }
   }
 }
