@@ -1,15 +1,29 @@
 'use client';
 
+import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Title } from '@/components/ui/Title';
 import { Button } from '@/components/ui/Button';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
+import { useTracking, useVideoTracking } from '@/hooks/useTracking';
+import { CTA_LOCATIONS } from '@/lib/tracking-events';
 
 export default function Hero() {
   const { language } = useLanguage();
   const t = useTranslation(language);
+  const { trackCtaClick, trackCalendlyClick } = useTracking();
+  const videoRef = useRef(null);
+  
+  // Track video engagement
+  useVideoTracking(videoRef, { enabled: true });
+  
+  // Handle CTA click tracking
+  const handleCtaClick = () => {
+    trackCtaClick(CTA_LOCATIONS.HERO);
+    trackCalendlyClick(CTA_LOCATIONS.HERO);
+  };
 
   return (
     <section className="pt-20 relative">
@@ -46,6 +60,7 @@ export default function Hero() {
                     href="https://calendly.com/sasakelebuda-lunnoalabs/45min" 
                     target="_blank" 
                     rel="noopener noreferrer" 
+                    onClick={handleCtaClick}
                     className="flex items-center gap-2"
                   >
                     {t.hero.cta}
@@ -65,6 +80,7 @@ export default function Hero() {
               style={{ aspectRatio: '16/7.5' }}
             >
               <video 
+                ref={videoRef}
                 className="w-full h-full object-cover object-center scale-[1.05]"
                 autoPlay 
                 muted 

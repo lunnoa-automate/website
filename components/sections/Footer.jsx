@@ -4,11 +4,14 @@ import Link from 'next/link';
 import { MapPin, Linkedin, Mail } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
+import { useTracking } from '@/hooks/useTracking';
+import { CTA_LOCATIONS } from '@/lib/tracking-events';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { language } = useLanguage();
   const t = useTranslation(language);
+  const { trackFooterLinkClick, trackSocialClick, trackCtaClick, trackCalendlyClick } = useTracking();
 
   const footerLinks = {
     navigation: [
@@ -33,9 +36,25 @@ export default function Footer() {
   };
 
   const socialLinks = [
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:sasakelebuda@lunnoalabs.ch', label: 'Email' },
+    { icon: Linkedin, href: '#', label: 'LinkedIn', platform: 'linkedin' },
+    { icon: Mail, href: 'mailto:sasakelebuda@lunnoalabs.ch', label: 'Email', platform: 'email' },
   ];
+  
+  // Handle footer link click
+  const handleFooterLinkClick = (category, label, href) => {
+    trackFooterLinkClick(category, label, href);
+  };
+  
+  // Handle social click
+  const handleSocialClick = (platform) => {
+    trackSocialClick(platform);
+  };
+  
+  // Handle demo request click (special case)
+  const handleDemoRequestClick = () => {
+    trackCtaClick(CTA_LOCATIONS.FOOTER);
+    trackCalendlyClick(CTA_LOCATIONS.FOOTER);
+  };
 
   return (
     <footer className="bg-accent rounded-tr-[30px] rounded-tl-[30px] pt-[77px]">
@@ -61,6 +80,7 @@ export default function Footer() {
                   <a
                     key={social.label}
                     href={social.href}
+                    onClick={() => handleSocialClick(social.platform)}
                     aria-label={social.label}
                     className="w-10 h-10 rounded-full bg-muted/10 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-white transition-all"
                   >
@@ -81,6 +101,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link 
                       href={link.href}
+                      onClick={() => handleFooterLinkClick('navigation', link.label, link.href)}
                       className="text-foreground hover:text-primary-foreground transition-colors"
                     >
                       {link.label}
@@ -98,6 +119,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link 
                       href={link.href}
+                      onClick={() => handleFooterLinkClick('product', link.label, link.href)}
                       className="text-foreground hover:text-primary-foreground transition-colors"
                     >
                       {link.label}
@@ -115,6 +137,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link 
                       href={link.href}
+                      onClick={() => handleFooterLinkClick('legal', link.label, link.href)}
                       className="text-foreground hover:text-primary-foreground transition-colors"
                     >
                       {link.label}
@@ -128,10 +151,18 @@ export default function Footer() {
             <div>
               <h5 className="font-extrabold text-muted-foreground mb-6">{t.footer.contact}</h5>
               <ul className="space-y-3">
-                {footerLinks.contact.map((link) => (
+                {footerLinks.contact.map((link, index) => (
                   <li key={link.href}>
                     <a 
                       href={link.href}
+                      onClick={() => {
+                        if (index === 0) {
+                          // Demo request link
+                          handleDemoRequestClick();
+                        } else {
+                          handleFooterLinkClick('contact', link.label, link.href);
+                        }
+                      }}
                       className="text-foreground hover:text-primary-foreground transition-colors"
                     >
                       {link.label}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Title } from '@/components/ui/Title';
 import { SectionLabel } from '@/components/ui/SectionLabel';
@@ -8,18 +8,49 @@ import { SlideUp } from '@/components/animations/SlideUp';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
 import { cn } from '@/lib/utils';
+import { useTracking, useIntersectionTracking } from '@/hooks/useTracking';
+import { EVENTS, SECTION_IDS } from '@/lib/tracking-events';
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
   const { language } = useLanguage();
   const t = useTranslation(language);
+  const { trackFaqInteraction, trackEvent } = useTracking();
+  const sectionRef = useRef(null);
+  
+  // Track section view
+  useIntersectionTracking(sectionRef, {
+    sectionName: SECTION_IDS.FAQ,
+    threshold: 0.3,
+  });
 
   const toggleFaq = (index) => {
-    setOpenIndex(openIndex === index ? -1 : index);
+    const wasOpen = openIndex === index;
+    const newIndex = wasOpen ? -1 : index;
+    setOpenIndex(newIndex);
+    
+    // Track FAQ interaction
+    if (!wasOpen) {
+      // Opening FAQ
+      trackFaqInteraction(EVENTS.FAQ_EXPAND, t.faq.items[index].question, index);
+      
+      // Check for compliance-related questions
+      const question = t.faq.items[index].question.toLowerCase();
+      if (question.includes('dsgvo') || question.includes('gdpr') || 
+          question.includes('compliance') || question.includes('finma')) {
+        trackEvent(EVENTS.COMPLIANCE_INTEREST, { 
+          compliance_topic: 'gdpr',
+          question_text: t.faq.items[index].question
+        });
+      }
+    } else {
+      // Closing FAQ
+      trackFaqInteraction(EVENTS.FAQ_COLLAPSE, t.faq.items[index].question, index);
+    }
   };
 
   return (
-    <section id="faq" className="lg:py-15 py-9 bg-gray">
+    <section id="faq" ref={sectionRef} className="lg:py-15 py-9 bg-gray">
       <div className="container mx-auto">
         <SlideUp>
           <div className="flex flex-col items-center">

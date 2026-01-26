@@ -1,15 +1,25 @@
 'use client';
 
+import { useRef } from 'react';
 import { Shield, Database, FileCheck } from 'lucide-react';
 import { Title } from '@/components/ui/Title';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
+import { useIntersectionTracking } from '@/hooks/useTracking';
+import { SECTION_IDS } from '@/lib/tracking-events';
 
 export default function Story() {
   const { language } = useLanguage();
   const t = useTranslation(language);
+  const sectionRef = useRef(null);
+  
+  // Track section view
+  useIntersectionTracking(sectionRef, {
+    sectionName: SECTION_IDS.STORY,
+    threshold: 0.3,
+  });
 
   const painPoints = [
     { icon: FileCheck, text: t.story.painPoints?.documents },
@@ -18,7 +28,7 @@ export default function Story() {
   ].filter(item => item.text);
 
   return (
-    <section className="lg:py-15 py-9 bg-gray">
+    <section ref={sectionRef} className="lg:py-15 py-9 bg-gray">
       <div className="container mx-auto">
         <div className="flex lg:flex-row flex-col justify-between items-center gap-12">
           {/* Left - Image */}

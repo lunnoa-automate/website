@@ -1,11 +1,14 @@
 'use client';
 
+import { useRef } from 'react';
 import { ShieldCheck, FileSearch, Settings2, Database, Users, MapPin } from 'lucide-react';
 import { Title } from '@/components/ui/Title';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
+import { useIntersectionTracking } from '@/hooks/useTracking';
+import { SECTION_IDS } from '@/lib/tracking-events';
 
 const serviceIcons = [ShieldCheck, FileSearch, Settings2, Database, Users, MapPin];
 const serviceKeys = ['compliant', 'auditTrails', 'tailored', 'dataSovereignty', 'rbac', 'swissMade'];
@@ -21,9 +24,16 @@ const serviceColors = [
 export default function Services() {
   const { language } = useLanguage();
   const t = useTranslation(language || 'de');
+  const sectionRef = useRef(null);
+  
+  // Track section view
+  useIntersectionTracking(sectionRef, {
+    sectionName: SECTION_IDS.SERVICES,
+    threshold: 0.3,
+  });
 
   return (
-    <section id="vorteile" className="lg:py-[120px] py-16">
+    <section id="vorteile" ref={sectionRef} className="lg:py-[120px] py-16">
       <div className="container mx-auto">
         <SlideUp>
           <div className="flex flex-col items-center">

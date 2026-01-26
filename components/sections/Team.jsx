@@ -1,11 +1,14 @@
 'use client';
 
+import { useRef } from 'react';
 import { Linkedin, Mail } from 'lucide-react';
 import { Title } from '@/components/ui/Title';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
+import { useTracking, useIntersectionTracking } from '@/hooks/useTracking';
+import { EVENTS, SECTION_IDS } from '@/lib/tracking-events';
 
 const teamData = [
   { key: 'sasa', initials: 'SK', image: '/images/team/sasa_kelebuda.jpg' },
@@ -15,9 +18,30 @@ const teamData = [
 export default function Team() {
   const { language } = useLanguage();
   const t = useTranslation(language);
+  const { trackEvent, trackSocialClick } = useTracking();
+  const sectionRef = useRef(null);
+  
+  // Track section view
+  useIntersectionTracking(sectionRef, {
+    sectionName: SECTION_IDS.TEAM,
+    threshold: 0.3,
+  });
+  
+  // Track social link clicks
+  const handleSocialClick = (platform, memberName) => {
+    trackEvent('team_social_click', {
+      social_platform: platform,
+      team_member: memberName,
+    });
+  };
+  
+  // Track partner interest
+  const handlePartnerClick = (partnerName) => {
+    trackEvent(EVENTS.PARTNER_INTEREST, { partner_name: partnerName });
+  };
 
   return (
-    <section id="team" className="lg:py-15 py-9">
+    <section id="team" ref={sectionRef} className="lg:py-15 py-9">
       <div className="container mx-auto">
         <SlideUp>
           <div className="flex flex-col items-center">
@@ -64,6 +88,10 @@ export default function Team() {
                     <div className="absolute top-6 right-6 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                       <a 
                         href="#" 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleSocialClick('linkedin', member.name);
+                        }}
                         className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all"
                         aria-label="LinkedIn"
                       >
@@ -71,6 +99,10 @@ export default function Team() {
                       </a>
                       <a 
                         href="#" 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleSocialClick('email', member.name);
+                        }}
                         className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all"
                         aria-label="Email"
                       >
@@ -117,14 +149,26 @@ export default function Team() {
 
             {/* Partner Logos */}
             <div className="flex flex-wrap justify-center items-center gap-10">
-              <a href="https://www.fintra.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+              <a 
+                href="https://www.fintra.ch" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                onClick={() => handlePartnerClick('fintra')}
+                className="hover:opacity-80 transition-opacity"
+              >
                 <img 
                   src="/images/partner/fintra_logo.png" 
                   alt="Fintra" 
                   className="h-8 w-auto object-contain"
                 />
               </a>
-              <a href="https://www.elaboratum.ch" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+              <a 
+                href="https://www.elaboratum.ch" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                onClick={() => handlePartnerClick('elab')}
+                className="hover:opacity-80 transition-opacity"
+              >
                 <img 
                   src="/images/partner/elab_logo_red.png" 
                   alt="eLab" 

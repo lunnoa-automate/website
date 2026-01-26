@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react';
 import Link from 'next/link';
 import { Bot, Workflow, Users, Database, ArrowRight } from 'lucide-react';
 import { Title } from '@/components/ui/Title';
@@ -8,6 +9,8 @@ import { Button } from '@/components/ui/Button';
 import { SlideUp } from '@/components/animations/SlideUp';
 import { useLanguage } from '@/context/LanguageContext';
 import { useTranslation } from '@/translations';
+import { useIntersectionTracking } from '@/hooks/useTracking';
+import { SECTION_IDS } from '@/lib/tracking-events';
 
 const featureIcons = [Bot, Workflow, Users, Database];
 const featureKeys = ['aiAgents', 'workflows', 'workspace', 'knowledgeBase'];
@@ -27,9 +30,16 @@ const featureColors = [
 export default function Features() {
   const { language } = useLanguage();
   const t = useTranslation(language || 'de');
+  const sectionRef = useRef(null);
+  
+  // Track section view when it comes into viewport
+  useIntersectionTracking(sectionRef, {
+    sectionName: SECTION_IDS.FEATURES,
+    threshold: 0.3,
+  });
 
   return (
-    <section id="features" className="lg:py-15 py-9">
+    <section id="features" ref={sectionRef} className="lg:py-15 py-9">
       <div className="container mx-auto">
         <SlideUp>
           <div className="flex flex-col items-center">
