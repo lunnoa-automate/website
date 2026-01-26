@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lunnoa Automate - LinkedIn Header</title>
+  
+  <!-- Inter Tight - matches the theme -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Lunnoa Automate Brand Palette - matching the theme */
+      --primary-500: #3b82f6;
+      --primary-600: #2563eb;
+      --primary-700: #1d4ed8;
+      --primary-800: #1e40af;
+      --secondary: #5C6671;
+      --ns-cyan: #00D9FF;
+      --ns-green: #7ed957;
+      --ns-cyan-light: #cdf5f8;
+      --ns-green-light: #fffeef;
+      --background-1: #eff6ff;
+      --background-2: #fff;
+      --background-3: #f9fafb;
+      --stroke-1: #e5e7eb;
+      --stroke-3: #d7dde5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter Tight', sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    /* LinkedIn Header Container - 1584 x 396 px */
+    .linkedin-header {
+      width: 1584px;
+      height: 396px;
+      position: relative;
+      overflow: hidden;
+      background: var(--background-2);
+      border-radius: 8px;
+      box-shadow: 0 25px 80px -12px rgba(28, 34, 43, 0.1);
+    }
+
+    /* Subtle gradient background accent */
+    .bg-gradient {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 0%, var(--background-1) 100%);
+      opacity: 0.7;
+    }
+
+    /* Decorative geometric shapes */
+    .shape-1 {
+      position: absolute;
+      top: -80px;
+      right: 150px;
+      width: 240px;
+      height: 240px;
+      background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+      border-radius: 32px;
+      transform: rotate(45deg);
+      opacity: 0.08;
+    }
+
+    .shape-2 {
+      position: absolute;
+      bottom: -60px;
+      right: 350px;
+      width: 180px;
+      height: 180px;
+      background: linear-gradient(135deg, var(--ns-cyan), var(--ns-green));
+      border-radius: 28px;
+      transform: rotate(45deg);
+      opacity: 0.06;
+    }
+
+    .shape-3 {
+      position: absolute;
+      top: 50%;
+      right: 80px;
+      transform: translateY(-50%);
+      width: 280px;
+      height: 280px;
+      border: 2px solid var(--stroke-1);
+      border-radius: 50%;
+      opacity: 0.4;
+    }
+
+    .shape-4 {
+      position: absolute;
+      top: 50%;
+      right: 80px;
+      transform: translateY(-50%);
+      width: 220px;
+      height: 220px;
+      border: 2px solid var(--stroke-1);
+      border-radius: 50%;
+      opacity: 0.3;
+    }
+
+    /* Main content container */
+    .content {
+      position: relative;
+      z-index: 10;
+      padding: 60px 80px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Logo */
+    .logo {
+      height: 52px;
+      width: auto;
+      margin-bottom: 32px;
+    }
+
+    /* Headline */
+    .headline {
+      font-size: 46px;
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      color: var(--secondary);
+      max-width: 700px;
+      margin-bottom: 16px;
+    }
+
+    .headline .highlight {
+      color: var(--primary-500);
+    }
+
+    /* Subtitle */
+    .subtitle {
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(92, 102, 113, 0.7);
+      max-width: 550px;
+      line-height: 1.5;
+    }
+
+    /* Tags/Badges */
+    .tags {
+      position: absolute;
+      bottom: 60px;
+      left: 80px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      backdrop-filter: blur(8px);
+    }
+
+    .tag.cyan {
+      background: var(--ns-cyan-light);
+      color: var(--secondary);
+    }
+
+    .tag.green {
+      background: var(--ns-green-light);
+      color: var(--secondary);
+    }
+
+    .tag.primary {
+      background: var(--background-1);
+      color: var(--secondary);
+    }
+
+    .tag-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Bottom accent line */
+    .accent-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(
+        90deg,
+        var(--primary-500) 0%,
+        var(--ns-cyan) 50%,
+        var(--ns-green) 100%
+      );
+    }
+
+    /* Stats section - right side */
+    .stats {
+      position: absolute;
+      right: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .stat {
+      text-align: right;
+    }
+
+    .stat-value {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--primary-500);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(92, 102, 113, 0.6);
+      margin-top: 4px;
+    }
+
+    /* Export note */
+    .export-note {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: #94a3b8;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .export-note strong {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="linkedin-header">
+    <!-- Background elements -->
+    <div class="bg-gradient"></div>
+    <div class="shape-1"></div>
+    <div class="shape-2"></div>
+    <div class="shape-3"></div>
+    <div class="shape-4"></div>
+
+    <!-- Main content -->
+    <div class="content">
+      <!-- Logo -->
+      <img 
+        src="public/images/lunnoa_logo.png" 
+        alt="Lunnoa Automate" 
+        class="logo"
+      />
+
+      <!-- Headline -->
+      <h1 class="headline">
+        AI Workflow Automation<br/>
+        <span class="highlight">for Financial Services</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="subtitle">
+        Scale operations without scaling headcount. Built for Private Equity, Wealth Management, and Banking.
+      </p>
+
+      <!-- Tags -->
+      <div class="tags">
+        <span class="tag cyan">
+          <svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          Self-Hosted
+        </span>
+        <span class="tag green">
+          <svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          FINMA Compliant
+        </span>
+        <span class="tag primary">
+          <svg class="tag-icon" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="2" width="20" height="20" rx="2" fill="#dc2626"/>
+            <path d="M12 6v12M6 12h12" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          Swiss Made
+        </span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value">60+</div>
+        <div class="stat-label">Integrations</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">Data Sovereignty</div>
+      </div>
+    </div>
+
+    <!-- Bottom accent line -->
+    <div class="accent-line"></div>
+  </div>
+
+  <div class="export-note">
+    <strong>To export:</strong> Take a screenshot at 1584×396px or use browser dev tools to capture the element
+  </div>
+
+</body>
+</html>

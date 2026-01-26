@@ -9,6 +9,7 @@ html {
 @layer base {
   :root {
     --background: #fff;
+    --background-cream: #fffeef;
     --foreground: #5C6671;
 
     --primary: #3b82f6;
@@ -27,7 +28,7 @@ html {
     --purple: #A22EFE;
     --red: #FE2E2E;
 
-    --background-linear: linear-gradient(180deg, #fff 0%, rgba(239, 246, 255, 0.3) 100%);
+    --background-linear: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.3) 100%);
     --gray: rgba(59, 130, 246, 0.05);
 
     --border: #e5e7eb;
