@@ -6,7 +6,7 @@ All the varaiables are added here
   --font-inter-tight: 'Inter Tight', sans-serif;
   /* =============== COLORS =============== */
   /* Lunnoa Automate Brand Colors - Blue Palette */
-  --color-primary-50: #eff6ff; /* Lightest Blue */
+  --color-primary-50: #eff6ff; /* Lightest Blue - matches accent */
   --color-primary-100: #dbeafe;
   --color-primary-200: #bfdbfe; /* Light Blue */
   --color-primary-300: #93c5fd;
@@ -18,10 +18,10 @@ All the varaiables are added here
   --color-secondary: #5C6671; /* Foreground text grey */
   --color-accent: #eff6ff; /* Accent blue tint */
   --color-split-text: #374151; /* Muted grey for text */
-  --color-background-1: #eff6ff; /* Light blue tint */
+  --color-background-1: #eff6ff; /* Light blue tint - matches accent */
   --color-background-2: #fff; /* White */
-  --color-background-3: #f9fafb;
-  --color-background-4: #f4f5f8;
+  --color-background-3: #fff; /* White */
+  --color-background-4: #f9fafb;
   --color-background-5: #191F25; /* Dark background */
   --color-background-6: #191F25; /* Dark background */
   --color-background-7: #202932; /* Dark accent */
@@ -30,6 +30,7 @@ All the varaiables are added here
   --color-background-10: #ebebeb;
   --color-background-11: #b5b5b9;
   --color-background-12: #eaeceb;
+  --color-background-gray: rgba(59, 130, 246, 0.05); /* Gray with primary tint */
   --color-stroke-1: #e5e7eb; /* Border light */
   --color-stroke-2: #e3e7ed;
   --color-stroke-3: #d7dde5;
@@ -42,6 +43,7 @@ All the varaiables are added here
   /* Lunnoa Automate Accent Colors */
   --color-ns-yellow: #f9eb57;
   --color-ns-green: #7ed957; /* Success Green */
+  --color-ns-purple: #A22EFE; /* Brand Purple */
   --color-ns-red: #FE2E2E; /* Error Red */
   --color-ns-cyan: #00D9FF; /* Vibrant Cyan */
   --color-ns-green-light: #e8fbc6;
@@ -60,6 +62,7 @@ All the varaiables are added here
   --color-gradient-10: linear-gradient(135deg, #00D9FF 0%, #7ed957 100%); /* Cyan to Green */
   --color-gradient-11: linear-gradient(179deg, rgba(255, 255, 255, 0) 0.68%, #fff 79.47%);
   --color-gradient-12: radial-gradient(73.01% 80.77% at 19.23% 47.79%, #00D9FF 0%, rgba(59, 130, 246, 0) 100%); /* Cyan radial */
+  --color-gradient-linear: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.3) 100%); /* Background linear gradient */
 
   /* =============== TYPOGRAPHY =============== */
   --text-heading-1: 4.25rem;
@@ -111,16 +114,23 @@ All the varaiables are added here
 
 .dark {
   /* Lunnoa Automate Dark Mode Colors */
-  --color-split-text: #eff6ff; /* Light text for dark mode */
+  --color-split-text: #eff6ff; /* Light text for dark mode - matches muted */
   --color-secondary: #717A83; /* Dark mode foreground */
   --color-accent: #202932; /* Dark mode accent */
   /* Dark mode backgrounds from design system */
+  --color-background-2: #191F25; /* Dark background */
   --color-background-5: #191F25; /* Dark background */
   --color-background-6: #191F25; /* Dark background */
   --color-background-7: #202932; /* Dark accent */
   --color-background-8: #191F25; /* Dark background */
   --color-background-9: #202932; /* Dark accent */
+  --color-background-gray: #202932; /* Dark gray background */
   /* Dark mode stroke/borders */
+  --color-stroke-1: #374151; /* Dark mode border */
   --color-stroke-5: #374151;
   --color-stroke-6: #374151;
+  /* Dark mode gradients */
+  --color-gradient-linear: linear-gradient(180deg, rgba(25, 31, 37, 1) 0%, rgba(32, 41, 50, 0.3) 100%); /* Dark background linear gradient */
+  /* Dark mode accent colors - keeping consistent */
+  --color-ns-green: #32A552; /* Darker green for dark mode */
 }

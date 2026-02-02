@@ -9,7 +9,6 @@ html {
 @layer base {
   :root {
     --background: #fff;
-    --background-cream: #fffeef;
     --foreground: #5C6671;
 
     --primary: #3b82f6;
