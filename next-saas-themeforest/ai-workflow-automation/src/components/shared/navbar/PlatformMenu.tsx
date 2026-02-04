@@ -37,34 +37,34 @@ const overviewLinks: SimpleNavLink[] = [
 
 const integrationLinks: IntegrationLink[] = [
   {
-    label: 'Pricing',
-    href: '/pricing',
-    icon: PricingIcon,
+    label: 'Workflows',
+    href: '/features/workflows',
+    icon: IntegrationIconV2,
   },
   {
-    label: 'HR & Payroll',
-    href: '/career',
-    icon: CareerIconV2,
-  },
-  {
-    label: 'Customer Support',
-    href: '/support',
+    label: 'AI Agents',
+    href: '/features/ai-agents',
     icon: SupportIconV2,
   },
   {
-    label: 'Analytics & Reporting',
-    href: '/analytics',
-    icon: AnalyticsIconV2,
-  },
-  {
-    label: 'Whitepaper & Reports',
-    href: '/whitepaper',
+    label: 'Knowledge Base',
+    href: '/features/knowledge-base',
     icon: WhitePaperIconV2,
   },
   {
-    label: 'Explore All Integrations',
-    href: '/integration',
-    icon: IntegrationIconV2,
+    label: 'Control Room',
+    href: '/features/control-room',
+    icon: AnalyticsIconV2,
+  },
+  {
+    label: 'Audit Trails',
+    href: '/features/audit-trails',
+    icon: CareerIconV2,
+  },
+  {
+    label: 'Integrations',
+    href: '/features/integrations',
+    icon: PricingIcon,
   },
 ];
 
@@ -109,7 +109,7 @@ const PlatformMenu = ({
             </div>
             <div className="col-span-12 xl:col-span-6">
               <div>
-                <p className="text-tagline-2 text-secondary/60 dark:text-accent/60 p-3 font-medium">Integrations</p>
+                <p className="text-tagline-2 text-secondary/60 dark:text-accent/60 p-3 font-medium">Features</p>
                 <ul>
                   {integrationLinks.map((link) => (
                     <PlatformMenuLink key={link.label} {...link} variant="icon" onClose={handleClose} />

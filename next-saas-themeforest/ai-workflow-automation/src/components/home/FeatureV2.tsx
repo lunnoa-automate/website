@@ -11,11 +11,71 @@ import LinkButton from '../ui/button/LinkButton';
 const data = [
   {
     id: 1,
-    title: 'AI Agents',
-    shortDescription: 'Create specialized AI agents in minutes',
-    description: 'Create specialized AI agents in minutes. Define roles, goals, and tools individually. Connect them to internal systems with full audit trails.',
+    title: 'Custom Objects',
+    shortDescription: 'Define Deals, Clients, Investments as entities',
+    description: 'Create your own objects—Deals, Clients, Investments—with custom fields and relationships. Track every entity through its entire lifecycle.',
     icon: 'ns-shape-34',
-    image: realTimeChart, // Replace with actual AI Agents screenshot
+    image: realTimeChart,
+    analytics: {
+      primaryMetric: {
+        label: 'Active Objects',
+        value: '2,450',
+        thisMonth: '340',
+      },
+      secondaryMetrics: [
+        { label: 'Deals Tracked', value: '847' },
+        { label: 'Client Profiles', value: '1,240' },
+        { label: 'Investments Monitored', value: '363' },
+      ],
+    },
+  },
+  {
+    id: 2,
+    title: 'End-to-End Processes',
+    shortDescription: 'Chain workflows and AI agents together',
+    description: 'Run objects through complete processes—multiple workflows and AI agents working together. From deal intake to closing, fully orchestrated.',
+    icon: 'ns-shape-36',
+    image: realTimeChart,
+    analytics: {
+      primaryMetric: {
+        label: 'Processes Running',
+        value: '156',
+        thisMonth: '42',
+      },
+      secondaryMetrics: [
+        { label: 'Deal Pipeline Stages', value: '12' },
+        { label: 'KYC Process Steps', value: '8' },
+        { label: 'Avg. Completion Time', value: '-65%' },
+      ],
+    },
+  },
+  {
+    id: 3,
+    title: 'Control Room',
+    shortDescription: 'Monitor and steer everything in real-time',
+    description: 'See every deal, client, and investment moving through your processes. Intervene when needed. Full visibility and control from one dashboard.',
+    icon: 'ns-shape-8',
+    image: realTimeChart,
+    analytics: {
+      primaryMetric: {
+        label: 'Active Processes',
+        value: '89',
+        thisMonth: '24',
+      },
+      secondaryMetrics: [
+        { label: 'Pending Reviews', value: '12' },
+        { label: 'Completed Today', value: '34' },
+        { label: 'Exceptions Flagged', value: '3' },
+      ],
+    },
+  },
+  {
+    id: 4,
+    title: 'AI Agents',
+    shortDescription: 'Specialized agents for each task',
+    description: 'Create AI agents for MNPI screening, document analysis, KYC checks, and more. Each agent has defined roles, tools, and audit trails.',
+    icon: 'ns-shape-41',
+    image: realTimeChart,
     analytics: {
       primaryMetric: {
         label: 'Documents Processed',
@@ -24,78 +84,18 @@ const data = [
       },
       secondaryMetrics: [
         { label: 'Capital Calls Processed', value: '847' },
-        { label: 'KYC Profiles Reviewed', value: '2,340' },
-        { label: 'Meeting Dossiers Created', value: '1,890' },
-      ],
-    },
-  },
-  {
-    id: 2,
-    title: 'Automated Workflows',
-    shortDescription: 'Automate repetitive tasks without programming',
-    description: 'Automate repetitive tasks and free up your team. Create workflows without programming. Integrate your AI agents seamlessly.',
-    icon: 'ns-shape-36',
-    image: realTimeChart, // Replace with actual Workflows screenshot
-    analytics: {
-      primaryMetric: {
-        label: 'Workflows Executed',
-        value: '45,230',
-        thisMonth: '4,890',
-      },
-      secondaryMetrics: [
-        { label: 'Tasks Automated', value: '156,890' },
-        { label: 'Manual Hours Saved', value: '3,240h' },
-        { label: 'Error Rate Reduction', value: '92%' },
-      ],
-    },
-  },
-  {
-    id: 3,
-    title: 'Workspace Management',
-    shortDescription: 'Maintain control over users and data',
-    description: 'Maintain control over users, data, and processes. Assign AI agents and workflows to specific workspaces. Clear data access boundaries ensure compliance.',
-    icon: 'ns-shape-8',
-    image: realTimeChart, // Replace with actual Workspace screenshot
-    analytics: {
-      primaryMetric: {
-        label: 'Active Workspaces',
-        value: '24',
-        thisMonth: '3',
-      },
-      secondaryMetrics: [
-        { label: 'Users Managed', value: '156' },
-        { label: 'Data Access Events', value: '89,450' },
-        { label: 'Compliance Score', value: '98.5%' },
-      ],
-    },
-  },
-  {
-    id: 4,
-    title: 'Real-time Analytics',
-    shortDescription: 'Track time saved, money saved, and cases processed',
-    description: 'Track time saved, money saved, and cases processed in real-time. Monitor your automation impact with comprehensive analytics.',
-    icon: 'ns-shape-8',
-    image: realTimeChart,
-    analytics: {
-      primaryMetric: {
-        label: 'Total Time Saved',
-        value: '8,450h',
-        thisMonth: '1,120h',
-      },
-      secondaryMetrics: [
-        { label: 'Total Cost Savings', value: '$342,000' },
-        { label: 'Documents Processed', value: '45,230' },
-        { label: 'ROI Improvement', value: '+285%' },
+        { label: 'KYC Reviews', value: '2,340' },
+        { label: 'MNPI Screens', value: '1,890' },
       ],
     },
   },
   {
     id: 5,
     title: 'Central Knowledge Base',
-    shortDescription: 'Supply AI agents with your validated data',
-    description: 'Supply AI agents and workflows with your data. A vectorized knowledge base provides access to validated content without manual maintenance.',
-    icon: 'ns-shape-41',
-    image: realTimeChart, // Replace with actual Knowledge Base screenshot
+    shortDescription: 'Your validated data powers AI decisions',
+    description: 'Connect your documents, policies, and historical data. AI agents and workflows access validated content—no hallucinations, no outdated info.',
+    icon: 'ns-shape-3',
+    image: realTimeChart,
     analytics: {
       primaryMetric: {
         label: 'Documents Indexed',
@@ -112,10 +112,10 @@ const data = [
   {
     id: 6,
     title: 'Full Audit Trails',
-    shortDescription: 'Every AI action logged and traceable',
-    description: 'Every AI action is logged and traceable. Complete transparency for compliance and oversight.',
-    icon: 'ns-shape-3',
-    image: realTimeChart, // Replace with actual Audit Trails screenshot
+    shortDescription: 'Every action logged and traceable',
+    description: 'Every AI decision, workflow step, and user action is logged. Complete transparency for compliance reviews and regulatory audits.',
+    icon: 'ns-shape-8',
+    image: realTimeChart,
     analytics: {
       primaryMetric: {
         label: 'Actions Logged',
@@ -124,7 +124,7 @@ const data = [
       },
       secondaryMetrics: [
         { label: 'Compliance Checks', value: '45,230' },
-        { label: 'Audit Reports Generated', value: '1,890' },
+        { label: 'Audit Reports', value: '1,890' },
         { label: 'Traceability Rate', value: '100%' },
       ],
     },

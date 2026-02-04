@@ -19,17 +19,17 @@ const CTA = () => {
             <div className="space-y-6">
               <div className="space-y-5 text-center">
                 <RevealAnimation delay={0.2}>
-                  <span className="badge badge-primary-light">Let&apos;s connect</span>
+                  <span className="badge badge-primary-light">Start in Days, Not Months</span>
                 </RevealAnimation>
                 <div className="space-y-3">
                   <RevealAnimation delay={0.3}>
                     <h2>
-                      Ready to <span className="text-primary-500">Automate?</span>
+                      Ready to Scale Your <span className="text-primary-500">Operations?</span>
                     </h2>
                   </RevealAnimation>
                   <RevealAnimation delay={0.4}>
-                    <p className="mx-auto max-w-[558px] md:w-full">
-                      See how Lunnoa Automate can transform your financial services workflows. Personal demo, no strings attached.
+                    <p className="mx-auto max-w-[620px] md:w-full">
+                      See how PE firms, wealth managers, and banks are automating MNPI screening, capital calls, and KYC workflows. Deploy in days with full compliance and audit trails.
                     </p>
                   </RevealAnimation>
                 </div>

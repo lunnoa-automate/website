@@ -12,24 +12,35 @@ import LinkButton from '../ui/button/LinkButton';
 export const slides = [
   {
     id: 1,
-    name: 'John Doe',
-    position: 'Risk Manager, Insurance Group',
+    name: 'Sarah Mitchell',
+    position: 'COO, Mid-Market PE Fund (€2B AUM)',
     image: '/images/ns-avatar-6.png',
-    text: 'NextSaaS gave us the clarity and control we needed to proactively manage risk. Their platform is intuitive and powerful.',
+    text: 'MNPI screening used to take our analysts 3-4 hours per deal. With Lunnoa, we\'re down to 20 minutes with better accuracy and full audit trails. That\'s time back on sourcing and due diligence.',
+    metric: '85% time reduction',
   },
   {
     id: 2,
-    name: 'Michael Anderson',
-    position: 'CTO, Tech Solutions Inc',
+    name: 'Thomas Weber',
+    position: 'Head of Operations, Swiss Wealth Manager',
     image: '/images/ns-avatar-1.png',
-    text: 'With NextSaaS, we reduced compliance headaches and improved our audit readiness. The support team is fantastic!',
+    text: 'KYC reassessments were our biggest bottleneck—2-3 weeks per UHNW client. Lunnoa cut that to days. Our advisors are finally focused on relationships, not paperwork.',
+    metric: 'Weeks to days',
   },
   {
     id: 3,
-    name: 'John Smith',
-    position: 'Chief Risk Officer, FinEdge',
+    name: 'Alexandra Chen',
+    position: 'Managing Director, Growth Equity Fund',
     image: '/images/ns-avatar-2.png',
-    text: 'We now have a single source of truth for risk data. NextSaaS made collaboration between departments effortless.',
+    text: 'During fundraising, we could only respond to 30% of RFPs due to bandwidth. Lunnoa automates 70% of our responses. We\'ve tripled throughput without adding headcount.',
+    metric: '3x RFP throughput',
+  },
+  {
+    id: 4,
+    name: 'Marcus Bergmann',
+    position: 'Head of Compliance, Regional Bank',
+    image: '/images/ns-avatar-3.png',
+    text: 'The self-hosted deployment was critical for us—no client data leaves our infrastructure. Full audit trails satisfy our regulators, and our compliance team can finally keep up with volume.',
+    metric: '100% data sovereignty',
   },
 ];
 
@@ -156,6 +167,11 @@ const FadeTestimonial = () => {
                     <p className="review-text text-tagline-1 text-secondary dark:text-accent leading-[27px] font-medium md:text-lg">
                       &quot;{slide.text}&quot;
                     </p>
+                    {(slide as typeof slide & { metric?: string }).metric && (
+                      <span className="inline-block mt-4 px-4 py-1.5 rounded-full bg-primary-500/10 text-primary-500 text-sm font-semibold">
+                        {(slide as typeof slide & { metric?: string }).metric}
+                      </span>
+                    )}
                     <div className="bg-stroke-2 dark:bg-stroke-6 mx-auto my-7 h-px w-full origin-center" />
                     <div>
                       <h3 className="review-name text-secondary dark:text-accent text-lg leading-[27px] font-medium">

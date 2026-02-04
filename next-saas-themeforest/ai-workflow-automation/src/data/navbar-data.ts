@@ -3,35 +3,33 @@ import { FooterOneData } from '@/interface';
 
 export const mobileMenuData: MobileMenuGroup[] = [
   {
-    id: 'company',
-    title: 'Company',
+    id: 'platform',
+    title: 'Platform',
     submenu: [
-      { id: 'about-us', label: 'About Us', href: './about' },
-      { id: 'services', label: 'Services', href: './services' },
-      { id: 'team', label: 'Our Team', href: './team' },
-      { id: 'career', label: 'Career', href: './career' },
-      { id: 'our-manifesto', label: 'Our Manifesto', href: './our-manifesto' },
-      { id: 'why-choose-us', label: 'Why Choose Us', href: './why-choose-us' },
-      { id: 'customers', label: 'Customers', href: './customer' },
-      { id: 'use-cases', label: 'Use Cases', href: './use-case' },
-      { id: 'case-studies', label: 'Case Studies', href: './case-study' },
-      { id: 'testimonials', label: 'Testimonials', href: './testimonial' },
+      { id: 'workflows', label: 'Workflows', href: './features/workflows' },
+      { id: 'ai-agents', label: 'AI Agents', href: './features/ai-agents' },
+      { id: 'knowledge-base', label: 'Knowledge Base', href: './features/knowledge-base' },
+      { id: 'control-room', label: 'Control Room', href: './features/control-room' },
+      { id: 'audit-trails', label: 'Audit Trails', href: './features/audit-trails' },
+      { id: 'integrations', label: 'Integrations', href: './features/integrations' },
+      { id: 'security', label: 'Security & Compliance', href: './security' },
+      { id: 'trust', label: 'Trust Center', href: './trust' },
     ],
   },
 
   {
-    id: 'platform',
-    title: 'Platform',
+    id: 'solutions',
+    title: 'Solutions',
     submenu: [
-      { id: 'features', label: 'Features', href: './features' },
-      { id: 'integrations', label: 'Integrations', href: './integration' },
-      { id: 'process', label: 'Process', href: './process' },
-      { id: 'analytics', label: 'Analytics', href: './analytics' },
-      { id: 'security', label: 'Security', href: './security' },
-      { id: 'whitepaper', label: 'Whitepaper', href: './whitepaper' },
-      { id: 'build-overview', label: 'Build overview', href: './signup' },
-      { id: 'brandkit', label: 'Brandkit', href: './brandkit' },
-      { id: 'download', label: 'Download', href: './download' },
+      { id: 'private-equity', label: 'Private Equity', href: './solutions/private-equity' },
+      { id: 'wealth-management', label: 'Wealth Management', href: './solutions/wealth-management' },
+      { id: 'real-estate', label: 'Real Estate', href: './solutions/real-estate' },
+      { id: 'banking', label: 'Banking', href: './solutions/banking' },
+      { id: 'mnpi-screening', label: 'MNPI Screening', href: './use-cases/mnpi-screening' },
+      { id: 'capital-calls', label: 'Capital Calls', href: './use-cases/capital-calls' },
+      { id: 'kyc-aml', label: 'KYC/AML Automation', href: './use-cases/kyc-aml' },
+      { id: 'rfp-automation', label: 'RFP Automation', href: './use-cases/rfp-automation' },
+      { id: 'due-diligence', label: 'Due Diligence', href: './use-cases/due-diligence' },
     ],
   },
 
@@ -39,59 +37,76 @@ export const mobileMenuData: MobileMenuGroup[] = [
     id: 'resources',
     title: 'Resources',
     submenu: [
+      { id: 'ai-handbook', label: 'AI Handbook', href: './resources/ai-handbook' },
       { id: 'blog', label: 'Blog', href: './blog' },
-      { id: 'tutorial', label: 'Tutorial', href: './tutorial' },
+      { id: 'case-studies', label: 'Case Studies', href: './case-study' },
+      { id: 'customers', label: 'Customer Stories', href: './customer' },
+      { id: 'documentation', label: 'Documentation', href: './documentation' },
       { id: 'faq', label: 'FAQ', href: './faq' },
-      { id: 'glossary', label: 'Glossary', href: './glossary' },
+    ],
+  },
+
+  {
+    id: 'company',
+    title: 'Company',
+    submenu: [
+      { id: 'about-us', label: 'About Us', href: './about' },
+      { id: 'team', label: 'Our Team', href: './team' },
+      { id: 'career', label: 'Careers', href: './career' },
+      { id: 'press', label: 'Press', href: './press' },
+      { id: 'contact', label: 'Contact', href: './contact-us' },
     ],
   },
 
   {
     id: 'plans-support',
-    title: 'Plans & Support',
+    title: 'Pricing & Legal',
     submenu: [
       { id: 'pricing', label: 'Pricing', href: './pricing' },
       { id: 'login', label: 'Login', href: './login' },
-      { id: 'create-account', label: 'Create Account', href: './signup' },
-      { id: 'referral-program', label: 'Referral Program', href: './referral-program' },
-      { id: 'affiliate', label: 'Affiliate', href: './affiliates' },
-      { id: 'affiliate-policy', label: 'Affiliate Policy', href: './affiliate-policy' },
+      { id: 'create-account', label: 'Get Started', href: './signup' },
       { id: 'terms-conditions', label: 'Terms & Conditions', href: './terms-conditions' },
       { id: 'privacy-policy', label: 'Privacy Policy', href: './privacy-policy' },
-      { id: 'refund-policy', label: 'Refund Policy', href: './refund-policy' },
       { id: 'gdpr', label: 'GDPR', href: './gdpr' },
-      { id: 'legal', label: 'Legal', href: './legal' },
     ],
   },
 ];
 
 export const footerData: FooterOneData[] = [
   {
+    title: 'Platform',
+    links: [
+      { label: 'Workflows', href: '/features/workflows' },
+      { label: 'AI Agents', href: '/features/ai-agents' },
+      { label: 'Control Room', href: '/features/control-room' },
+      { label: 'Integrations', href: '/features/integrations' },
+    ],
+  },
+  {
+    title: 'Solutions',
+    links: [
+      { label: 'Private Equity', href: '/solutions/private-equity' },
+      { label: 'Wealth Management', href: '/solutions/wealth-management' },
+      { label: 'MNPI Screening', href: '/use-cases/mnpi-screening' },
+      { label: 'KYC/AML Automation', href: '/use-cases/kyc-aml' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { label: 'AI Handbook', href: '/resources/ai-handbook' },
+      { label: 'Documentation', href: '/documentation' },
+      { label: 'Security', href: '/security' },
+      { label: 'Trust Center', href: '/trust' },
+    ],
+  },
+  {
     title: 'Company',
     links: [
       { label: 'About Us', href: '/about' },
-      { label: 'Career', href: '/career' },
-      { label: 'Case Studies', href: '/case-study' },
       { label: 'Contact Us', href: '/contact-us' },
-    ],
-  },
-  {
-    title: 'Support',
-    links: [
-      { label: 'FAQ', href: '/faq' },
-      { label: 'Documentation', href: '/documentation' },
-      { label: 'Tutorial', href: '/tutorial' },
-      { label: 'Community', href: '/community' },
-    ],
-  },
-  {
-    title: 'Legal Policies',
-    links: [
-      { label: 'Terms & Conditions', href: '/terms-conditions' },
       { label: 'Privacy Policy', href: '/privacy-policy' },
-      { label: 'Refund Policy', href: '/refund-policy' },
-      { label: 'GDPR Compliance', href: '/gdpr' },
-      { label: 'Affiliate Policy', href: '/affiliate-policy' },
+      { label: 'Terms & Conditions', href: '/terms-conditions' },
     ],
   },
 ];

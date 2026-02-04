@@ -8,7 +8,7 @@ const Testimonial = () => {
         <div className="space-y-16 sm:space-y-20">
           <div className="text-center">
             <RevealAnimation delay={0.1}>
-              <h2 className="mx-auto w-full max-w-[776px]">Trusted by leading enterprises &amp; risk leaders</h2>
+              <h2 className="mx-auto w-full max-w-[776px]">Trusted by PE firms, wealth managers, and financial institutions</h2>
             </RevealAnimation>
           </div>
           <FadeTestimonial />

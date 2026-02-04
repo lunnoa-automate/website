@@ -1,157 +1,113 @@
-import clientLogo10Dark from '@public/images/icons/client-logo-10-dark.svg';
-import clientLogo10 from '@public/images/icons/client-logo-10.svg';
-import clientLogo6Dark from '@public/images/icons/client-logo-6-dark.svg';
-import clientLogo6 from '@public/images/icons/client-logo-6.svg';
-import clientLogo7Dark from '@public/images/icons/client-logo-7-dark.svg';
-import clientLogo7 from '@public/images/icons/client-logo-7.svg';
-import clientLogo8Dark from '@public/images/icons/client-logo-8-dark.svg';
-import clientLogo8 from '@public/images/icons/client-logo-8.svg';
-import clientLogo9Dark from '@public/images/icons/client-logo-9-dark.svg';
-import clientLogo9 from '@public/images/icons/client-logo-9.svg';
-import avatar1Img from '@public/images/ns-avatar-1.png';
-import avatar2Img from '@public/images/ns-avatar-2.png';
-import avatar3Img from '@public/images/ns-avatar-3.png';
+'use client';
+
+import { cn } from '@/utils/cn';
 import gradient6Img from '@public/images/ns-img-498.png';
 import Image from 'next/image';
-import Marquee from 'react-fast-marquee';
 import RevealAnimation from '../animation/RevealAnimation';
+
+const deploymentOptions = [
+  {
+    icon: 'ns-shape-24',
+    title: 'On-Premise',
+    description: 'Deploy on your own servers within your data center. Complete control, air-gapped option.',
+    features: ['Full data sovereignty', 'Your security perimeter', 'Air-gapped support'],
+  },
+  {
+    icon: 'ns-shape-36',
+    title: 'Private Cloud',
+    description: 'Deploy on your AWS, Azure, or GCP account. Terraform scripts provided.',
+    features: ['Your cloud account', 'Managed updates', 'Scalable infrastructure'],
+  },
+  {
+    icon: 'ns-shape-34',
+    title: 'Hybrid',
+    description: 'Keep sensitive data local while leveraging cloud compute power.',
+    features: ['Flexible architecture', 'Best of both worlds', 'Custom configurations'],
+  },
+];
+
+const llmOptions = [
+  { name: 'OpenAI', description: 'GPT-4, GPT-4o, GPT-3.5' },
+  { name: 'Anthropic', description: 'Claude 3.5, Claude 3' },
+  { name: 'Azure OpenAI', description: 'Enterprise compliance' },
+  { name: 'Local Models', description: 'Llama, Mistral, etc.' },
+];
 
 const Client = () => {
   return (
-    <section>
-      <RevealAnimation delay={0.2}>
-        <div className="main-container bg-background-3 dark:bg-background-5 relative -z-0 overflow-hidden rounded-4xl py-[100px] text-center">
-          <div
-            className="pointer-events-none absolute -top-[164%] -left-[35%] -z-10 h-full w-full rotate-[21deg] select-none"
-            aria-hidden="true">
-            <Image src={gradient6Img} alt="Decorative gradient background overlay" className="scale-[60%]" />
-          </div>
-          {/* Customer Testimonial */}
-          <article className="space-y-4 pb-10 text-center">
-            {/* Customer Avatars */}
-            <div className="flex cursor-pointer justify-center -space-x-2.5" aria-label="Customer avatars">
-              <Image
-                className="ring-accent bg-ns-yellow inline-block size-[38px] rounded-full ring-2 dark:ring-black"
-                src={avatar1Img}
-                alt="Customer avatar 1"
-                width={38}
-                height={38}
-              />
-              <Image
-                className="ring-accent bg-ns-red inline-block size-[38px] rounded-full ring-2 dark:ring-black"
-                src={avatar2Img}
-                alt="Customer avatar 2"
-                width={38}
-                height={38}
-              />
-              <Image
-                className="ring-accent bg-ns-green relative z-0 inline-block size-[38px] rounded-full ring-2 dark:ring-black"
-                src={avatar3Img}
-                alt="Customer avatar 3"
-                width={38}
-                height={38}
-              />
-              <div className="bg-ns-cyan ring-accent text-secondary/80 dark:text-accent/80 text-tagline-3 relative z-10 inline-flex size-[38px] items-center justify-center rounded-full font-medium ring-2 dark:ring-black">
-                99+
+    <section className="py-16 md:py-24">
+      <div className="main-container">
+        {/* Deployment Options */}
+        <RevealAnimation delay={0.2}>
+          <div className="bg-background-3 dark:bg-background-5 relative overflow-hidden rounded-4xl py-12 md:py-16 px-6 md:px-12">
+            <div
+              className="pointer-events-none absolute -top-[164%] -left-[35%] -z-10 h-full w-full rotate-[21deg] select-none"
+              aria-hidden="true">
+              <Image src={gradient6Img} alt="Decorative gradient background" className="scale-[60%]" />
+            </div>
+            
+            <div className="relative z-10">
+              <div className="text-center mb-12">
+                <span className="badge badge-cyan mb-4">Deployment Options</span>
+                <h2 className="text-heading-4 md:text-heading-3 text-secondary dark:text-accent mb-3">
+                  Deploy Where You Need
+                </h2>
+                <p className="text-secondary/60 dark:text-accent/60 max-w-xl mx-auto">
+                  Choose the deployment model that matches your security and compliance requirements.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-6 mb-16">
+                {deploymentOptions.map((option, index) => (
+                  <RevealAnimation key={index} delay={0.3 + index * 0.1}>
+                    <div className="bg-white dark:bg-background-6 rounded-2xl p-6 h-full border border-stroke-1 dark:border-stroke-6">
+                      <div className="mb-4">
+                        <span className={cn('text-secondary dark:text-accent inline-block text-[36px]', option.icon)} />
+                      </div>
+                      <h3 className="text-heading-6 text-secondary dark:text-accent mb-2">
+                        {option.title}
+                      </h3>
+                      <p className="text-secondary/60 dark:text-accent/60 text-sm mb-4">
+                        {option.description}
+                      </p>
+                      <ul className="space-y-2">
+                        {option.features.map((feature, featureIndex) => (
+                          <li key={featureIndex} className="flex items-center gap-2 text-sm text-secondary/70 dark:text-accent/70">
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary-500" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </RevealAnimation>
+                ))}
+              </div>
+
+              {/* LLM Options */}
+              <div className="border-t border-stroke-1 dark:border-stroke-6 pt-12">
+                <div className="text-center mb-8">
+                  <h3 className="text-heading-5 text-secondary dark:text-accent mb-2">
+                    Bring Your Own LLM
+                  </h3>
+                  <p className="text-secondary/60 dark:text-accent/60 max-w-xl mx-auto text-sm">
+                    Use your preferred AI provider. You control the API keys, you control the costs.
+                  </p>
+                </div>
+                <div className="flex flex-wrap justify-center gap-4">
+                  {llmOptions.map((llm, index) => (
+                    <div
+                      key={index}
+                      className="bg-white dark:bg-background-6 rounded-xl px-5 py-3 border border-stroke-1 dark:border-stroke-6">
+                      <p className="font-medium text-secondary dark:text-accent text-sm">{llm.name}</p>
+                      <p className="text-xs text-secondary/50 dark:text-accent/50">{llm.description}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-            {/* Trust Metrics */}
-            <div>
-              <p className="text-tagline-2 text-secondary dark:text-accent font-medium">Tushed by 20k+</p>
-              <p className="text-tagline-3">Customers Across the Globe</p>
-            </div>
-          </article>
-          {/* Client Logos */}
-          <div className="relative mx-auto max-w-[1130px]">
-            <div className="from-background-3 dark:from-background-5 absolute top-5 left-0 z-40 h-full w-[7%] bg-gradient-to-r to-transparent" />
-            <div className="from-background-3 dark:from-background-5 absolute top-5 right-0 z-40 h-full w-[7%] bg-gradient-to-l to-transparent" />
-            <Marquee autoFill speed={60}>
-              <div className="border-secondary/10 dark:border-accent/10 flex items-center justify-center gap-8 border-t pt-10">
-                <figure className="ml-8 min-w-[140px] md:min-w-[201px]">
-                  <Image
-                    src={clientLogo6}
-                    alt="Client company logo 1"
-                    className="inline-block lg:w-auto dark:hidden"
-                    width={120}
-                    height={40}
-                  />
-                  <Image
-                    src={clientLogo6Dark}
-                    alt="Client company logo 1"
-                    className="hidden lg:w-auto dark:block"
-                    width={120}
-                    height={40}
-                  />
-                </figure>
-                <figure className="min-w-[140px] md:min-w-[201px]">
-                  <Image
-                    src={clientLogo7}
-                    alt="Client company logo 2"
-                    className="inline-block lg:w-auto dark:hidden"
-                    width={120}
-                    height={40}
-                  />
-                  <Image
-                    src={clientLogo7Dark}
-                    alt="Client company logo 2"
-                    className="hidden lg:w-auto dark:block"
-                    width={120}
-                    height={40}
-                  />
-                </figure>
-                <figure className="min-w-[140px] md:min-w-[201px]">
-                  <Image
-                    src={clientLogo8}
-                    alt="Client company logo 3"
-                    className="inline-block lg:w-auto dark:hidden"
-                    width={120}
-                    height={40}
-                  />
-                  <Image
-                    src={clientLogo8Dark}
-                    alt="Client company logo 3"
-                    className="hidden lg:w-auto dark:block"
-                    width={120}
-                    height={40}
-                  />
-                </figure>
-                <figure className="min-w-[140px] md:min-w-[201px]">
-                  <Image
-                    src={clientLogo9}
-                    alt="Client company logo 4"
-                    className="inline-block lg:w-auto dark:hidden"
-                    width={120}
-                    height={40}
-                  />
-                  <Image
-                    src={clientLogo9Dark}
-                    alt="Client company logo 4"
-                    className="hidden lg:w-auto dark:block"
-                    width={120}
-                    height={40}
-                  />
-                </figure>
-                <figure className="min-w-[140px] md:min-w-[201px]">
-                  <Image
-                    src={clientLogo10}
-                    alt="Client company logo 5"
-                    className="inline-block lg:w-auto dark:hidden"
-                    width={120}
-                    height={40}
-                  />
-                  <Image
-                    src={clientLogo10Dark}
-                    alt="Client company logo 5"
-                    className="hidden lg:w-auto dark:block"
-                    width={120}
-                    height={40}
-                  />
-                </figure>
-              </div>
-            </Marquee>
           </div>
-        </div>
-      </RevealAnimation>
+        </RevealAnimation>
+      </div>
     </section>
   );
 };

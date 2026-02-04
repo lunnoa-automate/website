@@ -1,4 +1,4 @@
-import { StarIconV3 } from '@/icons';
+import { StarIconV2 } from '@/icons';
 import { FC } from 'react';
 import RevealAnimation from '../animation/RevealAnimation';
 
@@ -25,11 +25,11 @@ const TrustedByUsers: FC = () => {
               <div className="flex flex-col items-center">
                 <span className="bg-ns-green text-heading-5 mb-6 rounded-full px-7 py-2"> 4.7 </span>
                 <div className="mb-3 flex gap-2" aria-label="5 out of 5 stars">
-                  <StarIconV3 />
-                  <StarIconV3 />
-                  <StarIconV3 />
-                  <StarIconV3 />
-                  <StarIconV3 />
+                  <StarIconV2 className="w-5 h-5 fill-yellow-400" />
+                  <StarIconV2 className="w-5 h-5 fill-yellow-400" />
+                  <StarIconV2 className="w-5 h-5 fill-yellow-400" />
+                  <StarIconV2 className="w-5 h-5 fill-yellow-400" />
+                  <StarIconV2 className="w-5 h-5 fill-yellow-400" />
                 </div>
                 <span className="text-tagline-1 text-white">Top customer fulfillment</span>
               </div>
@@ -39,10 +39,10 @@ const TrustedByUsers: FC = () => {
               <div className="flex flex-col items-center">
                 <span className="bg-ns-red text-heading-5 mb-6 rounded-full px-7 py-2">4.3</span>
                 <div className="mb-3 flex gap-2" aria-label="5 out of 5 stars">
-                  <StarIconV3 />
-                  <StarIconV3 />
-                  <StarIconV3 />
-                  <StarIconV3 />
+                  <StarIconV2 className="w-5 h-5 fill-yellow-400" />
+                  <StarIconV2 className="w-5 h-5 fill-yellow-400" />
+                  <StarIconV2 className="w-5 h-5 fill-yellow-400" />
+                  <StarIconV2 className="w-5 h-5 fill-yellow-400" />
                 </div>
                 <span className="text-tagline-1 text-white">Best payment software</span>
               </div>
@@ -52,9 +52,9 @@ const TrustedByUsers: FC = () => {
               <div className="flex flex-col items-center">
                 <span className="bg-ns-cyan text-heading-5 mb-6 rounded-full px-7 py-2">4.9</span>
                 <div className="mb-3 flex gap-2" aria-label="5 out of 5 stars">
-                  <StarIconV3 />
-                  <StarIconV3 />
-                  <StarIconV3 />
+                  <StarIconV2 className="w-5 h-5 fill-yellow-400" />
+                  <StarIconV2 className="w-5 h-5 fill-yellow-400" />
+                  <StarIconV2 className="w-5 h-5 fill-yellow-400" />
                 </div>
                 <span className="text-tagline-1 text-white">Top payment company</span>
               </div>
