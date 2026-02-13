@@ -63,7 +63,7 @@ export default function Header() {
   return (
     <header 
       className={cn(
-        "sticky top-0 w-full z-50 transition-all duration-300 bg-[#fffeef]",
+        "sticky top-0 w-full z-50 transition-all duration-300 bg-white",
         isScrolled && "shadow-3xl"
       )}
     >
@@ -128,7 +128,7 @@ export default function Header() {
       {/* Mobile Menu */}
       <div
         className={cn(
-          "xl:hidden fixed inset-0 top-[73px] bg-[#fffeef] z-40 transition-all duration-300",
+          "xl:hidden fixed inset-0 top-[73px] bg-white z-40 transition-all duration-300",
           isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         )}
       >
