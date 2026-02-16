@@ -5,7 +5,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState('de');
+  const [language, setLanguage] = useState('en');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export function useLanguage() {
   const context = useContext(LanguageContext);
   if (!context) {
     // During SSR/SSG, return a default context
-    return { language: 'de', setLanguage: () => {}, toggleLanguage: () => {} };
+    return { language: 'en', setLanguage: () => {}, toggleLanguage: () => {} };
   }
   return context;
 }

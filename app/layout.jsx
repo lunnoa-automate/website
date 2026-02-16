@@ -24,7 +24,7 @@ export const metadata = {
     description: 'Self-hosted AI agents for Private Equity, Real Estate, Wealth Management, and Banking. Automate compliance, document processing, and reporting workflows.',
     url: 'https://lunnoaautomate.ch',
     siteName: 'Lunnoa Automate',
-    locale: 'de_CH',
+    locale: 'en_US',
     type: 'website',
   },
   robots: {
@@ -35,7 +35,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="de" className={inter.variable}>
+    <html lang="en" className={inter.variable}>
       <body className="font-inter antialiased">
         {/* Initialize GTM Consent Mode (before GTM loads) */}
         <Script id="consent-mode-init" strategy="beforeInteractive">

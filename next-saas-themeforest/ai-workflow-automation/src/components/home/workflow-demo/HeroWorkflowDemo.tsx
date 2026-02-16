@@ -25,17 +25,8 @@ const nodeTypes: NodeTypes = {
   ctaNode: CTANode,
 };
 
-// Clean tree-like layout with no overlapping connections
-// Layout:
-//   Row 0: Trigger → DealCloud → Deal Agent
-//   Row 1:                        Decision (below Deal Agent)
-//   Row 2:          Slack ←───── Decision ─────→ Excel  
-//   Row 3:            ↓                            ↓
-//   Row 4:      Guidepoint ──→ Compliance ←────────┘
-//   Row 5:                      Book a Call
-
-const HORIZONTAL_GAP = 145; // Compact horizontal spacing
-const VERTICAL_GAP = 125;   // More vertical space for smoother curves
+const HORIZONTAL_GAP = 145;
+const VERTICAL_GAP = 125;
 
 const initialNodes: Node<WorkflowNodeData | CTANodeData>[] = [
   // Row 0 - Main flow entry (left to right)
@@ -43,163 +34,65 @@ const initialNodes: Node<WorkflowNodeData | CTANodeData>[] = [
     id: 'trigger',
     type: 'workflowNode',
     position: { x: 0, y: 0 },
-    data: {
-      label: 'Trigger',
-      icon: `${S3_BASE}/triggers/flow-control_trigger_manual.svg`,
-      status: 'pending',
-    },
+    data: { label: 'Trigger', icon: `${S3_BASE}/triggers/flow-control_trigger_manual.svg`, status: 'pending' },
   },
   {
     id: 'dealcloud',
     type: 'workflowNode',
     position: { x: HORIZONTAL_GAP, y: 0 },
-    data: {
-      label: 'DealCloud',
-      icon: `${S3_BASE}/apps/dealcloud.png`,
-      status: 'pending',
-    },
+    data: { label: 'DealCloud', icon: `${S3_BASE}/apps/dealcloud.png`, status: 'pending' },
   },
   {
     id: 'deal-agent',
     type: 'workflowNode',
     position: { x: HORIZONTAL_GAP * 2, y: 0 },
-    data: {
-      label: 'Deal Agent',
-      icon: `${S3_BASE}/actions/ai_action_message-agent.svg`,
-      status: 'pending',
-    },
+    data: { label: 'Deal Agent', icon: `${S3_BASE}/actions/ai_action_message-agent.svg`, status: 'pending' },
   },
-  // Row 1 - Decision node (centered, shifted right for visual flow)
+  // Row 1 - Decision node
   {
     id: 'decision',
     type: 'decisionNode',
     position: { x: HORIZONTAL_GAP * 2.5, y: VERTICAL_GAP },
-    data: {
-      label: 'Decision',
-      icon: `${S3_BASE}/actions/flow-control_action_conditional-paths.svg`,
-      status: 'pending',
-    },
+    data: { label: 'Decision', icon: `${S3_BASE}/actions/flow-control_action_conditional-paths.svg`, status: 'pending' },
   },
-  // Row 2 - Parallel branches (Slack left, Excel right)
+  // Row 2 - Parallel branches
   {
     id: 'slack',
     type: 'verticalFlowNode',
     position: { x: HORIZONTAL_GAP * 1.5, y: VERTICAL_GAP * 2 },
-    data: {
-      label: 'Slack',
-      icon: `${S3_BASE}/apps/slack.svg`,
-      status: 'pending',
-    },
+    data: { label: 'Slack', icon: `${S3_BASE}/apps/slack.svg`, status: 'pending' },
   },
   {
     id: 'excel',
     type: 'verticalFlowNode',
     position: { x: HORIZONTAL_GAP * 3.5, y: VERTICAL_GAP * 2 },
-    data: {
-      label: 'Excel',
-      icon: `${S3_BASE}/apps/microsoft-excel-365.svg`,
-      status: 'pending',
-    },
+    data: { label: 'Excel', icon: `${S3_BASE}/apps/microsoft-excel-365.svg`, status: 'pending' },
   },
-  // Row 3 - Convergence (Guidepoint and Compliance merge)
+  // Row 3 - Convergence
   {
     id: 'guidepoint',
     type: 'topRightFlowNode',
     position: { x: HORIZONTAL_GAP * 1.5, y: VERTICAL_GAP * 3 },
-    data: {
-      label: 'Guidepoint',
-      icon: 'https://www.jetro.go.jp/ext_images/_Newsroom/2018/3rd/0712b1.jpg',
-      status: 'pending',
-    },
+    data: { label: 'Guidepoint', icon: 'https://www.jetro.go.jp/ext_images/_Newsroom/2018/3rd/0712b1.jpg', status: 'pending' },
   },
   {
     id: 'compliance',
     type: 'multiInputFlowNode',
     position: { x: HORIZONTAL_GAP * 3.5, y: VERTICAL_GAP * 3.5 },
-    data: {
-      label: 'KYC Agent',
-      icon: `${S3_BASE}/actions/ai_action_message-agent.svg`,
-      status: 'pending',
-    },
+    data: { label: 'KYC Agent', icon: `${S3_BASE}/actions/ai_action_message-agent.svg`, status: 'pending' },
   },
 ];
 
-// Clean edges with step connections to avoid overlaps
+// Edges
 const initialEdges: Edge[] = [
-  // Main flow: Trigger → DealCloud → Deal Agent
-  {
-    id: 'e-trigger-dealcloud',
-    source: 'trigger',
-    target: 'dealcloud',
-    type: 'smoothstep',
-    animated: false,
-    style: { stroke: '#374151', strokeWidth: 2 },
-  },
-  {
-    id: 'e-dealcloud-agent',
-    source: 'dealcloud',
-    target: 'deal-agent',
-    type: 'smoothstep',
-    animated: false,
-    style: { stroke: '#374151', strokeWidth: 2 },
-  },
-  // Deal Agent → Decision (diagonal down-right)
-  {
-    id: 'e-agent-decision',
-    source: 'deal-agent',
-    target: 'decision',
-    type: 'smoothstep',
-    animated: false,
-    style: { stroke: '#374151', strokeWidth: 2 },
-  },
-  // Decision branches: left to Slack, right to Excel
-  {
-    id: 'e-decision-slack',
-    source: 'decision',
-    sourceHandle: 'left',
-    target: 'slack',
-    type: 'smoothstep',
-    animated: false,
-    style: { stroke: '#374151', strokeWidth: 2 },
-  },
-  {
-    id: 'e-decision-excel',
-    source: 'decision',
-    sourceHandle: 'right',
-    target: 'excel',
-    type: 'smoothstep',
-    animated: false,
-    style: { stroke: '#374151', strokeWidth: 2 },
-  },
-  // Left branch: Slack → Guidepoint (straight down)
-  {
-    id: 'e-slack-guidepoint',
-    source: 'slack',
-    target: 'guidepoint',
-    type: 'smoothstep',
-    animated: false,
-    style: { stroke: '#374151', strokeWidth: 2 },
-  },
-  // Guidepoint → Compliance (horizontal left)
-  {
-    id: 'e-guidepoint-compliance',
-    source: 'guidepoint',
-    target: 'compliance',
-    targetHandle: 'left',
-    type: 'smoothstep',
-    animated: false,
-    style: { stroke: '#374151', strokeWidth: 2 },
-  },
-  // Right branch: Excel → Compliance (from top)
-  {
-    id: 'e-excel-compliance',
-    source: 'excel',
-    target: 'compliance',
-    targetHandle: 'top',
-    type: 'smoothstep',
-    animated: false,
-    style: { stroke: '#374151', strokeWidth: 2 },
-  },
+  { id: 'e-trigger-dealcloud', source: 'trigger', target: 'dealcloud', type: 'smoothstep', animated: false, style: { stroke: '#374151', strokeWidth: 2 } },
+  { id: 'e-dealcloud-agent', source: 'dealcloud', target: 'deal-agent', type: 'smoothstep', animated: false, style: { stroke: '#374151', strokeWidth: 2 } },
+  { id: 'e-agent-decision', source: 'deal-agent', target: 'decision', type: 'smoothstep', animated: false, style: { stroke: '#374151', strokeWidth: 2 } },
+  { id: 'e-decision-slack', source: 'decision', sourceHandle: 'left', target: 'slack', type: 'smoothstep', animated: false, style: { stroke: '#374151', strokeWidth: 2 } },
+  { id: 'e-decision-excel', source: 'decision', sourceHandle: 'right', target: 'excel', type: 'smoothstep', animated: false, style: { stroke: '#374151', strokeWidth: 2 } },
+  { id: 'e-slack-guidepoint', source: 'slack', target: 'guidepoint', type: 'smoothstep', animated: false, style: { stroke: '#374151', strokeWidth: 2 } },
+  { id: 'e-guidepoint-compliance', source: 'guidepoint', target: 'compliance', targetHandle: 'left', type: 'smoothstep', animated: false, style: { stroke: '#374151', strokeWidth: 2 } },
+  { id: 'e-excel-compliance', source: 'excel', target: 'compliance', targetHandle: 'top', type: 'smoothstep', animated: false, style: { stroke: '#374151', strokeWidth: 2 } },
 ];
 
 interface HeroWorkflowDemoProps {
@@ -213,7 +106,7 @@ export const HeroWorkflowDemo = ({ onComplete }: HeroWorkflowDemoProps) => {
   const timerRef = useRef<NodeJS.Timeout[]>([]);
   const hasStartedRef = useRef(false);
   const onCompleteCalledRef = useRef(false);
-  const NODE_DURATION = 1000; // 1 second per node
+  const NODE_DURATION = 1000;
 
   // Update node status
   const updateNodeStatus = useCallback((nodeId: string, status: WorkflowNodeStatus) => {
@@ -224,7 +117,7 @@ export const HeroWorkflowDemo = ({ onComplete }: HeroWorkflowDemoProps) => {
     );
   }, [setNodes]);
 
-  // Update edge style (animated and colored)
+  // Update edge style
   const updateEdgeStyle = useCallback((edgeId: string, active: boolean, complete: boolean) => {
     setEdges((eds) =>
       eds.map((edge) =>
@@ -242,7 +135,7 @@ export const HeroWorkflowDemo = ({ onComplete }: HeroWorkflowDemoProps) => {
     );
   }, [setEdges]);
 
-  // Reset all nodes and edges to initial state
+  // Reset all nodes and edges
   const resetAllNodes = useCallback(() => {
     setNodes((nds) =>
       nds.map((node) => ({
@@ -254,10 +147,7 @@ export const HeroWorkflowDemo = ({ onComplete }: HeroWorkflowDemoProps) => {
       eds.map((edge) => ({
         ...edge,
         animated: false,
-        style: {
-          stroke: '#374151',
-          strokeWidth: 2,
-        },
+        style: { stroke: '#374151', strokeWidth: 2 },
       }))
     );
   }, [setNodes, setEdges]);
@@ -266,209 +156,100 @@ export const HeroWorkflowDemo = ({ onComplete }: HeroWorkflowDemoProps) => {
   const runFirstPath = useCallback(() => {
     let delay = 0;
 
-    // Trigger
-    const triggerStart = setTimeout(() => {
-      updateNodeStatus('trigger', 'running');
-    }, delay);
-    timerRef.current.push(triggerStart);
-    delay += NODE_DURATION;
-    const triggerComplete = setTimeout(() => {
-      updateNodeStatus('trigger', 'complete');
-    }, delay);
-    timerRef.current.push(triggerComplete);
-    delay += 100; // Small gap between nodes
+    const schedule = (fn: () => void, d: number) => {
+      const t = setTimeout(fn, d);
+      timerRef.current.push(t);
+    };
 
-    // DealCloud
-    const dealcloudStart = setTimeout(() => {
-      updateEdgeStyle('e-trigger-dealcloud', true, false);
-      updateNodeStatus('dealcloud', 'running');
-    }, delay);
-    timerRef.current.push(dealcloudStart);
+    schedule(() => updateNodeStatus('trigger', 'running'), delay);
     delay += NODE_DURATION;
-    const dealcloudComplete = setTimeout(() => {
-      updateEdgeStyle('e-trigger-dealcloud', false, true);
-      updateNodeStatus('dealcloud', 'complete');
-    }, delay);
-    timerRef.current.push(dealcloudComplete);
+    schedule(() => updateNodeStatus('trigger', 'complete'), delay);
     delay += 100;
 
-    // Deal Agent
-    const agentStart = setTimeout(() => {
-      updateEdgeStyle('e-dealcloud-agent', true, false);
-      updateNodeStatus('deal-agent', 'running');
-    }, delay);
-    timerRef.current.push(agentStart);
+    schedule(() => { updateEdgeStyle('e-trigger-dealcloud', true, false); updateNodeStatus('dealcloud', 'running'); }, delay);
     delay += NODE_DURATION;
-    const agentComplete = setTimeout(() => {
-      updateEdgeStyle('e-dealcloud-agent', false, true);
-      updateNodeStatus('deal-agent', 'complete');
-    }, delay);
-    timerRef.current.push(agentComplete);
+    schedule(() => { updateEdgeStyle('e-trigger-dealcloud', false, true); updateNodeStatus('dealcloud', 'complete'); }, delay);
     delay += 100;
 
-    // Decision
-    const decisionStart = setTimeout(() => {
-      updateEdgeStyle('e-agent-decision', true, false);
-      updateNodeStatus('decision', 'running');
-    }, delay);
-    timerRef.current.push(decisionStart);
+    schedule(() => { updateEdgeStyle('e-dealcloud-agent', true, false); updateNodeStatus('deal-agent', 'running'); }, delay);
     delay += NODE_DURATION;
-    const decisionComplete = setTimeout(() => {
-      updateEdgeStyle('e-agent-decision', false, true);
-      updateNodeStatus('decision', 'complete');
-    }, delay);
-    timerRef.current.push(decisionComplete);
+    schedule(() => { updateEdgeStyle('e-dealcloud-agent', false, true); updateNodeStatus('deal-agent', 'complete'); }, delay);
     delay += 100;
 
-    // Slack branch
-    const slackStart = setTimeout(() => {
-      updateEdgeStyle('e-decision-slack', true, false);
-      updateNodeStatus('slack', 'running');
-    }, delay);
-    timerRef.current.push(slackStart);
+    schedule(() => { updateEdgeStyle('e-agent-decision', true, false); updateNodeStatus('decision', 'running'); }, delay);
     delay += NODE_DURATION;
-    const slackComplete = setTimeout(() => {
-      updateEdgeStyle('e-decision-slack', false, true);
-      updateNodeStatus('slack', 'complete');
-    }, delay);
-    timerRef.current.push(slackComplete);
+    schedule(() => { updateEdgeStyle('e-agent-decision', false, true); updateNodeStatus('decision', 'complete'); }, delay);
     delay += 100;
 
-    // Guidepoint
-    const guidepointStart = setTimeout(() => {
-      updateEdgeStyle('e-slack-guidepoint', true, false);
-      updateNodeStatus('guidepoint', 'running');
-    }, delay);
-    timerRef.current.push(guidepointStart);
+    schedule(() => { updateEdgeStyle('e-decision-slack', true, false); updateNodeStatus('slack', 'running'); }, delay);
     delay += NODE_DURATION;
-    const guidepointComplete = setTimeout(() => {
-      updateEdgeStyle('e-slack-guidepoint', false, true);
-      updateNodeStatus('guidepoint', 'complete');
-    }, delay);
-    timerRef.current.push(guidepointComplete);
+    schedule(() => { updateEdgeStyle('e-decision-slack', false, true); updateNodeStatus('slack', 'complete'); }, delay);
     delay += 100;
 
-    // Compliance
-    const complianceStart = setTimeout(() => {
-      updateEdgeStyle('e-guidepoint-compliance', true, false);
-      updateNodeStatus('compliance', 'running');
-    }, delay);
-    timerRef.current.push(complianceStart);
+    schedule(() => { updateEdgeStyle('e-slack-guidepoint', true, false); updateNodeStatus('guidepoint', 'running'); }, delay);
     delay += NODE_DURATION;
-    const complianceComplete = setTimeout(() => {
-      updateEdgeStyle('e-guidepoint-compliance', false, true);
-      updateNodeStatus('compliance', 'complete');
-    }, delay);
-    timerRef.current.push(complianceComplete);
+    schedule(() => { updateEdgeStyle('e-slack-guidepoint', false, true); updateNodeStatus('guidepoint', 'complete'); }, delay);
+    delay += 100;
+
+    schedule(() => { updateEdgeStyle('e-guidepoint-compliance', true, false); updateNodeStatus('compliance', 'running'); }, delay);
+    delay += NODE_DURATION;
+    schedule(() => { updateEdgeStyle('e-guidepoint-compliance', false, true); updateNodeStatus('compliance', 'complete'); }, delay);
   }, [updateNodeStatus, updateEdgeStyle]);
 
   // Second run: Excel path
   const runSecondPath = useCallback(() => {
     let delay = 0;
 
-    // Trigger
-    const triggerStart = setTimeout(() => {
-      updateNodeStatus('trigger', 'running');
-    }, delay);
-    timerRef.current.push(triggerStart);
+    const schedule = (fn: () => void, d: number) => {
+      const t = setTimeout(fn, d);
+      timerRef.current.push(t);
+    };
+
+    schedule(() => updateNodeStatus('trigger', 'running'), delay);
     delay += NODE_DURATION;
-    const triggerComplete = setTimeout(() => {
-      updateNodeStatus('trigger', 'complete');
-    }, delay);
-    timerRef.current.push(triggerComplete);
+    schedule(() => updateNodeStatus('trigger', 'complete'), delay);
     delay += 100;
 
-    // DealCloud
-    const dealcloudStart = setTimeout(() => {
-      updateEdgeStyle('e-trigger-dealcloud', true, false);
-      updateNodeStatus('dealcloud', 'running');
-    }, delay);
-    timerRef.current.push(dealcloudStart);
+    schedule(() => { updateEdgeStyle('e-trigger-dealcloud', true, false); updateNodeStatus('dealcloud', 'running'); }, delay);
     delay += NODE_DURATION;
-    const dealcloudComplete = setTimeout(() => {
-      updateEdgeStyle('e-trigger-dealcloud', false, true);
-      updateNodeStatus('dealcloud', 'complete');
-    }, delay);
-    timerRef.current.push(dealcloudComplete);
+    schedule(() => { updateEdgeStyle('e-trigger-dealcloud', false, true); updateNodeStatus('dealcloud', 'complete'); }, delay);
     delay += 100;
 
-    // Deal Agent
-    const agentStart = setTimeout(() => {
-      updateEdgeStyle('e-dealcloud-agent', true, false);
-      updateNodeStatus('deal-agent', 'running');
-    }, delay);
-    timerRef.current.push(agentStart);
+    schedule(() => { updateEdgeStyle('e-dealcloud-agent', true, false); updateNodeStatus('deal-agent', 'running'); }, delay);
     delay += NODE_DURATION;
-    const agentComplete = setTimeout(() => {
-      updateEdgeStyle('e-dealcloud-agent', false, true);
-      updateNodeStatus('deal-agent', 'complete');
-    }, delay);
-    timerRef.current.push(agentComplete);
+    schedule(() => { updateEdgeStyle('e-dealcloud-agent', false, true); updateNodeStatus('deal-agent', 'complete'); }, delay);
     delay += 100;
 
-    // Decision
-    const decisionStart = setTimeout(() => {
-      updateEdgeStyle('e-agent-decision', true, false);
-      updateNodeStatus('decision', 'running');
-    }, delay);
-    timerRef.current.push(decisionStart);
+    schedule(() => { updateEdgeStyle('e-agent-decision', true, false); updateNodeStatus('decision', 'running'); }, delay);
     delay += NODE_DURATION;
-    const decisionComplete = setTimeout(() => {
-      updateEdgeStyle('e-agent-decision', false, true);
-      updateNodeStatus('decision', 'complete');
-    }, delay);
-    timerRef.current.push(decisionComplete);
+    schedule(() => { updateEdgeStyle('e-agent-decision', false, true); updateNodeStatus('decision', 'complete'); }, delay);
     delay += 100;
 
-    // Excel branch
-    const excelStart = setTimeout(() => {
-      updateEdgeStyle('e-decision-excel', true, false);
-      updateNodeStatus('excel', 'running');
-    }, delay);
-    timerRef.current.push(excelStart);
+    schedule(() => { updateEdgeStyle('e-decision-excel', true, false); updateNodeStatus('excel', 'running'); }, delay);
     delay += NODE_DURATION;
-    const excelComplete = setTimeout(() => {
-      updateEdgeStyle('e-decision-excel', false, true);
-      updateNodeStatus('excel', 'complete');
-    }, delay);
-    timerRef.current.push(excelComplete);
+    schedule(() => { updateEdgeStyle('e-decision-excel', false, true); updateNodeStatus('excel', 'complete'); }, delay);
     delay += 100;
 
-    // Compliance
-    const complianceStart = setTimeout(() => {
-      updateEdgeStyle('e-excel-compliance', true, false);
-      updateNodeStatus('compliance', 'running');
-    }, delay);
-    timerRef.current.push(complianceStart);
+    schedule(() => { updateEdgeStyle('e-excel-compliance', true, false); updateNodeStatus('compliance', 'running'); }, delay);
     delay += NODE_DURATION;
-    const complianceComplete = setTimeout(() => {
+    schedule(() => {
       updateEdgeStyle('e-excel-compliance', false, true);
       updateNodeStatus('compliance', 'complete');
       setIsComplete(true);
     }, delay);
-    timerRef.current.push(complianceComplete);
   }, [updateNodeStatus, updateEdgeStyle]);
 
   // Run both paths sequentially
   const runDemo = useCallback(() => {
-    // Calculate first path duration: 7 nodes * 1000ms + 6 gaps * 100ms = 7600ms
     const firstPathDuration = 7 * NODE_DURATION + 6 * 100;
-    const resetDelay = firstPathDuration + 500; // 500ms pause before reset
+    const resetDelay = firstPathDuration + 500;
 
-    // Reset after first path completes
-    const resetTimer = setTimeout(() => {
-      resetAllNodes();
-    }, resetDelay);
+    const resetTimer = setTimeout(() => resetAllNodes(), resetDelay);
     timerRef.current.push(resetTimer);
 
-    // Start second path after reset
-    const secondPathStart = resetDelay + 100; // Small delay after reset
-    const secondPathTimer = setTimeout(() => {
-      runSecondPath();
-    }, secondPathStart);
+    const secondPathTimer = setTimeout(() => runSecondPath(), resetDelay + 100);
     timerRef.current.push(secondPathTimer);
 
-    // Start first path immediately
     runFirstPath();
   }, [runFirstPath, runSecondPath, resetAllNodes]);
 
@@ -478,7 +259,6 @@ export const HeroWorkflowDemo = ({ onComplete }: HeroWorkflowDemoProps) => {
       hasStartedRef.current = true;
       runDemo();
     }
-
     return () => {
       timerRef.current.forEach(clearTimeout);
     };
@@ -502,9 +282,9 @@ export const HeroWorkflowDemo = ({ onComplete }: HeroWorkflowDemoProps) => {
           onEdgesChange={onEdgesChange}
           nodeTypes={nodeTypes}
           fitView
-          fitViewOptions={{ 
-            padding: 0.15, 
-            minZoom: 0.6, 
+          fitViewOptions={{
+            padding: 0.15,
+            minZoom: 0.6,
             maxZoom: 1.2,
           }}
           nodesDraggable={false}
@@ -516,8 +296,7 @@ export const HeroWorkflowDemo = ({ onComplete }: HeroWorkflowDemoProps) => {
           panOnScroll={false}
           panOnDrag={false}
           preventScrolling={false}
-          proOptions={{ hideAttribution: true }}
-        >
+          proOptions={{ hideAttribution: true }}>
           <Background color="transparent" />
         </ReactFlow>
       </div>

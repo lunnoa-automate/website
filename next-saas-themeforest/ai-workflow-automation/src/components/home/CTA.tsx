@@ -1,15 +1,22 @@
+'use client';
+
 import gradient15 from '@public/images/ns-img-507.png';
 import gradient50 from '@public/images/ns-img-538.png';
 import Image from 'next/image';
+import { useICP } from '@/context/ICPContext';
+import { ctaContent } from '@/data/icp-content';
 import RevealAnimation from '../animation/RevealAnimation';
 import LinkButton from '../ui/button/LinkButton';
 
 const CTA = () => {
+  const { icp } = useICP();
+  const content = ctaContent[icp];
+
   return (
     <section className="bg-background-3 dark:bg-background-7 py-[100px] md:py-[150px]" aria-label="Call to Action">
       <div className="mx-auto max-w-[1440px]">
         <div className="dark:bg-background-6 relative overflow-hidden rounded-[30px] bg-white py-[76px]">
-          {/* left bg  */}
+          {/* left bg */}
           <RevealAnimation delay={0.7} direction="left" offset={240}>
             <figure className="pointer-events-none absolute bottom-[-103px] left-[-120px] w-full max-w-[230px] select-none md:max-w-[300px] lg:max-w-[340px] xl:max-w-[386px]">
               <Image src={gradient15} className="size-full bg-cover" alt="Decorative background shape" />
@@ -19,18 +26,17 @@ const CTA = () => {
             <div className="space-y-6">
               <div className="space-y-5 text-center">
                 <RevealAnimation delay={0.2}>
-                  <span className="badge badge-primary-light">Start in Days, Not Months</span>
+                  <span className="badge badge-primary-light">{content.badge}</span>
                 </RevealAnimation>
                 <div className="space-y-3">
                   <RevealAnimation delay={0.3}>
                     <h2>
-                      Ready to Scale Your <span className="text-primary-500">Operations?</span>
+                      {content.heading}
+                      <span className="text-primary-500">{content.headingHighlight}</span>
                     </h2>
                   </RevealAnimation>
                   <RevealAnimation delay={0.4}>
-                    <p className="mx-auto max-w-[620px] md:w-full">
-                      See how PE firms, wealth managers, and banks are automating MNPI screening, capital calls, and KYC workflows. Deploy in days with full compliance and audit trails.
-                    </p>
+                    <p className="mx-auto max-w-[620px] md:w-full">{content.description}</p>
                   </RevealAnimation>
                 </div>
               </div>
@@ -45,7 +51,7 @@ const CTA = () => {
               </RevealAnimation>
             </div>
           </div>
-          {/* right bg  */}
+          {/* right bg */}
           <RevealAnimation delay={0.7} direction="right" offset={240}>
             <figure className="pointer-events-none absolute top-[-152px] right-[-104px] w-full max-w-[290px] select-none md:top-[-195px] md:right-[-188px] md:max-w-[400px] lg:max-w-[450px] xl:max-w-[535px]">
               <Image src={gradient50} className="size-full bg-cover" alt="Decorative background shape" />

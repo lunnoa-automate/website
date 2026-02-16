@@ -1,5 +1,5 @@
 'use client';
-import 'leaflet/dist/leaflet.css';
+import '@/styles/vendor/leaflet.min.css';
 import { TileLayer } from 'react-leaflet';
 import { MapContainer } from 'react-leaflet/MapContainer';
 

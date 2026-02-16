@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/components/shared/ThemeProvider';
 import Footer from '@/components/shared/footer/Footer';
 import Navbar from '@/components/shared/navbar/Navbar';
 import { AppContextProvider } from '@/context/AppContext';
+import { ICPProvider } from '@/context/ICPContext';
 import { interTight } from '@/utils/font';
 import { generateMetadata } from '@/utils/generateMetaData';
 import { Metadata } from 'next';
@@ -20,18 +21,20 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" translate="no" suppressHydrationWarning>
       <body className={`${interTight.variable} antialiased`}>
         <AppContextProvider>
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-            <Suspense>
-              <SmoothScrollProvider>
-                <Navbar />
-                {children}
-                <Footer />
-              </SmoothScrollProvider>
-            </Suspense>
-          </ThemeProvider>
+          <ICPProvider>
+            <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+              <Suspense>
+                <SmoothScrollProvider>
+                  <Navbar />
+                  {children}
+                  <Footer />
+                </SmoothScrollProvider>
+              </Suspense>
+            </ThemeProvider>
+          </ICPProvider>
         </AppContextProvider>
       </body>
     </html>

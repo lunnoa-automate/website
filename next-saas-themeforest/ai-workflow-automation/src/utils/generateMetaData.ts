@@ -10,6 +10,9 @@ const defaultMetadata: Metadata = {
   metadataBase: new URL(DEFAULT_URL),
   title: DEFAULT_TITLE,
   description: DEFAULT_DESCRIPTION,
+  other: {
+    'google': 'notranslate',
+  },
   openGraph: {
     type: 'website',
     siteName: 'NextSaaS',
