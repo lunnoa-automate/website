@@ -1,11 +1,18 @@
 {
   "releases": [
     {
+      "version": "1.11.1",
+      "date": "2026-02-16",
+      "title": "Stability & Navigation Improvements",
+      "file": "v1.11.1.md",
+      "highlight": true
+    },
+    {
       "version": "1.11.0",
       "date": "2026-02-04",
       "title": "GitHub Skills Integration",
       "file": "v1.11.0.md",
-      "highlight": true
+      "highlight": false
     },
     {
       "version": "1.10.1",
